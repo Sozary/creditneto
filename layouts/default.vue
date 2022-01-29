@@ -1,14 +1,16 @@
 <template>
   <div>
-    <GlobalHeader />
+    <Header />
+    <Nav />
     <Nuxt />
   </div>
 </template>
 <script>
-import GlobalHeader from '~/components/globalHeader.vue'
+import Header from '~/components/header.vue'
+import Nav from '~/components/nav.vue'
 
 export default {
-  components: { GlobalHeader },
+  components: { Header, Nav },
 }
 </script>
 <style lang="postcss">

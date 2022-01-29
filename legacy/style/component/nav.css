@@ -1,0 +1,23 @@
+.c-nav {
+  &-items {
+    display: flex;
+
+    &-item {
+      height: 50px;
+      flex: 1 1 0;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      font-family: 'Montserrat';
+      font-weight: bold;
+      &:nth-child(even) {
+        background-color: #e9e5e5;
+      }
+      &:nth-child(odd) {
+        background-color: #e0dede;
+      }
+    }
+  }
+}
