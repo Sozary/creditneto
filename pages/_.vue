@@ -1,6 +1,9 @@
 <template>
-  <div>div</div>
+  <div class="c-content">
+    <Options />
+  </div>
 </template>
 <script>
-export default { layout: 'default' }
+import Options from '~/components/options'
+export default { layout: 'default', components: { Options } }
 </script>
