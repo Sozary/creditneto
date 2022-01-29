@@ -14,15 +14,15 @@
     text-align: right;
     &-first-line {
       font-size: 18px;
-      font-family: 'Montserrat';
+      font-family: var(--fontFamily);
       font-weight: bold;
       span:nth-child(even) {
-        color: #1ab16a;
+        color: var(--color-green);
       }
     }
     &-second-line {
       font-size: 13px;
-      font-family: 'Montserrat';
+      font-family: var(--fontFamily);
       font-weight: 400;
       color: #707070;
     }

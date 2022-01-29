@@ -1,3 +1,4 @@
 @import './core/typography';
 @import './component/header';
 @import './component/nav';
+@import './core/variables.css';

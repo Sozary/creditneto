@@ -8,15 +8,32 @@
       font-size: 15px;
       display: flex;
       align-items: center;
+      text-decoration: none;
+      color: inherit;
       text-align: center;
       justify-content: center;
-      font-family: 'Montserrat';
+      font-family: var(--fontFamily);
       font-weight: bold;
+      cursor: pointer;
+      transition: clip-path 0.1s linear;
+      border-bottom: solid 3px var(--color-green);
+      clip-path: polygon(
+        0 0,
+        100% 0,
+        calc(100%) calc(100% - 3px),
+        0% calc(100% - 3px)
+      );
+      &:hover {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
       &:nth-child(even) {
         background-color: #e9e5e5;
       }
       &:nth-child(odd) {
         background-color: #e0dede;
+      }
+      &.-active {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
       }
     }
   }

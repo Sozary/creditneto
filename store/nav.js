@@ -1,4 +1,5 @@
 export const state = () => ({
+  selected: 'credit-auto',
   categories: [
     'Credit Auto',
     'Pret Personnel',
@@ -13,13 +14,20 @@ export const state = () => ({
     'Pret Travaux',
   ],
 })
-
+export const mutations = {
+  changeSelectedNav(state, payload) {
+    state.selected = payload
+  },
+}
 export const getters = {
+  selectedNav(state) {
+    return state.selected
+  },
   categories(state) {
     return state.categories.map((e) => {
       return {
         label: e,
-        link: e.toLowerCase().split(' ').join('-'),
+        slug: e.toLowerCase().split(' ').join('-'),
       }
     })
   },
