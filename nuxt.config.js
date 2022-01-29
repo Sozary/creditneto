@@ -39,5 +39,23 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    postcss: {
+      plugins: {
+        'postcss-import': true,
+        'postcss-nested': {},
+        'postcss-color-mod-function': {
+          transformVars: true,
+        },
+        'postcss-momentum-scrolling': {},
+        'postcss-calc': {},
+        'postcss-flexbugs-fixes': {},
+        'postcss-clean': {},
+      },
+      preset: {
+        // Change the postcss-preset-env settings
+        stage: 1,
+      },
+    },
+  },
 }
