@@ -6,11 +6,12 @@
         <img
           src="/assets/icons/close.svg"
           @click.stop="clear"
-          class="c-select-box-close"
+          v-if="clearable"
+          class="c-select-box-icons-close"
         />
         <img
           src="/assets/icons/arrow.svg"
-          class="c-select-box-toggle"
+          class="c-select-box-icons-toggle"
           :class="{ '-active': toggled }"
         />
       </div>

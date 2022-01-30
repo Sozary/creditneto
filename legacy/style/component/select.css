@@ -1,5 +1,5 @@
 .c-select {
-  max-width: 188px;
+  width: 188px;
   &-box {
     border-radius: 9px;
     border: 1px solid #111111a3;
@@ -20,14 +20,14 @@
     }
     &-icons {
       display: flex;
+      margin-right: 5px;
       img {
         width: 9px;
         height: 9px;
         padding: 6px;
-        cursor: pointer;
       }
       &-toggle {
-        transition: transform 0.1s linear;
+        transition: transform 0.3s linear;
         transform: rotate(180deg);
         &.-active {
           transform: rotate(0deg);

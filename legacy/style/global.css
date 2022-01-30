@@ -3,5 +3,6 @@
 @import './component/nav';
 @import './component/app';
 @import './component/select';
+@import './component/options';
 @import './component/main';
 @import './core/variables.css';

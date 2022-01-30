@@ -6,6 +6,7 @@
       v-model="selectedCategory"
       default="Sélectionnez un type de crédit"
     />
+    <Select :items="filters" v-model="selectedFilter" default="Partenaire" />
   </div>
 </template>
 <script>
@@ -15,6 +16,14 @@ export default {
   data() {
     return {
       selectedCategory: this.$route.path.slice(1),
+      selectedFilter: '',
+      filters: [
+        { label: 'Montant max', id: 'max-amount' },
+        { label: 'Montant min', id: 'min-amount' },
+        { label: 'Durée max', id: 'max-duration' },
+        { label: 'Durée min', id: 'min-duration' },
+        { label: 'Rang', id: 'rank' },
+      ],
     }
   },
   watch: {
