@@ -14,7 +14,7 @@ export default {
   },
   watch: {
     selectedCategory(value) {
-      history.pushState({}, null, value)
+      history.pushState({}, null, value || '/')
       this.$store.commit('nav/changeSelectedNav', value)
     },
   },
