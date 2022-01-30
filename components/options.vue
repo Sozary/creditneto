@@ -1,6 +1,11 @@
 <template>
   <div class="c-options">
-    <Select :items="categories" clearable v-model="selectedCategory" />
+    <Select
+      :items="categories"
+      clearable
+      v-model="selectedCategory"
+      default="Sélectionnez un type de crédit"
+    />
   </div>
 </template>
 <script>

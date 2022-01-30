@@ -1,11 +1,11 @@
 <template>
-  <div class="c-select">
+  <div class="c-select" v-on-clickaway="clickOutside">
     <div class="c-select-box" @click="toggle">
       <span class="c-select-box-label">{{ selectDisplay }}</span>
       <div class="c-select-box-icons">
         <img
           src="/assets/icons/close.svg"
-          @click.stop="selectedValue = ''"
+          @click.stop="clear"
           class="c-select-box-close"
         />
         <img
@@ -15,22 +15,27 @@
         />
       </div>
     </div>
-    <div class="c-select-options" :class="{ '-show': toggled }">
-      <div
-        class="c-select-options-option"
-        v-for="item of items"
-        :key="item.id"
-        :class="{ '-selected': selectedValue === item.id }"
-        @click="updateValue(item.id)"
-      >
-        <span>{{ item.label }}</span
-        ><img src="/assets/icons/done.svg" />
-      </div>
-    </div>
+    <transition name="slide">
+      <div class="c-select-options" v-if="toggled">
+        <div
+          class="c-select-options-option"
+          v-for="item of items"
+          :key="item.id"
+          :class="{ '-selected': selectedValue === item.id }"
+          @click="updateValue(item.id)"
+        >
+          <span>{{ item.label }}</span
+          ><img src="/assets/icons/done.svg" />
+        </div></div
+    ></transition>
   </div>
 </template>
 <script>
+import { directive as onClickaway } from 'vue-clickaway'
 export default {
+  directives: {
+    onClickaway: onClickaway,
+  },
   props: {
     items: {
       type: Array,
@@ -45,6 +50,9 @@ export default {
       type: String,
       required: true,
     },
+    default: {
+      type: String,
+    },
   },
   data() {
     return { selectedValue: this.value, toggled: false }
@@ -53,10 +61,17 @@ export default {
     selectDisplay() {
       return this.selectedValue
         ? this.items.find((i) => i.id === this.selectedValue).label
-        : 'Sélectionnez un type de crédit'
+        : this.default
     },
   },
   methods: {
+    clear() {
+      this.selectedValue = ''
+      this.toggled = false
+    },
+    clickOutside() {
+      this.toggled = false
+    },
     updateValue(value) {
       this.selectedValue = value
       this.toggle()

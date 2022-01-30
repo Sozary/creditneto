@@ -1,8 +1,8 @@
 .c-select {
+  max-width: 188px;
   &-box {
     border-radius: 9px;
     border: 1px solid #111111a3;
-    max-width: 188px;
     max-height: 33px;
     cursor: pointer;
     display: flex;
@@ -19,6 +19,7 @@
       padding: 6px 15px 6px 15px;
     }
     &-icons {
+      display: flex;
       img {
         width: 9px;
         height: 9px;
@@ -34,15 +35,30 @@
       }
     }
   }
+  .slide-enter-active {
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in;
+  }
+  .slide-leave-active {
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in;
+  }
+  .slide-enter-to,
+  .slide-leave {
+    opacity: 1;
+    overflow: hidden;
+    transform: translateY(15px);
+  }
+
+  .slide-enter,
+  .slide-leave-to {
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(0px);
+  }
   &-options {
+    transform: translateY(15px);
     background-color: #fff;
-    &.-show {
-      animation: slide-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      animation-fill-mode: forwards;
-      animation-direction: alternate;
-      height: 279px;
-    }
-    height: 0px;
     overflow: hidden;
     border-radius: 8px;
     border: 1px solid #111111a3;
