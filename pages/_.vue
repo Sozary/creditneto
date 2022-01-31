@@ -1,11 +1,24 @@
 <template>
   <div class="c-content">
     <Options />
-    <Loan />
-    <Home />
+    <transition name="fade" mode="out-in">
+      <Home v-if="selectedNav === ''" />
+      <Loan v-else />
+    </transition>
   </div>
 </template>
 <script>
 import Options from '~/components/options'
-export default { layout: 'default', components: { Options } }
+import Loan from '~/components/loan'
+import Home from '~/components/home'
+
+export default {
+  layout: 'default',
+  components: { Options, Loan, Home },
+  computed: {
+    selectedNav() {
+      return this.$store.getters['nav/selectedNav']
+    },
+  },
+}
 </script>
