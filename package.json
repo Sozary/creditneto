@@ -12,9 +12,14 @@
     "lintfix": "prettier --write --list-different ."
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-brands-svg-icons": "^5.15.4",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/vue-fontawesome": "^2.0.6",
     "@nuxtjs/axios": "^5.13.6",
     "core-js": "^3.19.3",
     "nuxt": "^2.15.8",
+    "nuxt-fontawesome": "^0.4.0",
     "postcss-calc": "7.0.2",
     "postcss-clean": "1.1.0",
     "postcss-flexbugs-fixes": "4.2.1",
