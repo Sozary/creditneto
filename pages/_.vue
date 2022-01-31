@@ -1,6 +1,8 @@
 <template>
   <div class="c-content">
     <Options />
+    <Loan />
+    <Home />
   </div>
 </template>
 <script>

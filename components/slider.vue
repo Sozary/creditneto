@@ -8,10 +8,10 @@
       :max="max"
       v-model="selectedValue"
     />
-    <dib class="c-slider-info">
+    <div class="c-slider-info">
       <span v-html="format(min) + type"></span>
       <span v-html="format(max) + type"></span>
-    </dib>
+    </div>
   </div>
 </template>
 <script>

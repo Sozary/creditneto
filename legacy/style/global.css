@@ -6,4 +6,6 @@
 @import './component/options';
 @import './component/slider';
 @import './component/main';
+@import './component/home';
+@import './component/loan';
 @import './core/variables.css';

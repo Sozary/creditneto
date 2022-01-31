@@ -60,6 +60,8 @@
     transform: translateY(15px);
     background-color: #fff;
     overflow: hidden;
+    position: absolute;
+    z-index: 100;
     border-radius: 8px;
     border: 1px solid #111111a3;
     width: 188px;
