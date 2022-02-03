@@ -2,21 +2,17 @@
   <div class="c-loan">
     <span class="c-loan-title"> Annonces: </span>
     <div class="c-loan-items">
-      <div class="c-loan-items-item">
-        <img src="/assets/images/cetelem.webp" alt="" />
+      <div class="c-loan-items-item" v-for="item in items" :key="item.id">
+        <img :src="'/assets' + item.url_logo" />
         <div class="c-loan-items-item-taeg">
           <span>
-            <strong>TAEG </strong> de <strong>x%</strong> à
-            <strong>x%</strong></span
+            <strong>TAEG </strong> de
+            <strong>{{ taeg(item.taeg)[0] }}</strong> à
+            <strong>{{ taeg(item.taeg)[0] }}</strong></span
           >
         </div>
         <div class="c-loan-items-item-example">
-          <span
-            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
-            corporis, distinctio deleniti amet, asperiores delectus labore
-            repellat quis assumenda laborum aliquam optio voluptatibus? Sapiente
-            repudiandae dignissimos, ab iste voluptate possimus!</span
-          >
+          <span v-html="item.exemple" />
         </div>
         <div class="c-loan-items-item-options">
           <font-awesome-icon :icon="['fas', 'euro-sign']" />
@@ -24,12 +20,15 @@
         </div>
         <div class="c-loan-items-item-data-options">
           <div class="c-loan-items-item-data-options-amount">
-            <span>Montant : Min </span><span>20 000</span> <span> - Max </span
-            ><span> 1 000 000</span>
+            <span>Montant : Min </span
+            ><span v-html="formatCurrency(item.montant_min)" />
+            <span> - Max </span
+            ><span v-html="formatCurrency(item.montant_max)" />
           </div>
           <div class="c-loan-items-item-data-options-duration">
-            <span>Durée : Min </span><span>36 mois</span><span> - Max </span
-            ><span>420 mois</span>
+            <span>Durée : Min </span
+            ><span v-html="item.duree_min + ' mois'" /><span> - Max </span
+            ><span v-html="item.duree_max + ' mois'" />
           </div>
         </div>
         <div class="c-loan-items-item-simulate">
@@ -41,6 +40,38 @@
 </template>
 <script>
 export default {
-  mounted() {},
+  async mounted() {
+    const response = await this.$axios.$get('', {
+      params: {
+        product: this.categories.find((c) => c.slug === this.selectedNav).label,
+        filters: {
+          active: 1,
+        },
+      },
+    })
+    if (response.status === 200) {
+      this.items = response.data
+    }
+  },
+  methods: {
+    taeg(value) {
+      //"0,80 % &agrave; 21,15 %"
+      return value.split(' &agrave; ')
+    },
+    formatCurrency(value) {
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + '€'
+    },
+  },
+  data() {
+    return { items: null }
+  },
+  computed: {
+    categories() {
+      return this.$store.getters['nav/categories']
+    },
+    selectedNav() {
+      return this.$store.getters['nav/selectedNav']
+    },
+  },
 }
 </script>

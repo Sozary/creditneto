@@ -7,6 +7,7 @@
   &-items {
     margin-top: 7px;
     &-item {
+      margin-bottom: 6px;
       cursor: pointer;
       align-items: center;
       height: 50px;
@@ -19,6 +20,7 @@
       border-radius: 26px;
       display: flex;
       img {
+        height: 35px;
         width: 10%;
         padding: 9px 12px 5px 11px;
       }
