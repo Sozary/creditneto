@@ -4,9 +4,20 @@
     font-family: Montserrat;
     font-weight: bold;
   }
+  &-others {
+    font-size: 15px;
+    font-weight: bold;
+    font-family: Montserrat;
+  }
   &-items {
     margin-top: 7px;
     &-item {
+      &:last-of-type {
+        margin-bottom: 11px;
+      }
+      &:first-of-type {
+        margin-top: 15px;
+      }
       margin-bottom: 6px;
       cursor: pointer;
       align-items: center;
