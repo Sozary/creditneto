@@ -16,7 +16,7 @@
             <span>
               <strong>TAEG </strong> de
               <strong>{{ taeg(item.taeg)[0] }}</strong> à
-              <strong>{{ taeg(item.taeg)[0] }}</strong></span
+              <strong>{{ taeg(item.taeg)[1] }}</strong></span
             >
           </div>
           <div class="c-loan-items-item-example">
@@ -54,32 +54,40 @@
   </div>
 </template>
 <script>
+import _ from 'lodash'
 import Loader from '~/components/loader.vue'
 export default {
   components: { Loader },
   async mounted() {
-    const active = await this.$axios.$get('', {
-      params: {
-        product: this.categories.find((c) => c.slug === this.selectedNav).label,
-        filters: {
-          active: 1,
-        },
-      },
-    })
-    const others = await this.$axios.$get('', {
-      params: {
-        product: this.categories.find((c) => c.slug === this.selectedNav).label,
-        filters: {},
-      },
-    })
-    if (active.status === 200) {
-      this.active = active.data
-    }
-    if (others.status === 200) {
-      this.others = others.data
-    }
+    await this.fetchOffers()
   },
   methods: {
+    async fetchOffers() {
+      const active = await this.$axios.$get('', {
+        params: {
+          product: this.categories.find((c) => c.slug === this.selectedNav)
+            .label,
+          filters: {
+            active: { operator: '=', value: 1 },
+            montant_min: { operator: '>=', value: this.amount },
+            montant_max: { operator: '<=', value: this.amount },
+          },
+        },
+      })
+      const others = await this.$axios.$get('', {
+        params: {
+          product: this.categories.find((c) => c.slug === this.selectedNav)
+            .label,
+          filters: {},
+        },
+      })
+      if (active.status === 200) {
+        this.active = active.data
+      }
+      if (others.status === 200) {
+        this.others = others.data
+      }
+    },
     taeg(value) {
       return value.split(' &agrave; ')
     },
@@ -90,7 +98,21 @@ export default {
   data() {
     return { active: [], others: [] }
   },
+  watch: {
+    amount: _.debounce(() => {
+      this.fetchOffers
+    }, 100),
+    duration: _.debounce(() => {
+      this.fetchOffers
+    }, 100),
+  },
   computed: {
+    amount() {
+      return this.$store.getters['options/getAmount']
+    },
+    duration() {
+      return this.$store.getters['options/getDuration']
+    },
     categories() {
       return this.$store.getters['nav/categories']
     },

@@ -34,8 +34,8 @@ export default {
     return {
       selectedCategory: this.$route.path.slice(1),
       selectedFilter: '',
-      selectedMonths: 36,
-      selectedAmount: 100000,
+      selectedMonths: 0,
+      selectedAmount: 0,
       filters: [
         { label: 'Montant max', id: 'max-amount' },
         { label: 'Montant min', id: 'min-amount' },
@@ -50,7 +50,17 @@ export default {
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     },
   },
+  mounted() {
+    this.selectedMonths = 36
+    this.selectedAmount = 100000
+  },
   watch: {
+    selectedMonths(val) {
+      this.$store.commit('options/updateDuration', val)
+    },
+    selectedAmount(val) {
+      this.$store.commit('options/updateAmount', val)
+    },
     selectedCategory(value) {
       history.pushState({}, null, value || '/')
       this.$store.commit('nav/changeSelectedNav', value)
