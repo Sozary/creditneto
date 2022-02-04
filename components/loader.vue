@@ -1,6 +1,6 @@
 <template>
   <div class="c-loader">
-    <transition-group name="fade" tag="div">
+    <transition-group name="fade" tag="div" mode="out-in">
       <div :class="customClass" v-for="item in visibleItems" :key="item.id">
         <slot :item="item" />
       </div>

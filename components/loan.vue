@@ -54,7 +54,7 @@
   </div>
 </template>
 <script>
-import _ from 'lodash'
+import { debounce } from 'debounce'
 import Loader from '~/components/loader.vue'
 export default {
   components: { Loader },
@@ -63,24 +63,22 @@ export default {
   },
   methods: {
     async fetchOffers() {
-      const active = await this.$axios.$get('', {
-        params: {
-          product: this.categories.find((c) => c.slug === this.selectedNav)
-            .label,
-          filters: {
-            active: { operator: '=', value: 1 },
-            montant_min: { operator: '>=', value: this.amount },
-            montant_max: { operator: '<=', value: this.amount },
-          },
+      const params = {
+        product: this.categories.find((c) => c.slug === this.selectedNav).label,
+        filters: {
+          active: { operator: '=', value: 1 },
+          montant_min: { operator: '<=', value: this.amount },
+          montant_max: { operator: '>=', value: this.amount },
+          duree_min: { operator: '<=', value: this.duration },
+          duree_max: { operator: '>=', value: this.duration },
         },
-      })
-      const others = await this.$axios.$get('', {
-        params: {
-          product: this.categories.find((c) => c.slug === this.selectedNav)
-            .label,
-          filters: {},
-        },
-      })
+      }
+
+      const active = await this.$axios.$post('', params)
+
+      params.filters.active.value = 0
+      const others = await this.$axios.$post('', params)
+
       if (active.status === 200) {
         this.active = active.data
       }
@@ -99,11 +97,11 @@ export default {
     return { active: [], others: [] }
   },
   watch: {
-    amount: _.debounce(() => {
-      this.fetchOffers
+    amount: debounce(function () {
+      this.fetchOffers()
     }, 100),
-    duration: _.debounce(() => {
-      this.fetchOffers
+    duration: debounce(function () {
+      this.fetchOffers()
     }, 100),
   },
   computed: {

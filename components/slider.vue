@@ -28,6 +28,9 @@ export default {
     },
   },
   watch: {
+    value(value) {
+      this.selectedValue = value
+    },
     selectedValue(val) {
       this.$emit('input', parseInt(val))
     },
