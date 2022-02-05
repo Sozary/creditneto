@@ -22,7 +22,7 @@
       title="Durée"
       type=" mois"
     />
-    <Select :items="filters" v-model="selectedFilter" default="Partenaire" />
+    <Select :items="sorts" v-model="selectedSort" default="Partenaire" />
   </div>
 </template>
 <script>
@@ -33,19 +33,47 @@ export default {
   data() {
     return {
       selectedCategory: this.$route.path.slice(1),
-      selectedFilter: '',
+      selectedSort: '',
       selectedMonths: 0,
       selectedAmount: 0,
-      filters: [
-        { label: 'Montant max', id: 'max-amount' },
-        { label: 'Montant min', id: 'min-amount' },
-        { label: 'Durée max', id: 'max-duration' },
-        { label: 'Durée min', id: 'min-duration' },
-        { label: 'Rang', id: 'rank' },
+      sorts: [
+        {
+          label: 'Partenaire',
+          id: 'partner',
+          sort: (items) => this.sortFn(items, 'partenaire'),
+        },
+        {
+          label: 'Montant max',
+          id: 'max-amount',
+          sort: (items) => this.sortFn(items, 'montant_max'),
+        },
+        {
+          label: 'Montant min',
+          id: 'min-amount',
+          sort: (items) => this.sortFn(items, 'montant_min'),
+        },
+        {
+          label: 'Durée max',
+          id: 'max-duration',
+          sort: (items) => this.sortFn(items, 'duree_max'),
+        },
+        {
+          label: 'Durée min',
+          id: 'min-duration',
+          sort: (items) => this.sortFn(items, 'duree_min'),
+        },
+        {
+          label: 'Rang',
+          id: 'rank',
+          sort: (items) => this.sortFn(items, 'classement'),
+        },
       ],
     }
   },
   methods: {
+    sortFn(items, key) {
+      return items.sort((a, b) => a[key].toLowerCase() < b[key].toLowerCase())
+    },
     formatCurrency(value) {
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     },
@@ -53,8 +81,15 @@ export default {
   mounted() {
     this.selectedMonths = 36
     this.selectedAmount = 100000
+    this.selectedSort = this.sorts[0].id
   },
   watch: {
+    selectedSort(val) {
+      this.$store.commit('options/updateSort', {
+        val,
+        sortFn: this.sorts.find((s) => s.id === val).sort,
+      })
+    },
     selectedMonths(val) {
       this.$store.commit('options/updateDuration', val)
     },

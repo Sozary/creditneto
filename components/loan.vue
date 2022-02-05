@@ -103,10 +103,17 @@ export default {
     duration: debounce(function () {
       this.fetchOffers()
     }, 100),
+    sort() {
+      this.active = this.sort.sortFn(this.active)
+      this.others = this.sort.sortFn(this.others)
+    },
   },
   computed: {
     amount() {
       return this.$store.getters['options/getAmount']
+    },
+    sort() {
+      return this.$store.getters['options/getSort']
     },
     duration() {
       return this.$store.getters['options/getDuration']

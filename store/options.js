@@ -1,8 +1,12 @@
 export const state = () => ({
   amount: null,
   duration: null,
+  sort: null,
 })
 export const mutations = {
+  updateSort(state, payload) {
+    state.sort = payload
+  },
   updateAmount(state, payload) {
     state.amount = payload
   },
@@ -11,6 +15,9 @@ export const mutations = {
   },
 }
 export const getters = {
+  getSort(state) {
+    return state.sort
+  },
   getAmount(state) {
     return state.amount
   },
