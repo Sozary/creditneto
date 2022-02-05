@@ -1,5 +1,5 @@
 <template>
-  <div class="c-app">
+  <div class="c-app" :class="{ '-show-menu': showMenu }">
     <Header />
     <Nav />
     <Nuxt />
@@ -11,6 +11,11 @@ import Nav from '~/components/nav.vue'
 
 export default {
   components: { Header, Nav },
+  computed: {
+    showMenu() {
+      return this.$store.getters['nav/showMenu']
+    },
+  },
 }
 </script>
 <style lang="postcss">

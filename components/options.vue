@@ -98,7 +98,7 @@ export default {
     },
     selectedCategory(value) {
       history.pushState({}, null, value || '/')
-      this.$store.commit('nav/changeSelectedNav', value)
+      this.$store.commit('nav/updateSelectedNav', value)
     },
   },
   computed: {

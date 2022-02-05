@@ -1,28 +1,67 @@
 .c-header {
   display: flex;
   justify-content: space-between;
+  @media (--below-lg) {
+    flex-direction: column;
+    align-items: center;
+  }
   &-logo {
-    width: 183px;
-    flex-shrink: 0;
-    height: 59px;
-    background: transparent url('/assets/images/logo.webp');
-    background-size: cover;
-    margin: 20px 0 15px 28px;
+    display: flex;
+    img:first-of-type {
+      width: 183px;
+      flex-shrink: 0;
+      height: 59px;
+      margin: 20px 0 15px 28px;
+      @media (--below-lg) {
+        width: 127px;
+        margin-top: 13px;
+        margin-bottom: 10px;
+      }
+    }
+    img:last-of-type {
+      display: none;
+      cursor: pointer;
+      position: absolute;
+      right: 23px;
+      top: 17px;
+      @media (--below-lg) {
+        display: block;
+      }
+    }
   }
   &-info {
+    .-show-menu & {
+      @media (--below-lg) {
+        display: none;
+      }
+    }
     margin: 28px 19px 7px;
     text-align: right;
+    @media (--below-lg) {
+      margin-top: 0;
+    }
     &-first-line {
       font-size: 18px;
-      font-family: var(--fontFamily);
       font-weight: bold;
       span:nth-child(even) {
         color: var(--color-green);
       }
+      @media (--below-lg) {
+        display: none;
+      }
     }
     &-second-line {
+      @media (--below-lg) {
+        display: 8px;
+        text-align: center;
+      }
+      br {
+        display: none;
+        @media (--below-lg) {
+          display: block;
+        }
+      }
       font-size: 13px;
-      font-family: var(--fontFamily);
       font-weight: 400;
       color: #707070;
     }

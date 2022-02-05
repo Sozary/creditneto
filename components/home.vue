@@ -11,7 +11,7 @@
         class="c-home-categories-category"
         v-for="category in categories"
         :key="category.slug"
-        @click="changeSelectedNav(category.slug)"
+        @click="updateSelectedNav(category.slug)"
       >
         <div class="c-home-categories-category-ellipsis"></div>
         <div class="c-home-categories-category-text" v-html="category.label" />
@@ -27,9 +27,9 @@ export default {
     },
   },
   methods: {
-    changeSelectedNav(slug) {
+    updateSelectedNav(slug) {
       this.$router.push(slug)
-      this.$store.commit('nav/changeSelectedNav', slug)
+      this.$store.commit('nav/updateSelectedNav', slug)
     },
   },
 }

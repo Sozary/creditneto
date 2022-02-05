@@ -1,17 +1,19 @@
 <template>
   <div class="c-nav">
-    <div class="c-nav-items">
-      <NuxtLink
-        class="c-nav-items-item"
-        :to="category.slug"
-        :class="{ '-active': selectedNav === category.slug }"
-        v-for="(category, index) in categories"
-        :key="index"
-        @click.native="changeSelectedNav(category.slug)"
-      >
-        <span>{{ category.label }}</span>
-      </NuxtLink>
-    </div>
+    <transition name="fade" mode="in-out">
+      <div class="c-nav-items">
+        <NuxtLink
+          class="c-nav-items-item"
+          :to="category.slug"
+          :class="{ '-active': selectedNav === category.slug }"
+          v-for="(category, index) in categories"
+          :key="index"
+          @click.native="updateSelectedNav(category.slug)"
+        >
+          <span>{{ category.label }}</span>
+        </NuxtLink>
+      </div></transition
+    >
   </div>
 </template>
 <script>
@@ -20,11 +22,11 @@ export default {
     return {}
   },
   created() {
-    this.changeSelectedNav(this.$route.path.slice(1))
+    this.updateSelectedNav(this.$route.path.slice(1))
   },
   methods: {
-    changeSelectedNav(slug) {
-      this.$store.commit('nav/changeSelectedNav', slug)
+    updateSelectedNav(slug) {
+      this.$store.commit('nav/updateSelectedNav', slug)
     },
   },
   computed: {

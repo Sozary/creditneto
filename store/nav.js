@@ -1,5 +1,6 @@
 export const state = () => ({
   selected: 'credit-auto',
+  showMenu: false,
   categories: [
     'Credit Auto',
     'Pret Personnel',
@@ -15,11 +16,17 @@ export const state = () => ({
   ],
 })
 export const mutations = {
-  changeSelectedNav(state, payload) {
+  updateShowMenu(state, payload) {
+    state.showMenu = payload
+  },
+  updateSelectedNav(state, payload) {
     state.selected = payload
   },
 }
 export const getters = {
+  showMenu(state) {
+    return state.showMenu
+  },
   selectedNav(state) {
     return state.selected
   },
