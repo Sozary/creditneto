@@ -1,13 +1,11 @@
 .c-loan {
   &-title {
     font-size: 15px;
-    font-family: Montserrat;
     font-weight: bold;
   }
   &-others {
     font-size: 15px;
     font-weight: bold;
-    font-family: Montserrat;
   }
   &-items {
     margin-top: 7px;
@@ -38,7 +36,6 @@
       &-taeg {
         display: flex;
         align-items: center;
-        font-family: Montserrat;
         font-size: 10px;
         text-align: center;
         padding-right: 21px;
@@ -70,7 +67,6 @@
         &-amount {
           margin-bottom: 9px;
         }
-        font-family: Montserrat;
         font-size: 13px;
         font-weight: bold;
         flex-direction: column;

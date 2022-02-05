@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   &-title {
-    font-family: 'Montserrat';
     font-weight: bold;
     font-size: 15px;
     margin-bottom: 7px;
@@ -10,7 +9,6 @@
   &-info {
     display: flex;
     justify-content: space-between;
-    font-family: Montserrat;
     color: rgba(0, 0, 0, 0.5);
     font-size: 10px;
   }

@@ -1,7 +1,6 @@
 .c-home {
   margin-top: 47px;
   &-title {
-    font-family: Montserrat;
     font-size: 30px;
     font-weight: bold;
     div {
@@ -41,7 +40,6 @@
       &-text {
         color: white;
         font-weight: bold;
-        font-family: Montserrat;
         font-size: 14px;
         position: relative;
         top: -20%;
