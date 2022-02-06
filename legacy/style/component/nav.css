@@ -21,6 +21,7 @@
       flex-direction: column;
     }
     &-item {
+      flex: 1 1 0;
       &:before {
         @media (--below-lg) {
           content: url('/assets/icons/arrow-right.svg');
@@ -30,10 +31,12 @@
       @media (--below-lg) {
         height: 40px;
         font-weight: 300;
+        justify-content: normal;
         font-size: 20px;
         text-align: left;
         background: #efefef;
       }
+      justify-content: center;
       height: 50px;
       font-size: 15px;
       display: flex;

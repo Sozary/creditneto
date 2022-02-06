@@ -2,6 +2,7 @@
   <div class="c-options">
     <Select
       :items="categories"
+      v-if="isDesktop"
       clearable
       v-model="selectedCategory"
       default="Sélectionnez un type de crédit"
@@ -22,6 +23,12 @@
       title="Durée"
       type=" mois"
     />
+    <select name="" id="">
+      <option>Test</option>
+      <option>Test1</option>
+      <option>Test2</option>
+      <option>Test3</option>
+    </select>
     <Select :items="sorts" v-model="selectedSort" default="Partenaire" />
   </div>
 </template>
@@ -35,6 +42,7 @@ export default {
       selectedCategory: this.$route.path.slice(1),
       selectedSort: '',
       selectedMonths: 0,
+      isDesktop: false,
       selectedAmount: 0,
       sorts: [
         {
@@ -71,6 +79,9 @@ export default {
     }
   },
   methods: {
+    resize() {
+      this.isDesktop = window.innerWidth >= 1260
+    },
     sortFn(items, key) {
       return items.sort((a, b) => a[key].toLowerCase() < b[key].toLowerCase())
     },
@@ -82,6 +93,8 @@ export default {
     this.selectedMonths = 36
     this.selectedAmount = 100000
     this.selectedSort = this.sorts[0].id
+    this.resize()
+    window.addEventListener('resize', this.resize)
   },
   watch: {
     selectedSort(val) {
