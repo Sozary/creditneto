@@ -1,5 +1,10 @@
 .c-content {
   padding: 25px 83px 25px 83px;
+  .-show-menu & {
+    @media (--below-lg) {
+      display: none;
+    }
+  }
 }
 .fade-enter-active,
 .fade-leave-active {

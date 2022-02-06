@@ -26,10 +26,14 @@ export default {
   },
   methods: {
     updateSelectedNav(slug) {
+      this.$store.commit('nav/updateShowMenu', !this.showMenu)
       this.$store.commit('nav/updateSelectedNav', slug)
     },
   },
   computed: {
+    showMenu() {
+      return this.$store.getters['nav/showMenu']
+    },
     categories() {
       return this.$store.getters['nav/categories']
     },

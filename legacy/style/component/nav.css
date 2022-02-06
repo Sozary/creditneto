@@ -3,6 +3,9 @@
     @media (--below-lg) {
       display: flex;
       justify-content: center;
+      height: calc(100vh - 82px);
+      align-items: center;
+      overflow: scroll;
     }
   }
   &-items {
