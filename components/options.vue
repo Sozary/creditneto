@@ -1,5 +1,10 @@
 <template>
-  <div class="c-options">
+  <div class="c-options" :class="{ '-show-calculate': showCalculate }">
+    <img
+      src="/assets/images/calculate.svg"
+      @click="updateShowCalculate"
+      class="c-options-show-calculate"
+    />
     <Select
       :items="categories"
       v-if="isDesktop"
@@ -8,6 +13,7 @@
       default="Sélectionnez un type de crédit"
     />
     <Slider
+      class="c-options-slider"
       v-model="selectedAmount"
       :min="0"
       :max="200000"
@@ -16,6 +22,7 @@
       type="€"
     />
     <Slider
+      class="c-options-slider"
       v-model="selectedMonths"
       :min="6"
       :step="1"
@@ -23,12 +30,6 @@
       title="Durée"
       type=" mois"
     />
-    <select name="" id="">
-      <option>Test</option>
-      <option>Test1</option>
-      <option>Test2</option>
-      <option>Test3</option>
-    </select>
     <Select :items="sorts" v-model="selectedSort" default="Partenaire" />
   </div>
 </template>
@@ -79,6 +80,9 @@ export default {
     }
   },
   methods: {
+    updateShowCalculate() {
+      this.$store.commit('nav/updateShowCalculate', !this.showCalculate)
+    },
     resize() {
       this.isDesktop = window.innerWidth >= 1260
     },
@@ -115,6 +119,9 @@ export default {
     },
   },
   computed: {
+    showCalculate() {
+      return this.$store.getters['nav/showCalculate']
+    },
     categories() {
       return this.$store.getters['nav/categories'].map((e) => {
         return {

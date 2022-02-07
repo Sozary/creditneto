@@ -1,5 +1,8 @@
 .c-content {
-  padding: 25px 83px 25px 83px;
+  padding: 25px 83px;
+  @media (--below-lg) {
+    padding: 25px 13px;
+  }
   .-show-menu & {
     @media (--below-lg) {
       display: none;

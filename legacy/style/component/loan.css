@@ -32,6 +32,9 @@
         height: 35px;
         width: 10%;
         padding: 9px 12px 5px 11px;
+        @media (--below-lg) {
+          width: 19.8%;
+        }
       }
       &-taeg {
         display: flex;
@@ -40,6 +43,9 @@
         text-align: center;
         padding-right: 21px;
         width: 9%;
+        @media (--below-lg) {
+          display: none;
+        }
       }
       &-example {
         display: flex;
@@ -49,6 +55,14 @@
         color: #707070;
         font-family: 'Helvetica Neue';
         font-size: 12px;
+        span {
+          overflow: scroll;
+          height: 50px;
+        }
+        @media (--below-lg) {
+          width: 49.8%;
+          padding-right: 27px;
+        }
       }
       &-options {
         svg:first-of-type {
@@ -59,6 +73,9 @@
         width: 1%;
         color: var(--color-green);
         padding-right: 15px;
+        @media (--below-lg) {
+          display: none;
+        }
       }
       &-data-options {
         span:nth-child(even) {
@@ -66,6 +83,9 @@
         }
         &-amount {
           margin-bottom: 9px;
+        }
+        @media (--below-lg) {
+          display: none;
         }
         font-size: 13px;
         font-weight: bold;
@@ -75,6 +95,10 @@
         width: 27%;
       }
       &-simulate {
+        @media (--below-lg) {
+          width: 20.5%;
+          font-size: 12px;
+        }
         text-transform: uppercase;
         font-family: Roboto;
         font-size: 16px;

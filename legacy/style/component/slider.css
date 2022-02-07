@@ -1,6 +1,14 @@
 .c-slider {
   display: flex;
   flex-direction: column;
+  .-show-calculate & {
+    @media (--below-lg) {
+      display: block;
+    }
+  }
+  @media (--below-lg) {
+    display: none;
+  }
   &-title {
     font-weight: bold;
     font-size: 15px;
@@ -27,6 +35,7 @@
     &::-moz-range-thumb {
       width: 13px;
       height: 13px;
+      border-radius: 100%;
       background: var(--color-green);
       cursor: pointer;
       border: none;
@@ -34,6 +43,7 @@
     &::-webkit-slider-thumb {
       width: 13px;
       height: 13px;
+      border-radius: 100%;
       background: var(--color-green);
       cursor: pointer;
       -webkit-appearance: none;
