@@ -2,7 +2,37 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  &.-show-calculate {
+  .-show-calculate & {
+    @media (--below-lg) {
+      flex-direction: column;
+      > * {
+        margin-top: 50px;
+      }
+    }
+  }
+  &-show-calculate {
     cursor: pointer;
+    display: none;
+    height: 40px;
+    .-show-calculate & {
+      @media (--below-lg) {
+        cursor: inherit;
+        height: 78px;
+      }
+    }
+    @media (--below-lg) {
+      display: block;
+    }
+  }
+  &-logo-right {
+    display: none;
+    width: 25px;
+    height: 156px;
+    align-self: flex-end;
+    .-show-calculate & {
+      @media (--below-lg) {
+        display: block;
+      }
+    }
   }
 }

@@ -1,4 +1,9 @@
 .c-select {
+  .-show-calculate & {
+    @media (--below-lg) {
+      display: none;
+    }
+  }
   width: 188px;
   &-box {
     border-radius: 9px;

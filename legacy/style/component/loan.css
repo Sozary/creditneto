@@ -1,4 +1,9 @@
 .c-loan {
+  .-show-calculate & {
+    @media (--below-lg) {
+      display: none;
+    }
+  }
   &-title {
     font-size: 15px;
     font-weight: bold;
@@ -55,9 +60,10 @@
         color: #707070;
         font-family: 'Helvetica Neue';
         font-size: 12px;
+        height: 50px;
+        overflow: scroll;
         span {
-          overflow: scroll;
-          height: 50px;
+          max-height: 100%;
         }
         @media (--below-lg) {
           width: 49.8%;

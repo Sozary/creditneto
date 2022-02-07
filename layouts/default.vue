@@ -1,5 +1,8 @@
 <template>
-  <div class="c-app" :class="{ '-show-menu': showMenu }">
+  <div
+    class="c-app"
+    :class="{ '-show-menu': showMenu, '-show-calculate': showCalculate }"
+  >
     <Header />
     <Nav />
     <Nuxt />
@@ -14,6 +17,9 @@ export default {
   computed: {
     showMenu() {
       return this.$store.getters['nav/showMenu']
+    },
+    showCalculate() {
+      return this.$store.getters['nav/showCalculate']
     },
   },
 }

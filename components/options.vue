@@ -1,7 +1,7 @@
 <template>
   <div class="c-options" :class="{ '-show-calculate': showCalculate }">
     <img
-      src="/assets/images/calculate.svg"
+      :src="`/assets/images/calculate${showCalculate ? '-open' : ''}.svg`"
       @click="updateShowCalculate"
       class="c-options-show-calculate"
     />
@@ -30,6 +30,7 @@
       title="Durée"
       type=" mois"
     />
+    <img src="/assets/images/logo-right.png" class="c-options-logo-right" />
     <Select :items="sorts" v-model="selectedSort" default="Partenaire" />
   </div>
 </template>
@@ -81,7 +82,9 @@ export default {
   },
   methods: {
     updateShowCalculate() {
-      this.$store.commit('nav/updateShowCalculate', !this.showCalculate)
+      if (!this.showCalculate) {
+        this.$store.commit('nav/updateShowCalculate', !this.showCalculate)
+      }
     },
     resize() {
       this.isDesktop = window.innerWidth >= 1260

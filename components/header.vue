@@ -2,7 +2,7 @@
   <div class="c-header">
     <div class="c-header-logo">
       <img src="/assets/images/logo.webp" />
-      <img src="/assets/icons/menu.svg" @click="toggleMenu" />
+      <img :src="menuIco" @click="menuAction" />
     </div>
     <transition name="fade">
       <div class="c-header-info">
@@ -24,13 +24,23 @@
 <script>
 export default {
   methods: {
-    toggleMenu() {
-      this.$store.commit('nav/updateShowMenu', !this.showMenu)
+    menuAction() {
+      if (this.showCalculate) {
+        this.$store.commit('nav/updateShowCalculate', !this.showCalculate)
+      } else {
+        this.$store.commit('nav/updateShowMenu', !this.showMenu)
+      }
     },
   },
   computed: {
+    menuIco() {
+      return `/assets/icons/${this.showCalculate ? 'validate' : 'menu'}.svg`
+    },
     showMenu() {
       return this.$store.getters['nav/showMenu']
+    },
+    showCalculate() {
+      return this.$store.getters['nav/showCalculate']
     },
   },
 }

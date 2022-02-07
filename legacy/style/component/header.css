@@ -8,6 +8,11 @@
   &-logo {
     display: flex;
     img:first-of-type {
+      .-show-calculate & {
+        @media (--below-lg) {
+          display: none;
+        }
+      }
       width: 183px;
       flex-shrink: 0;
       height: 59px;
@@ -30,6 +35,11 @@
     }
   }
   &-info {
+    .-show-calculate & {
+      @media (--below-lg) {
+        display: none;
+      }
+    }
     .-show-menu & {
       @media (--below-lg) {
         display: none;
