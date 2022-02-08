@@ -74,10 +74,10 @@ export default {
         },
       }
 
-      const active = await this.$axios.$post('', params)
+      const active = await this.$axios.$post('/api', params)
 
       params.filters.active.value = 0
-      const others = await this.$axios.$post('', params)
+      const others = await this.$axios.$post('/api', params)
 
       if (active.status === 200) {
         this.active = active.data
