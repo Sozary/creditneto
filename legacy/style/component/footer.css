@@ -20,17 +20,17 @@
 
   @media (--below-md) {
     grid-template-areas:
-      ' .         logo        .        '
-      ' pre-info  pre-info    pre-info '
-      ' info-1    info-1      info-1   '
-      ' belgium   netherlands france   '
-      ' contact   contact     contact  '
-      ' nav-1     .           nav-2    '
-      ' nav-3     .           nav-4    '
-      ' nav-5     .           nav-6    '
-      ' info-2    info-2      info-2   '
-      ' .         network     .        '
-      ' copyright copyright   copyright';
+      'logo logo'
+      'pre-info pre-info'
+      'info-1 info-1'
+      'countries countries'
+      'contact contact'
+      'nav-1 nav-2'
+      'nav-3 nav-4'
+      'nav-5 nav-6'
+      'info-2 info-2'
+      'network network'
+      'copyright copyright';
   }
   &-logo {
     grid-area: logo;
@@ -52,8 +52,14 @@
       font-size: 15px;
       grid-area: nav-$i;
       padding: 5px;
+      &:nth-child(odd) {
+        @media (--below-md) {
+          justify-self: flex-end;
+        }
+      }
       @media (--below-md) {
         margin: -3px 0 -3px;
+        width: 138px;
       }
       span {
         @media (--below-md) {
@@ -82,10 +88,6 @@
     }
   }
   [class^='c-footer-country-'] {
-    @media (--below-md) {
-      font-size: 8px;
-      margin: 22px 0 16px;
-    }
     margin: 34px 0 27px;
     font-size: 15px;
     font-weight: bold;
@@ -95,6 +97,22 @@
     white-space: nowrap;
     cursor: pointer;
     overflow: hidden;
+  }
+  &-countries {
+    @media (--below-md) {
+      grid-area: countries;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      display: inline-block;
+      white-space: nowrap;
+      cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      justify-content: space-around;
+      font-size: 8px;
+      margin: 22px 0 16px;
+      font-weight: bold;
+    }
   }
   &-country {
     &-belgium {

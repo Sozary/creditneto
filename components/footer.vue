@@ -13,12 +13,23 @@
       <span v-html="category[0].label" v-if="category[0]" /> <br />
       <span v-html="category[1].label" v-if="category[1]" />
     </div>
-    <span
-      :class="'c-footer-country-' + country.id"
-      v-for="country in countries"
-      :key="country.id"
-      v-html="'Creditneto ' + country.label"
-    ></span>
+    <template v-if="!isMobile">
+      <span
+        :class="'c-footer-country-' + country.id"
+        v-for="country in countries"
+        :key="country.id"
+        v-html="'Creditneto ' + country.label"
+      ></span
+    ></template>
+
+    <div class="c-footer-countries" v-if="isMobile">
+      <span
+        :class="'c-footer-countries-country-' + country.id"
+        v-for="country in countries"
+        :key="country.id"
+        v-html="'Creditneto ' + country.label"
+      ></span>
+    </div>
     <span class="c-footer-contact"
       >Contact - Mentions legales - Adresses de nos partenaires</span
     >
@@ -50,6 +61,7 @@
 export default {
   data() {
     return {
+      isMobile: false,
       countries: [
         { label: 'Belgique', id: 'belgium' },
         { label: 'Pays Bas', id: 'netherlands' },
@@ -57,7 +69,14 @@ export default {
       ],
     }
   },
+  mounted() {
+    this.resize()
+    window.addEventListener('resize', this.resize)
+  },
   methods: {
+    resize() {
+      this.isMobile = window.innerWidth < 970
+    },
     chunk(list, size) {
       for (var position, i = 0, chunk = -1, chunks = []; i < list.length; i++) {
         if ((position = i % size)) {
