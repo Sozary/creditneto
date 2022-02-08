@@ -1,4 +1,9 @@
 .c-footer {
+  .-show-calculate & {
+    @media (--below-md) {
+      display: none;
+    }
+  }
   padding: 0 60px 60px 60px;
   background-color: #ececec;
   display: grid;
@@ -77,6 +82,7 @@
           transform: scale(1.03);
         }
         &:before {
+          vertical-align: -25%;
           content: '';
           margin-right: 9px;
           display: inline-block;
@@ -129,6 +135,7 @@
     text-overflow: ellipsis;
     max-width: 100%;
     display: inline-block;
+    justify-self: center;
     white-space: nowrap;
     cursor: pointer;
     overflow: hidden;

@@ -21,6 +21,7 @@
     }
     @media (--below-md) {
       display: block;
+      height: 36px;
     }
   }
   &-logo-right {

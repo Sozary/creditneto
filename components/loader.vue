@@ -8,7 +8,7 @@
     <transition name="fade">
       <div class="c-loader-more" v-if="items.length > visibleItems.length">
         <span>Voir plus d'annonces</span>
-        <font-awesome-icon :icon="['fas', 'chevron-down']" @click="showMore" />
+        <img src="/assets/icons/load-more.svg" @click="showMore" />
       </div>
     </transition>
     <div class="c-loader-center">

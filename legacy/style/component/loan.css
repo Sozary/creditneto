@@ -84,6 +84,15 @@
         }
       }
       &-data-options {
+        > * {
+          height: 15px;
+          text-overflow: ellipsis;
+          max-width: 100%;
+          display: inline-block;
+          white-space: nowrap;
+          cursor: pointer;
+          overflow: hidden;
+        }
         span:nth-child(even) {
           color: var(--color-green);
         }
