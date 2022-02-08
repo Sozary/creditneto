@@ -1,9 +1,11 @@
-@custom-media --sm (width >= 576px);
-@custom-media --md (width >= 768px);
+@custom-media --xs (width >= 576px);
+@custom-media --sm (width >= 768px);
+@custom-media --md (width >= 970px);
 @custom-media --lg (width >= 1260px);
 
-@custom-media --below-sm (width < 576px);
-@custom-media --below-md (width < 768px);
+@custom-media --below-xs (width < 576px);
+@custom-media --below-sm (width < 768px);
+@custom-media --below-md (width < 970px);
 @custom-media --below-lg (width < 1260px);
 
 :root {

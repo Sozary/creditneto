@@ -5,8 +5,8 @@
       <Loader
         v-for="(type, index) in [active, others]"
         :key="index"
-        :max-items="5"
-        :show-range="5"
+        :max-items="3"
+        :show-range="3"
         custom-class="c-loan-items-item"
         :items="type"
       >
@@ -99,10 +99,10 @@ export default {
   watch: {
     amount: debounce(function () {
       this.fetchOffers()
-    }, 100),
+    }, 500),
     duration: debounce(function () {
       this.fetchOffers()
-    }, 100),
+    }, 500),
     sort() {
       this.active = this.sort.sortFn(this.active)
       this.others = this.sort.sortFn(this.others)

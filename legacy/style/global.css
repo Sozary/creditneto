@@ -9,4 +9,5 @@
 @import './component/home';
 @import './component/loader';
 @import './component/loan';
+@import './component/footer';
 @import './core/variables.css';

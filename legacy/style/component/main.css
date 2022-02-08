@@ -1,10 +1,10 @@
 .c-content {
   padding: 25px 83px;
-  @media (--below-lg) {
+  @media (--below-md) {
     padding: 25px 13px;
   }
   .-show-menu & {
-    @media (--below-lg) {
+    @media (--below-md) {
       display: none;
     }
   }

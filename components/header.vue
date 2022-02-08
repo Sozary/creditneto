@@ -34,7 +34,9 @@ export default {
   },
   computed: {
     menuIco() {
-      return `/assets/icons/${this.showCalculate ? 'validate' : 'menu'}.svg`
+      return `/assets/icons/${
+        this.showCalculate ? 'validate' : this.showMenu ? 'close-menu' : 'menu'
+      }.svg`
     },
     showMenu() {
       return this.$store.getters['nav/showMenu']

@@ -1,6 +1,6 @@
 .c-loan {
   .-show-calculate & {
-    @media (--below-lg) {
+    @media (--below-md) {
       display: none;
     }
   }
@@ -37,7 +37,7 @@
         height: 35px;
         width: 10%;
         padding: 9px 12px 5px 11px;
-        @media (--below-lg) {
+        @media (--below-md) {
           width: 19.8%;
         }
       }
@@ -48,7 +48,7 @@
         text-align: center;
         padding-right: 21px;
         width: 9%;
-        @media (--below-lg) {
+        @media (--below-md) {
           display: none;
         }
       }
@@ -65,7 +65,7 @@
         span {
           max-height: 100%;
         }
-        @media (--below-lg) {
+        @media (--below-md) {
           width: 49.8%;
           padding-right: 27px;
         }
@@ -79,7 +79,7 @@
         width: 1%;
         color: var(--color-green);
         padding-right: 15px;
-        @media (--below-lg) {
+        @media (--below-md) {
           display: none;
         }
       }
@@ -90,7 +90,7 @@
         &-amount {
           margin-bottom: 9px;
         }
-        @media (--below-lg) {
+        @media (--below-md) {
           display: none;
         }
         font-size: 13px;
@@ -101,7 +101,8 @@
         width: 27%;
       }
       &-simulate {
-        @media (--below-lg) {
+        @media (--below-md) {
+          flex: 1 1 0;
           width: 20.5%;
           font-size: 12px;
         }

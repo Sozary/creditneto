@@ -2,7 +2,7 @@
   /* transition: all 0.3s ease-in-out; */
   font-family: var(--fontFamily);
   &.-show-menu {
-    @media (--below-lg) {
+    @media (--below-md) {
       background: #efefef;
     }
   }

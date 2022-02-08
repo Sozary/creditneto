@@ -66,6 +66,7 @@ export default {
     },
     postcss: {
       plugins: {
+        'postcss-for': {},
         'postcss-import': true,
         'postcss-nested': {},
         'postcss-color-mod-function': {

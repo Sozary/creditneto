@@ -28,9 +28,6 @@ export const mutations = {
   },
 }
 export const getters = {
-  showMenu(state) {
-    return state.showMenu
-  },
   showCalculate(state) {
     return state.showCalculate
   },

@@ -6,14 +6,16 @@
     <Header />
     <Nav />
     <Nuxt />
+    <Footer />
   </div>
 </template>
 <script>
 import Header from '~/components/header.vue'
+import Footer from '~/components/footer.vue'
 import Nav from '~/components/nav.vue'
 
 export default {
-  components: { Header, Nav },
+  components: { Header, Nav, Footer },
   computed: {
     showMenu() {
       return this.$store.getters['nav/showMenu']
