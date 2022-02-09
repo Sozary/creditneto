@@ -63,29 +63,43 @@ export default {
   },
   methods: {
     track(partner) {
-      this.$gtag('_addTrans', {
-        id: '1234', // Transaction ID. Required.
-        affiliation: 'Acme Clothing', // Affiliation or store name.
-        revenue: '11.99', // Grand Total.
-        shipping: '5', // Shipping.
-        tax: '1.29',
-      })
-      this.$gtag('_addItem', {
-        id: '1234', // Transaction ID. Required.
-        name: 'Fluffy Pink Bunnies', // Product name. Required.
-        sku: 'DD23444', // SKU/code.
-        category: 'Party Toys', // Category or variation.
-        price: '11.99', // Unit price.
-        quantity: '1', // Quantity.
-      })
-      this.$ga.ecommerce.addItem({
-        id: '1234', // Transaction ID. Required.
-        name: 'Fluffy Pink Bunnies', // Product name. Required.
-        sku: 'DD23444', // SKU/code.
-        category: 'Party Toys', // Category or variation.
-        price: '11.99', // Unit price.
-        quantity: '1', // Quantity.
-      })
+      var _gaq = _gaq || []
+      _gaq.push(['_setAccount', 'UA-219885464-1'])
+      _gaq.push(['_trackPageview'])
+      _gaq.push([
+        '_addTrans',
+        '1234', // order ID - required
+        'Provenance', // affiliation or store name
+        '1.00', // total - required
+        '0', // tax
+        '0', // shipping
+        'Ville', // city
+        'Departement', // state or province
+        'FR', // country
+      ])
+
+      _gaq.push([
+        '_addItem',
+        '1234', // order ID - required
+        'DD44', // SKU/code - required
+        'CREDIT', // product name
+        'COFIDIS', // category or variation
+        '1.00', // unit price - required
+        '1', // quantity - required
+      ])
+      _gaq.push(['_trackTrans'])(
+        //submits transaction to the Analytics servers
+        function () {
+          var ga = document.createElement('script')
+          ga.type = 'text/javascript'
+          ga.async = true
+          ga.src =
+            ('https:' == document.location.protocol ? 'https://ssl' : '//www') +
+            '.google-analytics.com/ga.js'
+          var s = document.getElementsByTagName('script')[0]
+          s.parentNode.insertBefore(ga, s)
+        }
+      )()
       this.$ga.event({
         hitType: 'event',
         eventCategory: 'loan',
