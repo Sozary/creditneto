@@ -108,6 +108,8 @@
   }
   &-countries {
     @media (--below-md) {
+      text-decoration: none;
+      color: inherit;
       grid-area: countries;
       text-overflow: ellipsis;
       max-width: 100%;

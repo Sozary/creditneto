@@ -40,7 +40,7 @@
             </div>
           </div>
           <div class="c-loan-items-item-simulate">
-            <span @click="track">simuler</span>
+            <span @click="track(item.partenaire)">simuler</span>
           </div>
         </template>
         <template v-slot:no-data v-if="![active, others][index].length">
@@ -62,7 +62,7 @@ export default {
     await this.fetchOffers()
   },
   methods: {
-    track() {
+    track(partner) {
       this.$ga.ecommerce.addTransaction({
         id: '1234', // Transaction ID. Required.
         affiliation: 'Acme Clothing', // Affiliation or store name.
@@ -80,9 +80,9 @@ export default {
       })
       this.$ga.event({
         hitType: 'event',
-        eventCategory: 'Videos',
-        eventAction: 'play',
-        eventLabel: 'Fall Campaign',
+        eventCategory: 'loan',
+        eventAction: 'click-loan',
+        eventLabel: partner,
       })
     },
     async fetchOffers() {

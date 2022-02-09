@@ -4,6 +4,7 @@ export default {
   generate: {
     fallback: true,
   },
+  loading: { color: '#1ab16a' },
   head: {
     title: 'overhaul',
     htmlAttrs: {
