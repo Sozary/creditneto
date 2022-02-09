@@ -17,18 +17,24 @@ async function getConnection() {
 function query(connection, query, values) {
   return new Promise((res, rej) => {
     connection.query(query, values, (err, result) => {
-      if (err) rej()
+      if (err) rej('query failed')
       res(result)
     })
   })
 }
 
 async function fetchProducts(connection, product, filters) {
-  var type = await query(
-    connection,
-    'SELECT type_n FROM type WHERE type_descriptif=?',
-    [product]
-  )
+  var type
+  try {
+    type = await query(
+      connection,
+      'SELECT type_n FROM type WHERE type_descriptif=?',
+      [product]
+    )
+    console.log('type ok')
+  } catch (error) {
+    throw error
+  }
   type = type[0].type_n
 
   let filtersChain = ''
@@ -38,26 +44,37 @@ async function fetchProducts(connection, product, filters) {
     filtersChain += ` AND ${k}${filters[k]['operator']}?`
     params.push(filters[k]['value'])
   })
-
-  const response = await query(
-    connection,
-    'SELECT * FROM produit WHERE type=? ' + filtersChain,
-    params
-  )
+  console.log('filtrers ok')
+  var response
+  try {
+    response = await query(
+      connection,
+      'SELECT * FROM produit WHERE type=? ' + filtersChain,
+      params
+    )
+  } catch (error) {
+    throw error
+  }
+  console.log('all ok!')
 
   return response
 }
 
 const handler = async (event) => {
   try {
+    console.log('salut')
     const payload = JSON.parse(event.body)
+    console.log('parse')
     if (payload.product && payload.filters) {
+      console.log('here')
       const connection = await getConnection()
+      console.log('connected')
       const data = await fetchProducts(
         connection,
         payload.product,
         payload.filters
       )
+      console.log('get prod')
 
       return {
         headers: {
