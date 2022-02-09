@@ -13,6 +13,7 @@
       default="Sélectionnez un type de crédit"
     />
     <Slider
+      v-if="selectedCategory"
       class="c-options-slider"
       v-model="selectedAmount"
       :min="0"
@@ -22,6 +23,7 @@
       type="€"
     />
     <Slider
+      v-if="selectedCategory"
       class="c-options-slider"
       v-model="selectedMonths"
       :min="6"
@@ -87,7 +89,7 @@ export default {
       }
     },
     resize() {
-      this.isDesktop = window.innerWidth >= 1260
+      this.isDesktop = window.innerWidth >= 970
     },
     sortFn(items, key, number = true) {
       return items.sort((a, b) =>

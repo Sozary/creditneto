@@ -62,56 +62,11 @@ export default {
     await this.fetchOffers()
   },
   methods: {
-    track(partner) {
-      if (process.client) {
-        var _gaq = _gaq || []
-        console.log(_gaq)
-        _gaq.push(['_setAccount', 'UA-219885464-1'])
-        console.log('a')
-        _gaq.push(['_trackPageview'])
-        console.log('b')
-        _gaq.push([
-          '_addTrans',
-          '1234', // order ID - required
-          'Provenance', // affiliation or store name
-          '1.00', // total - required
-          '0', // tax
-          '0', // shipping
-          'Ville', // city
-          'Departement', // state or province
-          'FR', // country
-        ])
-        console.log('c')
-
-        _gaq.push([
-          '_addItem',
-          '1234', // order ID - required
-          'DD44', // SKU/code - required
-          'CREDIT', // product name
-          'COFIDIS', // category or variation
-          '1.00', // unit price - required
-          '1', // quantity - required
-        ])
-        console.log('d')
-        _gaq.push(['_trackTrans'])
-        //submits transaction to the Analytics servers
-        ;(function () {
-          var ga = document.createElement('script')
-          ga.type = 'text/javascript'
-          ga.async = true
-          ga.src =
-            ('https:' == document.location.protocol ? 'https://ssl' : '//www') +
-            '.google-analytics.com/ga.js'
-          var s = document.getElementsByTagName('script')[0]
-          s.parentNode.insertBefore(ga, s)
-        })()
-      }
-      this.$ga.event({
-        hitType: 'event',
-        eventCategory: 'loan',
-        eventAction: 'click-loan',
-        eventLabel: partner,
-      })
+    async track(partner) {
+      const res = await this.$axios.get('https://api.db-ip.com/v2/free/self')
+      const ip = res.data.ipAddress
+      window.ip = ip
+      this.$router.push('/redirect')
     },
     async fetchOffers() {
       const productLabel = this.categories.find(
