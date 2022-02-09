@@ -17,7 +17,15 @@ async function getConnection() {
 function query(connection, query, values) {
   return new Promise((res, rej) => {
     connection.query(query, values, (err, result) => {
-      if (err) rej(`Query error [${query}]: ${err}`)
+      if (err)
+        rej(
+          `Query error [${query}]: ${err} [${JSON.stringify({
+            host: DATABASE_HOST,
+            user: DATABASE_USER,
+            password: DATABASE_PASSWORD,
+            database: DATABASE_DATABASE,
+          })}]`
+        )
       res(result)
     })
   })
