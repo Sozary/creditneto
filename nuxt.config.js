@@ -22,7 +22,6 @@ export default {
     id: process.env.ANALYTICS_ID,
     ecommerce: {
       enabled: true,
-      enhanced: true,
     },
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
