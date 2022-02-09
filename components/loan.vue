@@ -65,8 +65,11 @@ export default {
     track(partner) {
       if (process.client) {
         var _gaq = _gaq || []
+        console.log(_gaq)
         _gaq.push(['_setAccount', 'UA-219885464-1'])
+        console.log('a')
         _gaq.push(['_trackPageview'])
+        console.log('b')
         _gaq.push([
           '_addTrans',
           '1234', // order ID - required
@@ -78,6 +81,7 @@ export default {
           'Departement', // state or province
           'FR', // country
         ])
+        console.log('c')
 
         _gaq.push([
           '_addItem',
@@ -88,20 +92,19 @@ export default {
           '1.00', // unit price - required
           '1', // quantity - required
         ])
-        _gaq.push(['_trackTrans'])(
-          //submits transaction to the Analytics servers
-          function () {
-            var ga = document.createElement('script')
-            ga.type = 'text/javascript'
-            ga.async = true
-            ga.src =
-              ('https:' == document.location.protocol
-                ? 'https://ssl'
-                : '//www') + '.google-analytics.com/ga.js'
-            var s = document.getElementsByTagName('script')[0]
-            s.parentNode.insertBefore(ga, s)
-          }
-        )()
+        console.log('d')
+        _gaq.push(['_trackTrans'])
+        //submits transaction to the Analytics servers
+        ;(function () {
+          var ga = document.createElement('script')
+          ga.type = 'text/javascript'
+          ga.async = true
+          ga.src =
+            ('https:' == document.location.protocol ? 'https://ssl' : '//www') +
+            '.google-analytics.com/ga.js'
+          var s = document.getElementsByTagName('script')[0]
+          s.parentNode.insertBefore(ga, s)
+        })()
       }
       this.$ga.event({
         hitType: 'event',
