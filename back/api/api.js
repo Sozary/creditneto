@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv')
 const { DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE } =
   process.env
 const mysql = require('mysql')
@@ -19,12 +19,9 @@ function query(connection, query, values) {
     connection.query(query, values, (err, result) => {
       if (err)
         rej(
-          `Query error [${query}]: ${err} [${JSON.stringify({
-            host: DATABASE_HOST,
-            user: DATABASE_USER,
-            password: DATABASE_PASSWORD,
-            database: DATABASE_DATABASE,
-          })}]`
+          `Query error [${query}]: ${err} [${JSON.stringify(
+            process.env
+          )}] [${DATABASE_HOST}]`
         )
       res(result)
     })
