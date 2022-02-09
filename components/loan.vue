@@ -74,10 +74,16 @@ export default {
         },
       }
 
-      const active = await this.$axios.$post('/api', params)
+      const active = await this.$axios.$post(
+        window.location.origin + '/.netlify/functions/api',
+        params
+      )
 
       params.filters.active.value = 0
-      const others = await this.$axios.$post('/api', params)
+      const others = await this.$axios.$post(
+        window.location.origin + '/.netlify/functions/api',
+        params
+      )
 
       if (active.status === 200) {
         this.active = active.data

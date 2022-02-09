@@ -36,7 +36,6 @@ async function fetchProducts(connection, product, filters) {
       'SELECT type_n FROM type WHERE type_descriptif=?',
       [product]
     )
-    console.log('type ok')
   } catch (error) {
     throw error
   }
@@ -49,7 +48,6 @@ async function fetchProducts(connection, product, filters) {
     filtersChain += ` AND ${k}${filters[k]['operator']}?`
     params.push(filters[k]['value'])
   })
-  console.log('filtrers ok')
   var response
   try {
     response = await query(
@@ -60,26 +58,20 @@ async function fetchProducts(connection, product, filters) {
   } catch (error) {
     throw error
   }
-  console.log('all ok!')
 
   return response
 }
 
 const handler = async (event) => {
   try {
-    console.log('salut')
     const payload = JSON.parse(event.body)
-    console.log('parse')
     if (payload.product && payload.filters) {
-      console.log('here')
       const connection = await getConnection()
-      console.log('connected')
       const data = await fetchProducts(
         connection,
         payload.product,
         payload.filters
       )
-      console.log('get prod')
 
       return {
         headers: {
