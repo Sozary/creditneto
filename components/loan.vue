@@ -63,14 +63,14 @@ export default {
   },
   methods: {
     track(partner) {
-      this.$ga.ecommerce.addTransaction({
+      this.$gtag('_addTrans', {
         id: '1234', // Transaction ID. Required.
         affiliation: 'Acme Clothing', // Affiliation or store name.
         revenue: '11.99', // Grand Total.
         shipping: '5', // Shipping.
         tax: '1.29',
       })
-      this.$ga.ecommerce.addItem({
+      this.$gtag('_addItem', {
         id: '1234', // Transaction ID. Required.
         name: 'Fluffy Pink Bunnies', // Product name. Required.
         sku: 'DD23444', // SKU/code.
