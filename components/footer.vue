@@ -10,25 +10,38 @@
       v-for="(category, index) in categories"
       :key="index"
     >
-      <span v-html="category[0].label" v-if="category[0]" /> <br />
-      <span v-html="category[1].label" v-if="category[1]" />
+      <span
+        v-html="category[0].label"
+        v-if="category[0]"
+        @click="updateSelectedNav(category[0].slug)"
+      />
+      <br />
+      <span
+        v-html="category[1].label"
+        v-if="category[1]"
+        @click="updateSelectedNav(category[1].slug)"
+      />
     </div>
     <template v-if="!isMobile">
-      <span
+      <a
+        :href="country.link"
+        target="_blank"
         :class="'c-footer-country-' + country.id"
         v-for="country in countries"
         :key="country.id"
         v-html="'Creditneto ' + country.label"
-      ></span
+      ></a
     ></template>
 
     <div class="c-footer-countries" v-if="isMobile">
-      <span
+      <a
+        :href="country.link"
+        target="_blank"
         :class="'c-footer-countries-country-' + country.id"
         v-for="country in countries"
         :key="country.id"
         v-html="'Creditneto ' + country.label"
-      ></span>
+      ></a>
     </div>
     <span class="c-footer-contact"
       >Contact - Mentions legales - Adresses de nos partenaires</span
@@ -63,9 +76,16 @@ export default {
     return {
       isMobile: false,
       countries: [
-        { label: 'Belgique', id: 'belgium' },
-        { label: 'Pays Bas', id: 'netherlands' },
-        { label: 'France', id: 'france' },
+        {
+          label: 'Belgique',
+          id: 'belgium',
+          link: 'https://www.creditneto.be/',
+        },
+        {
+          label: 'Pays Bas',
+          id: 'netherlands',
+        },
+        { label: 'France', id: 'france', link: 'https://www.creditneto.net/' },
       ],
     }
   },
@@ -74,6 +94,11 @@ export default {
     window.addEventListener('resize', this.resize)
   },
   methods: {
+    updateSelectedNav(slug) {
+      this.$store.commit('nav/updateShowMenu', !this.showMenu)
+      this.$store.commit('nav/updateSelectedNav', slug)
+      this.$router.push(slug)
+    },
     resize() {
       this.isMobile = window.innerWidth < 970
     },

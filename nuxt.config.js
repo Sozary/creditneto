@@ -17,7 +17,9 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
-
+  googleAnalytics: {
+    id: process.env.ANALYTICS_ID,
+  },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['vue2-animate/dist/vue2-animate.min.css'],
 
@@ -28,7 +30,7 @@ export default {
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [],
+  buildModules: ['@nuxtjs/google-analytics'],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [

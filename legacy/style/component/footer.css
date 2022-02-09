@@ -101,6 +101,8 @@
     max-width: 100%;
     display: inline-block;
     white-space: nowrap;
+    text-decoration: none;
+    color: inherit;
     cursor: pointer;
     overflow: hidden;
   }

@@ -50,7 +50,7 @@ export default {
         {
           label: 'Partenaire',
           id: 'partner',
-          sort: (items) => this.sortFn(items, 'partenaire'),
+          sort: (items) => this.sortFn(items, 'partenaire', false),
         },
         {
           label: 'Montant max',
@@ -89,8 +89,10 @@ export default {
     resize() {
       this.isDesktop = window.innerWidth >= 1260
     },
-    sortFn(items, key) {
-      return items.sort((a, b) => a[key].toLowerCase() < b[key].toLowerCase())
+    sortFn(items, key, number = true) {
+      return items.sort((a, b) =>
+        number ? a[key] < b[key] : a[key].toLowerCase() < b[key].toLowerCase()
+      )
     },
     formatCurrency(value) {
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')

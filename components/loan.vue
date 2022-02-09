@@ -40,7 +40,7 @@
             </div>
           </div>
           <div class="c-loan-items-item-simulate">
-            <span>simuler</span>
+            <span @click="track">simuler</span>
           </div>
         </template>
         <template v-slot:no-data v-if="![active, others][index].length">
@@ -62,9 +62,25 @@ export default {
     await this.fetchOffers()
   },
   methods: {
+    track() {
+      this.$ga.event({
+        hitType: 'event',
+        eventCategory: 'Videos',
+        eventAction: 'play',
+        eventLabel: 'Fall Campaign',
+      })
+    },
     async fetchOffers() {
+      const productLabel = this.categories.find(
+        (c) => c.slug === this.selectedNav
+      )
+      if (!productLabel) {
+        this.$router.push('/')
+        this.$store.commit('nav/updateSelectedNav', '')
+        return
+      }
       const params = {
-        product: this.categories.find((c) => c.slug === this.selectedNav).label,
+        product: productLabel.label,
         filters: {
           active: { operator: '=', value: 1 },
           montant_min: { operator: '<=', value: this.amount },

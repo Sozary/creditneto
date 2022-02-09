@@ -3,17 +3,15 @@ export const state = () => ({
   showMenu: false,
   showCalculate: false,
   categories: [
-    'Credit Auto',
     'Pret Personnel',
+    'Rachat Credit',
     'Credit Renouvelable',
-    'Credit Immobilier',
-    'Rachat de Credit',
-    'Compte Bancaire',
-    'Livret Epargne',
-    'Generique',
-    'Credit Consommation',
-    'Credit Moto',
     'Pret Travaux',
+    'Credit Immobilier',
+    'Credit Auto / Moto',
+    'Credit Entre Particuliers',
+    'Credit Consommation',
+    'Compte / Carte Bancaire',
   ],
 })
 export const mutations = {

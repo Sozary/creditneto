@@ -6,8 +6,15 @@
       background: #efefef;
     }
   }
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
 }
 body {
   margin: 0;
   padding: 0;
+}
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
