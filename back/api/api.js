@@ -17,7 +17,7 @@ async function getConnection() {
 function query(connection, query, values) {
   return new Promise((res, rej) => {
     connection.query(query, values, (err, result) => {
-      if (err) rej('query failed')
+      if (err) rej('query failed ' + query)
       res(result)
     })
   })
