@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/credit-auto-/compte-/pret-travaux", {data:[{}],fetch:{},mutations:[["nav\u002FupdateShowMenu",true],["nav\u002FupdateSelectedNav","credit-auto-\u002Fcompte-\u002Fpret-travaux"]]});

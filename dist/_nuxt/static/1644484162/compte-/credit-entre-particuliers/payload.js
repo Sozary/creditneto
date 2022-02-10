@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/compte-/credit-entre-particuliers", {data:[{}],fetch:{},mutations:[["nav\u002FupdateShowMenu",true],["nav\u002FupdateSelectedNav","compte-\u002Fcredit-entre-particuliers"]]});

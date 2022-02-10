@@ -8,10 +8,10 @@ export const state = () => ({
     'Credit Renouvelable',
     'Pret Travaux',
     'Credit Immobilier',
-    'Credit Auto / Moto',
+    'Credit Auto - Moto',
     'Credit Entre Particuliers',
     'Credit Consommation',
-    'Compte / Carte Bancaire',
+    'Compte - Carte Bancaire',
   ],
 })
 export const mutations = {
