@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/pret-travaux", {data:[{}],fetch:{},mutations:[["nav\u002FupdateShowMenu",true],["nav\u002FupdateSelectedNav","pret-travaux"]]});

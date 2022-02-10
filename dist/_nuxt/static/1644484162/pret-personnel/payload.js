@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/pret-personnel", {data:[{}],fetch:{},mutations:[["nav\u002FupdateShowMenu",true],["nav\u002FupdateSelectedNav","pret-personnel"]]});

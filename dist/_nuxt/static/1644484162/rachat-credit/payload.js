@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/rachat-credit", {data:[{}],fetch:{},mutations:[["nav\u002FupdateShowMenu",true],["nav\u002FupdateSelectedNav","rachat-credit"]]});

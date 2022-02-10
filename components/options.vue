@@ -4,6 +4,7 @@
       :src="`/assets/images/calculate${showCalculate ? '-open' : ''}.svg`"
       @click="updateShowCalculate"
       class="c-options-show-calculate"
+      v-if="selectedNav !== ''"
     />
     <Select
       :items="categories"
@@ -33,7 +34,12 @@
       type=" mois"
     />
     <img src="/assets/images/logo-right.png" class="c-options-logo-right" />
-    <Select :items="sorts" v-model="selectedSort" default="Partenaire" />
+    <Select
+      :items="sorts"
+      v-model="selectedSort"
+      default="Partenaire"
+      v-if="selectedNav !== ''"
+    />
   </div>
 </template>
 <script>
@@ -126,6 +132,9 @@ export default {
     },
   },
   computed: {
+    selectedNav() {
+      return this.$store.getters['nav/selectedNav']
+    },
     showCalculate() {
       return this.$store.getters['nav/showCalculate']
     },

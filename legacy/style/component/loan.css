@@ -1,4 +1,8 @@
 .c-loan {
+  &-no-nav {
+    margin-top: 10px;
+    text-align: center;
+  }
   .-show-calculate & {
     @media (--below-md) {
       display: none;

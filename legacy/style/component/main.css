@@ -1,6 +1,10 @@
 .c-content {
-  background: url('/assets/images/home-left.webp') no-repeat scroll 0% 100%;
-  background-size: 30%;
+  &.-home {
+    @media (--md) {
+      background: url('/assets/images/home-left.webp') no-repeat scroll 0% 100%;
+      background-size: 30%;
+    }
+  }
   padding: 25px 83px;
   @media (--below-md) {
     padding: 25px 13px;

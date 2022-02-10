@@ -1,4 +1,9 @@
 .c-footer {
+  .-show-menu & {
+    @media (--below-md) {
+      display: none;
+    }
+  }
   .-show-calculate & {
     @media (--below-md) {
       display: none;
@@ -107,9 +112,13 @@
     overflow: hidden;
   }
   &-countries {
+    a {
+      @media (--below-md) {
+        text-decoration: none;
+        color: inherit;
+      }
+    }
     @media (--below-md) {
-      text-decoration: none;
-      color: inherit;
       grid-area: countries;
       text-overflow: ellipsis;
       max-width: 100%;

@@ -6,7 +6,12 @@
       height: calc(100vh - 82px);
       align-items: center;
       overflow: scroll;
+      transform: translateX(0px);
     }
+  }
+  @media (--below-md) {
+    transform: translateX(100%);
+    transition: all 0.3s ease-in-out;
   }
   &-items {
     .-show-menu & {

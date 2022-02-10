@@ -1,56 +1,61 @@
 <template>
   <div class="c-loan">
-    <span class="c-loan-title"> Annonces: </span>
-    <div class="c-loan-items">
-      <Loader
-        v-for="(type, index) in [active, others]"
-        :key="index"
-        :max-items="3"
-        :show-range="3"
-        custom-class="c-loan-items-item"
-        :items="type"
-      >
-        <template v-slot:default="{ item }">
-          <img :src="'/assets' + item.url_logo" />
-          <div class="c-loan-items-item-taeg">
-            <span>
-              <strong>TAEG </strong> de
-              <strong>{{ taeg(item.taeg)[0] }}</strong> à
-              <strong>{{ taeg(item.taeg)[1] }}</strong></span
-            >
-          </div>
-          <div class="c-loan-items-item-example">
-            <span v-html="item.exemple" />
-          </div>
-          <div class="c-loan-items-item-options">
-            <font-awesome-icon :icon="['fas', 'euro-sign']" />
-            <font-awesome-icon :icon="['fas', 'calendar']" />
-          </div>
-          <div class="c-loan-items-item-data-options">
-            <div class="c-loan-items-item-data-options-amount">
-              <span>Montant : Min </span
-              ><span v-html="formatCurrency(item.montant_min)" />
-              <span> - Max </span
-              ><span v-html="formatCurrency(item.montant_max)" />
-            </div>
-            <div class="c-loan-items-item-data-options-duration">
-              <span>Durée : Min </span
-              ><span v-html="item.duree_min + ' mois'" /><span> - Max </span
-              ><span v-html="item.duree_max + ' mois'" />
-            </div>
-          </div>
-          <div class="c-loan-items-item-simulate">
-            <span @click="track(item.partenaire)">simuler</span>
-          </div>
-        </template>
-        <template v-slot:no-data v-if="![active, others][index].length">
-          <span class="c-loan-others"> Aucune offre disponible </span>
-        </template>
-        <template v-slot:footer v-if="index === 0">
-          <span class="c-loan-others"> Autre crédits disponibles: </span>
-        </template>
-      </Loader>
+    <div v-if="selectedNav === ''" class="c-loan-no-nav">
+      <span class="c-loan-others"> Veuillez choisir un type de crédit </span>
     </div>
+    <template v-else>
+      <span class="c-loan-title"> Annonces: </span>
+      <div class="c-loan-items">
+        <Loader
+          v-for="(type, index) in [active, others]"
+          :key="index"
+          :max-items="3"
+          :show-range="3"
+          custom-class="c-loan-items-item"
+          :items="type"
+        >
+          <template v-slot:default="{ item }">
+            <img :src="'/assets' + item.url_logo" />
+            <div class="c-loan-items-item-taeg">
+              <span>
+                <strong>TAEG </strong> de
+                <strong>{{ taeg(item.taeg)[0] }}</strong> à
+                <strong>{{ taeg(item.taeg)[1] }}</strong></span
+              >
+            </div>
+            <div class="c-loan-items-item-example">
+              <span v-html="item.exemple" />
+            </div>
+            <div class="c-loan-items-item-options">
+              <font-awesome-icon :icon="['fas', 'euro-sign']" />
+              <font-awesome-icon :icon="['fas', 'calendar']" />
+            </div>
+            <div class="c-loan-items-item-data-options">
+              <div class="c-loan-items-item-data-options-amount">
+                <span>Montant : Min </span
+                ><span v-html="formatCurrency(item.montant_min)" />
+                <span> - Max </span
+                ><span v-html="formatCurrency(item.montant_max)" />
+              </div>
+              <div class="c-loan-items-item-data-options-duration">
+                <span>Durée : Min </span
+                ><span v-html="item.duree_min + ' mois'" /><span> - Max </span
+                ><span v-html="item.duree_max + ' mois'" />
+              </div>
+            </div>
+            <div class="c-loan-items-item-simulate">
+              <span @click="track(item.partenaire)">simuler</span>
+            </div>
+          </template>
+          <template v-slot:no-data v-if="![active, others][index].length">
+            <span class="c-loan-others"> Aucune offre disponible </span>
+          </template>
+          <template v-slot:footer v-if="index === 0">
+            <span class="c-loan-others"> Autre crédits disponibles: </span>
+          </template>
+        </Loader>
+      </div></template
+    >
   </div>
 </template>
 <script>
