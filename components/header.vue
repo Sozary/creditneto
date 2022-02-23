@@ -1,7 +1,7 @@
 <template>
   <div class="c-header">
     <div class="c-header-logo">
-      <img src="/assets/images/logo.webp" />
+      <img src="/assets/images/logo.webp" @click="home" />
       <img :src="menuIco" @click="menuAction" />
     </div>
     <transition name="fade">
@@ -24,6 +24,10 @@
 <script>
 export default {
   methods: {
+    home() {
+      this.$router.push('/')
+      this.$store.commit('nav/updateSelectedNav', '')
+    },
     menuAction() {
       if (this.showCalculate) {
         this.$store.commit('nav/updateShowCalculate', !this.showCalculate)

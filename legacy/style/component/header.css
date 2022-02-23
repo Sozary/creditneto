@@ -8,6 +8,7 @@
   &-logo {
     display: flex;
     img:first-of-type {
+      cursor: pointer;
       .-show-calculate & {
         @media (--below-md) {
           display: none;

@@ -1,19 +1,20 @@
 export const state = () => ({
-  selected: 'credit-auto',
+  selected: '',
   showMenu: false,
   showCalculate: false,
   categories: [
-    'Pret Personnel',
-    'Rachat Credit',
-    'Credit Renouvelable',
-    'Pret Travaux',
-    'Credit Immobilier',
-    'Credit Auto - Moto',
-    'Credit Entre Particuliers',
-    'Credit Consommation',
-    'Compte - Carte Bancaire',
+    { label: 'Prêt Personnel', id: 'pret-personnel' },
+    { label: 'Rachat de Crédit', id: 'rachat-de-credit' },
+    { label: 'Crédit Renouvelable', id: 'credit-renouvelable' },
+    { label: 'Prêt Travaux', id: 'pret-travaux' },
+    { label: 'Crédit Immobilier', id: 'credit-immobilier' },
+    { label: 'Crédit Auto / Moto', id: 'credit-auto-moto' },
+    { label: 'Crédit Entre Particuliers', id: 'credit-entre-particuliers' },
+    { label: 'Crédit Consommation', id: 'credit-consommation' },
+    { label: 'Compte / Carte Bancaire', id: 'compte-carte-bancaire' },
   ],
 })
+
 export const mutations = {
   updateShowMenu(state, payload) {
     state.showMenu = payload
@@ -38,8 +39,8 @@ export const getters = {
   categories(state) {
     return state.categories.map((e) => {
       return {
-        label: e,
-        slug: e.toLowerCase().split(' ').join('-'),
+        label: e.label,
+        slug: e.id,
       }
     })
   },
