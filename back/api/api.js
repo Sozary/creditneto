@@ -45,8 +45,10 @@ async function fetchProducts(connection, product, filters) {
   const params = [type]
 
   Object.keys(filters).forEach((k) => {
-    filtersChain += ` AND ${k}${filters[k]['operator']}?`
-    params.push(filters[k]['value'])
+    if (filters[k]['value']) {
+      filtersChain += ` AND ${k}${filters[k]['operator']}?`
+      params.push(filters[k]['value'])
+    }
   })
   var response
   try {
@@ -62,9 +64,8 @@ async function fetchProducts(connection, product, filters) {
   return response
 }
 
-const handler = async (event) => {
+const handler = async (payload) => {
   try {
-    const payload = JSON.parse(event.body)
     if (payload.product && payload.filters) {
       const connection = await getConnection()
       const data = await fetchProducts(
@@ -80,7 +81,7 @@ const handler = async (event) => {
           'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
         },
         statusCode: 200,
-        body: JSON.stringify({ status: 200, data }),
+        body: data,
       }
     }
   } catch (error) {

@@ -15,7 +15,9 @@
           :items="type"
         >
           <template v-slot:default="{ item }">
-            <img :src="'/assets' + item.url_logo" />
+            <div class="c-loan-items-item-pic">
+              <img :src="'/assets' + item.url_logo" />
+            </div>
             <div class="c-loan-items-item-taeg">
               <span>
                 <strong>TAEG </strong> de
@@ -83,7 +85,7 @@ export default {
         return
       }
       const params = {
-        product: productLabel.label,
+        product: productLabel.slug,
         filters: {
           active: { operator: '=', value: 1 },
           montant_min: { operator: '<=', value: this.amount },
@@ -94,21 +96,22 @@ export default {
       }
 
       const active = await this.$axios.$post(
-        window.location.origin + '/.netlify/functions/api',
+        // window.location.origin + '/.netlify/functions/api',
+        'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev',
         params
       )
 
       params.filters.active.value = 0
       const others = await this.$axios.$post(
-        window.location.origin + '/.netlify/functions/api',
+        // window.location.origin + '/.netlify/functions/api',
+        'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev',
         params
       )
-
-      if (active.status === 200) {
-        this.active = active.data
+      if (active.statusCode === 200) {
+        this.active = active.body
       }
-      if (others.status === 200) {
-        this.others = others.data
+      if (others.statusCode === 200) {
+        this.others = others.body
       }
     },
     taeg(value) {

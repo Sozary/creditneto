@@ -51,9 +51,9 @@ export default {
     return {
       selectedCategory: this.$route.path.slice(1),
       selectedSort: '',
-      selectedMonths: 0,
+      selectedMonths: 60,
       isDesktop: false,
-      selectedAmount: 0,
+      selectedAmount: 100000,
       sorts: [
         {
           label: 'Partenaire',
@@ -107,8 +107,6 @@ export default {
     },
   },
   mounted() {
-    this.selectedMonths = 36
-    this.selectedAmount = 100000
     this.selectedSort = this.sorts[0].id
     this.resize()
     window.addEventListener('resize', this.resize)

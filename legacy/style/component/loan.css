@@ -37,10 +37,10 @@
       }
       border-radius: 26px;
       display: flex;
-      img {
-        height: 35px;
-        width: 10%;
-        padding: 9px 12px 5px 11px;
+      &-pic {
+        height: 100%;
+        display: flex;
+        justify-content: center;
         @media (--below-md) {
           width: 19.8%;
         }
@@ -132,9 +132,6 @@
         align-items: center;
         justify-content: center;
         transition: inherit;
-        &:hover {
-          transform: scale(1.05);
-        }
       }
     }
   }
