@@ -50,7 +50,13 @@
               <span @click="track(item.partenaire)">simuler</span>
             </div>
           </template>
-          <template v-slot:no-data v-if="![active, others][index].length">
+          <template
+            v-slot:no-data
+            v-if="
+              ![active, others][index].length &&
+              !loading[['active', 'others'][index]]
+            "
+          >
             <span class="c-loan-others"> Aucune offre disponible </span>
           </template>
           <template v-slot:footer v-if="index === 0">
