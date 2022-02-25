@@ -10,8 +10,8 @@
     }
   }
   @media (--below-md) {
-    transform: translateX(100%);
-    transition: all 0.3s ease-in-out;
+    position: absolute;
+    width: 100%;
   }
   &-items {
     .-show-menu & {
