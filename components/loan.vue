@@ -5,12 +5,13 @@
     </div>
     <template v-else>
       <span class="c-loan-title"> Annonces: </span>
-      <div class="c-loan-items">
+      <div class="c-loan-offers">
         <Loader
           v-for="(type, index) in [active, others]"
+          mode="fit"
           :key="index"
-          :max-items="3"
-          :show-range="3"
+          :loading="loading[['active', 'others'][index]]"
+          custom-class-container="c-loan-items"
           custom-class="c-loan-items-item"
           :items="type"
         >
@@ -55,16 +56,20 @@
           <template v-slot:footer v-if="index === 0">
             <span class="c-loan-others"> Autre crédits disponibles: </span>
           </template>
-        </Loader>
-      </div></template
-    >
+          <template v-slot:loading>
+            <CubeGrid />
+          </template>
+        </Loader></div
+    ></template>
   </div>
 </template>
 <script>
 import { debounce } from 'debounce'
 import Loader from '~/components/loader.vue'
+import CubeGrid from '~/components/cubegrid.vue'
+
 export default {
-  components: { Loader },
+  components: { Loader, CubeGrid },
   async mounted() {
     await this.fetchOffers()
   },
@@ -95,6 +100,9 @@ export default {
         },
       }
 
+      this.loading['active'] = true
+      this.loading['others'] = true
+
       const active = await this.$axios.$post(
         // window.location.origin + '/.netlify/functions/api',
         'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev',
@@ -109,9 +117,11 @@ export default {
       )
       if (active.statusCode === 200) {
         this.active = active.body
+        this.loading['active'] = false
       }
       if (others.statusCode === 200) {
         this.others = others.body
+        this.loading['others'] = false
       }
     },
     taeg(value) {
@@ -122,7 +132,7 @@ export default {
     },
   },
   data() {
-    return { active: [], others: [] }
+    return { active: [], others: [], loading: { active: false, others: false } }
   },
   watch: {
     amount: debounce(function () {

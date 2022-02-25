@@ -1,4 +1,6 @@
 .c-loader {
+  display: flex;
+  flex-direction: column;
   &-more {
     display: flex;
     flex-direction: column;
