@@ -11,9 +11,12 @@
         :class="customClass"
         v-for="item in visibleItems"
         :key="item.id"
-        @click="clickOffer(item)"
+        @click="clickOffer(item, type)"
       >
         <slot :item="item" />
+      </div>
+      <div v-for="item in visibleItems" :key="item.id">
+        <slot :item="item" name="link" />
       </div>
     </transition-group>
     <div
@@ -43,6 +46,7 @@ export default {
       type: Array,
       required: true,
     },
+    type: { type: String },
     loading: { type: Boolean },
     maxItems: {
       type: Number,

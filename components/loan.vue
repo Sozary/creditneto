@@ -13,6 +13,7 @@
           :loading="loading[['active', 'others'][index]]"
           custom-class-container="c-loan-items"
           custom-class="c-loan-items-item"
+          :type="['active', 'others'][index]"
           :items="type"
           :click-offer="clickOffer"
         >
@@ -51,6 +52,14 @@
               <span>simuler</span>
             </div>
           </template>
+          <template v-slot:link="{ item }">
+            <a
+              :href="decodeURIComponent(item.url_redirection.split('ul=')[1])"
+              class="c-loan-items-item-link"
+              target="_blank"
+              :ref="'item-' + ['active', 'others'][index] + '-' + item.id"
+            ></a>
+          </template>
           <template
             v-slot:no-data
             v-if="
@@ -81,8 +90,7 @@ export default {
     await this.fetchOffers()
   },
   methods: {
-    async clickOffer(item) {
-      console.log(decodeURIComponent(item.url_redirection.split('ul=')[1]))
+    async clickOffer(item, type) {
       const ip = await this.$axios.get(
         'https://ipgeolocation.abstractapi.com/v1/?api_key=a8949ec22fb24b4ab28957f4c0f4fbbd'
       )
@@ -93,10 +101,7 @@ export default {
           ip: ip.data.ip_address,
         }
       )
-      window.open(
-        decodeURIComponent(item.url_redirection.split('ul=')[1]),
-        '_blank'
-      )
+      this.$refs['item-' + type + '-' + item.id][0].click()
     },
     async fetchOffers() {
       const productLabel = this.categories.find(

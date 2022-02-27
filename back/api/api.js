@@ -31,7 +31,7 @@ function query(connection, query, values) {
 async function addCustomerLine(connection, product, ip) {
   await query(
     connection,
-    'INSERT INTO user_action (id_produit, ip) VALUES (?, ?); ',
+    'INSERT INTO user_action (id_produit, ip,created_at) VALUES (?, ?, NOW()); ',
     [product, ip]
   )
   return { status: 200 }
