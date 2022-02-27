@@ -5,16 +5,18 @@
       <Home v-if="selectedNav === '' && isDesktop" />
       <Loan v-else />
     </transition>
+    <CookieConsent />
   </div>
 </template>
 <script>
 import Options from '~/components/options'
 import Loan from '~/components/loan'
 import Home from '~/components/home'
+import CookieConsent from '~/components/cookie-consent'
 
 export default {
   layout: 'default',
-  components: { Options, Loan, Home },
+  components: { Options, Loan, Home, CookieConsent },
   data() {
     return { isDesktop: false }
   },

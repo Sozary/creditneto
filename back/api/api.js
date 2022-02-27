@@ -73,8 +73,9 @@ async function fetchProducts(connection, product, filters) {
   return response
 }
 
-const handler = async (payload) => {
+const handler = async (payload, context) => {
   try {
+    context.callbackWaitsForEmptyEventLoop = false
     if (payload.product && (payload.filters || payload.ip)) {
       const connection = await getConnection()
       let data

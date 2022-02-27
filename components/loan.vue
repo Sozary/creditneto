@@ -146,7 +146,8 @@ export default {
         'https://ipgeolocation.abstractapi.com/v1/?api_key=a8949ec22fb24b4ab28957f4c0f4fbbd'
       )
       this.$axios.$post(
-        'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev',
+        window.location.origin + '/.netlify/functions/api',
+        // 'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev',
         {
           product: item.id,
           ip: ip.data.ip_address,
@@ -178,15 +179,15 @@ export default {
       this.loading['others'] = true
 
       const active = await this.$axios.$post(
-        // window.location.origin + '/.netlify/functions/api',
-        'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev',
+        window.location.origin + '/.netlify/functions/api',
+        // 'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev',
         params
       )
 
       params.filters.active.value = 0
       const others = await this.$axios.$post(
-        // window.location.origin + '/.netlify/functions/api',
-        'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev',
+        window.location.origin + '/.netlify/functions/api',
+        // 'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev',
         params
       )
       if (active.statusCode === 200) {

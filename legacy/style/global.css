@@ -8,6 +8,7 @@
 @import './component/main';
 @import './component/home';
 @import './component/cubegrid';
+@import './component/cookie';
 @import './component/loader';
 @import './component/loan';
 @import './component/footer';
