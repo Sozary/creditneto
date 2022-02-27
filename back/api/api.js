@@ -92,7 +92,7 @@ const handler = async (event) => {
           'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
         },
         statusCode: 200,
-        body: JSON.stringify(data),
+        body: JSON.stringify({ body: data, statusCode: 200 }),
       }
     }
   } catch (error) {
