@@ -7,7 +7,12 @@
       :class="customClassContainer"
       ref="items"
     >
-      <div :class="customClass" v-for="item in visibleItems" :key="item.id">
+      <div
+        :class="customClass"
+        v-for="item in visibleItems"
+        :key="item.id"
+        @click="clickOffer(item)"
+      >
         <slot :item="item" />
       </div>
     </transition-group>
@@ -30,6 +35,7 @@
 <script>
 export default {
   props: {
+    clickOffer: { type: Function },
     mode: { type: String },
     customClass: { type: String },
     customClassContainer: { type: String },

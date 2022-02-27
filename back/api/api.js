@@ -28,6 +28,15 @@ function query(connection, query, values) {
   })
 }
 
+async function addCustomerLine(connection, product, ip) {
+  await query(
+    connection,
+    'INSERT INTO user_action (id_produit, ip) VALUES (?, ?); ',
+    [product, ip]
+  )
+  return { status: 200 }
+}
+
 async function fetchProducts(connection, product, filters) {
   var type
   try {
@@ -66,13 +75,14 @@ async function fetchProducts(connection, product, filters) {
 
 const handler = async (payload) => {
   try {
-    if (payload.product && payload.filters) {
+    if (payload.product && (payload.filters || payload.ip)) {
       const connection = await getConnection()
-      const data = await fetchProducts(
-        connection,
-        payload.product,
-        payload.filters
-      )
+      let data
+      if (payload.ip) {
+        data = await addCustomerLine(connection, payload.product, payload.ip)
+      } else {
+        data = await fetchProducts(connection, payload.product, payload.filters)
+      }
 
       return {
         headers: {

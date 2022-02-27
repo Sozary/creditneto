@@ -19,6 +19,8 @@
   &-items {
     margin-top: 7px;
     &-item {
+      text-decoration: none;
+      color: inherit;
       &:last-of-type {
         margin-bottom: 11px;
       }

@@ -14,6 +14,7 @@
           custom-class-container="c-loan-items"
           custom-class="c-loan-items-item"
           :items="type"
+          :click-offer="clickOffer"
         >
           <template v-slot:default="{ item }">
             <div class="c-loan-items-item-pic">
@@ -47,7 +48,7 @@
               </div>
             </div>
             <div class="c-loan-items-item-simulate">
-              <span @click="track(item.partenaire)">simuler</span>
+              <span>simuler</span>
             </div>
           </template>
           <template
@@ -80,11 +81,22 @@ export default {
     await this.fetchOffers()
   },
   methods: {
-    async track(partner) {
-      const res = await this.$axios.get('https://api.db-ip.com/v2/free/self')
-      const ip = res.data.ipAddress
-      window.ip = ip
-      this.$router.push('/redirect')
+    async clickOffer(item) {
+      console.log(decodeURIComponent(item.url_redirection.split('ul=')[1]))
+      const ip = await this.$axios.get(
+        'https://ipgeolocation.abstractapi.com/v1/?api_key=a8949ec22fb24b4ab28957f4c0f4fbbd'
+      )
+      this.$axios.$post(
+        'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev',
+        {
+          product: item.id,
+          ip: ip.data.ip_address,
+        }
+      )
+      window.open(
+        decodeURIComponent(item.url_redirection.split('ul=')[1]),
+        '_blank'
+      )
     },
     async fetchOffers() {
       const productLabel = this.categories.find(
