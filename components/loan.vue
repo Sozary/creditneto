@@ -28,24 +28,53 @@
                 <strong>{{ taeg(item.taeg)[1] }}</strong></span
               >
             </div>
-            <div class="c-loan-items-item-example">
+            <div
+              class="c-loan-items-item-example"
+              :class="{ '-hide': isMobile && addClass }"
+            >
               <span v-html="item.exemple" />
             </div>
-            <div class="c-loan-items-item-options">
+            <div
+              class="c-loan-items-item-options"
+              :class="{ '-show': isMobile && addClass }"
+            >
               <font-awesome-icon :icon="['fas', 'euro-sign']" />
               <font-awesome-icon :icon="['fas', 'calendar']" />
+              <font-awesome-icon :icon="['fas', 'percent']" v-if="isMobile" />
             </div>
-            <div class="c-loan-items-item-data-options">
+            <div
+              class="c-loan-items-item-data-options"
+              :class="{ '-show': isMobile && addClass }"
+            >
               <div class="c-loan-items-item-data-options-amount">
-                <span>Montant : Min </span
-                ><span v-html="formatCurrency(item.montant_min)" />
-                <span> - Max </span
-                ><span v-html="formatCurrency(item.montant_max)" />
+                <div>
+                  <span>Montant : Min </span
+                  ><span v-html="formatCurrency(item.montant_min)" />
+                  <span> - Max </span
+                  ><span v-html="formatCurrency(item.montant_max)" />
+                </div>
               </div>
-              <div class="c-loan-items-item-data-options-duration">
-                <span>Durée : Min </span
-                ><span v-html="item.duree_min + ' mois'" /><span> - Max </span
-                ><span v-html="item.duree_max + ' mois'" />
+              <div
+                class="c-loan-items-item-data-options-duration"
+                :class="{ '-show': isMobile && addClass }"
+              >
+                <div>
+                  <span>Durée : Min </span
+                  ><span v-html="item.duree_min + ' mois'" /><span> - Max </span
+                  ><span v-html="item.duree_max + ' mois'" />
+                </div>
+              </div>
+              <div
+                class="c-loan-items-item-data-options-taeg"
+                :class="{ '-show': isMobile && addClass }"
+                v-if="isMobile"
+              >
+                <div>
+                  <strong>TAEG </strong> <span>de</span>
+                  <span>{{ taeg(item.taeg)[0] }}</span>
+                  <span>à</span>
+                  <span>{{ taeg(item.taeg)[1] }}</span>
+                </div>
               </div>
             </div>
             <div class="c-loan-items-item-simulate">
@@ -87,9 +116,31 @@ import CubeGrid from '~/components/cubegrid.vue'
 export default {
   components: { Loader, CubeGrid },
   async mounted() {
+    this.resize()
+    window.addEventListener('resize', this.resize)
     await this.fetchOffers()
+    this.showHideDetails()
+  },
+  watch: {
+    isMobile() {
+      this.showHideDetails()
+    },
   },
   methods: {
+    showHideDetails() {
+      if (this.isMobile) {
+        this.interval = setInterval(() => {
+          this.addClass = !this.addClass
+        }, 5000)
+      } else {
+        if (this.interval) {
+          clearInterval(this.interval)
+        }
+      }
+    },
+    resize() {
+      this.isMobile = window.innerWidth < 970
+    },
     async clickOffer(item, type) {
       const ip = await this.$axios.get(
         'https://ipgeolocation.abstractapi.com/v1/?api_key=a8949ec22fb24b4ab28957f4c0f4fbbd'
@@ -155,7 +206,14 @@ export default {
     },
   },
   data() {
-    return { active: [], others: [], loading: { active: false, others: false } }
+    return {
+      interval: null,
+      addClass: false,
+      active: [],
+      others: [],
+      loading: { active: false, others: false },
+      isMobile: false,
+    }
   },
   watch: {
     amount: debounce(function () {

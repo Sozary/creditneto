@@ -19,6 +19,7 @@
   &-items {
     margin-top: 7px;
     &-item {
+      overflow: hidden;
       text-decoration: none;
       color: inherit;
       &:last-of-type {
@@ -43,8 +44,14 @@
         height: 100%;
         display: flex;
         justify-content: center;
+        align-items: center;
         @media (--below-md) {
           width: 19.8%;
+        }
+        img {
+          @media (--below-xs) {
+            width: 100%;
+          }
         }
       }
       &-taeg {
@@ -54,6 +61,11 @@
         text-align: center;
         padding-right: 21px;
         width: 9%;
+        &.-show {
+          @media (--below-md) {
+            display: block;
+          }
+        }
         @media (--below-md) {
           display: none;
         }
@@ -71,6 +83,11 @@
         span {
           max-height: 100%;
         }
+        &.-hide {
+          @media (--below-md) {
+            display: none;
+          }
+        }
         @media (--below-md) {
           width: 49.8%;
           padding-right: 27px;
@@ -79,6 +96,9 @@
       &-options {
         svg:first-of-type {
           margin-bottom: 9px;
+          @media (--below-md) {
+            margin-bottom: 0px;
+          }
         }
         display: flex;
         flex-direction: column;
@@ -88,13 +108,26 @@
         @media (--below-md) {
           display: none;
         }
+        svg {
+          @media (--below-md) {
+            width: 9px !important;
+          }
+        }
+        &.-show {
+          @media (--below-md) {
+            display: flex;
+            margin: 0 15px 0 5px;
+            padding: 0;
+          }
+        }
       }
       &-data-options {
         > * {
           height: 15px;
           text-overflow: ellipsis;
+          display: flex;
+          align-items: center;
           max-width: 100%;
-          display: inline-block;
           white-space: nowrap;
           cursor: pointer;
           overflow: hidden;
@@ -102,11 +135,30 @@
         span:nth-child(even) {
           color: var(--color-green);
         }
+        &-taeg {
+          span:nth-child(odd) {
+            color: var(--color-green);
+          }
+          span:nth-child(even) {
+            font-weight: 300;
+            color: black;
+          }
+        }
         &-amount {
+          @media (--below-md) {
+            margin-bottom: 0px;
+          }
           margin-bottom: 9px;
+        }
+        &.-show {
+          @media (--below-md) {
+            display: flex;
+          }
         }
         @media (--below-md) {
           display: none;
+          font-size: 7px;
+          width: 48%;
         }
         font-size: 13px;
         font-weight: bold;

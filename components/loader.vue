@@ -15,7 +15,7 @@
       >
         <slot :item="item" />
       </div>
-      <div v-for="item in visibleItems" :key="item.id">
+      <div v-for="item in visibleItems" :key="item.id + 'link'">
         <slot :item="item" name="link" />
       </div>
     </transition-group>
