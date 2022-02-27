@@ -73,9 +73,9 @@ async function fetchProducts(connection, product, filters) {
   return response
 }
 
-const handler = async (payload, context) => {
+const handler = async (event) => {
   try {
-    context.callbackWaitsForEmptyEventLoop = false
+    const payload = JSON.parse(event.body)
     if (payload.product && (payload.filters || payload.ip)) {
       const connection = await getConnection()
       let data
@@ -92,7 +92,7 @@ const handler = async (payload, context) => {
           'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
         },
         statusCode: 200,
-        body: data,
+        body: JSON.stringify(data),
       }
     }
   } catch (error) {
