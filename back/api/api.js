@@ -37,6 +37,34 @@ async function addCustomerLine(connection, product, ip) {
   return { status: 200 }
 }
 
+async function fetchOthers(connection, filters) {
+  const params = []
+  let filtersChain = generateQuery(filters, params)
+  var response
+  try {
+    response = await query(
+      connection,
+      'SELECT * FROM produit WHERE promo=1 OR type=99 ' + filtersChain,
+      params
+    )
+  } catch (error) {
+    throw error
+  }
+
+  return response
+}
+function generateQuery(filters, params) {
+  let filtersChain = ''
+
+  Object.keys(filters).forEach((k) => {
+    if (filters[k]['value']) {
+      filtersChain += ` AND ${k}${filters[k]['operator']}?`
+      params.push(filters[k]['value'])
+    }
+  })
+  return filtersChain
+}
+
 async function fetchProducts(connection, product, filters) {
   var type
   try {
@@ -52,13 +80,7 @@ async function fetchProducts(connection, product, filters) {
 
   let filtersChain = ''
   const params = [type]
-
-  Object.keys(filters).forEach((k) => {
-    if (filters[k]['value']) {
-      filtersChain += ` AND ${k}${filters[k]['operator']}?`
-      params.push(filters[k]['value'])
-    }
-  })
+  let filtersChain = generateQuery(filters, params)
   var response
   try {
     response = await query(
@@ -82,7 +104,15 @@ const handler = async (event) => {
       if (payload.ip) {
         data = await addCustomerLine(connection, payload.product, payload.ip)
       } else {
-        data = await fetchProducts(connection, payload.product, payload.filters)
+        if (payload?.others) {
+          data = await fetchOthers(connection, payload.filters)
+        } else {
+          data = await fetchProducts(
+            connection,
+            payload.product,
+            payload.filters
+          )
+        }
       }
 
       return {
