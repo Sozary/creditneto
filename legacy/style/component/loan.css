@@ -77,9 +77,21 @@
         color: #707070;
         font-size: 12px;
         height: 50px;
-        overflow: scroll;
         span {
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
           max-height: 100%;
+          @media (--below-md) {
+            font-size: 6px;
+            display: -webkit-box;
+            -webkit-line-clamp: 5;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
         }
         &.-hide {
           @media (--below-md) {
@@ -168,6 +180,9 @@
 
       &-simulate {
         .c-loan-items-item:active & {
+          background-color: #1e824c;
+        }
+        &:hover {
           background-color: #1e824c;
         }
         @media (--below-md) {

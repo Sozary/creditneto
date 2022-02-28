@@ -3,21 +3,19 @@
     <slot name="loading" v-if="loading" />
     <transition-group
       name="fade"
-      tag="div"
+      tag="a"
       :class="customClassContainer"
       ref="items"
     >
-      <div
+      <a
+        target="_blank"
+        :href="'http://www.creditneto.fr' + item.url_redirection"
         :class="customClass"
         v-for="item in visibleItems"
         :key="item.id"
-        @click="clickOffer(item, type)"
       >
         <slot :item="item" />
-      </div>
-      <div v-for="item in visibleItems" :key="item.id + 'link'">
-        <slot :item="item" name="link" />
-      </div>
+      </a>
     </transition-group>
     <div
       class="c-loader-more"
@@ -38,7 +36,6 @@
 <script>
 export default {
   props: {
-    clickOffer: { type: Function },
     mode: { type: String },
     customClass: { type: String },
     customClassContainer: { type: String },

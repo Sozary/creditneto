@@ -15,7 +15,6 @@
           custom-class="c-loan-items-item"
           :type="['active', 'others'][index]"
           :items="type"
-          :click-offer="clickOffer"
         >
           <template v-slot:default="{ item }">
             <div class="c-loan-items-item-pic">
@@ -81,14 +80,6 @@
               <span>simuler</span>
             </div>
           </template>
-          <template v-slot:link="{ item }">
-            <a
-              :href="'http://www.creditneto.fr' + item.url_redirection"
-              class="c-loan-items-item-link"
-              target="_blank"
-              :ref="'item-' + ['active', 'others'][index] + '-' + item.id"
-            ></a>
-          </template>
           <template
             v-slot:no-data
             v-if="
@@ -141,20 +132,6 @@ export default {
     resize() {
       this.isMobile = window.innerWidth < 970
     },
-    async clickOffer(item, type) {
-      const ip = await this.$axios.get(
-        'https://ipgeolocation.abstractapi.com/v1/?api_key=a8949ec22fb24b4ab28957f4c0f4fbbd'
-      )
-      this.$axios.$post(
-        // window.location.origin + '/.netlify/functions/api',
-        'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev',
-        {
-          product: item.id,
-          ip: ip.data.ip_address,
-        }
-      )
-      this.$refs['item-' + type + '-' + item.id][0].click()
-    },
     async fetchOffers() {
       const productLabel = this.categories.find(
         (c) => c.slug === this.selectedNav
@@ -179,16 +156,16 @@ export default {
       this.loading['others'] = true
 
       const active = await this.$axios.$post(
-        // window.location.origin + '/.netlify/functions/api',
-        'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev',
+        window.location.origin + '/.netlify/functions/api',
+        // 'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev',
         params
       )
 
       params.others = true
       delete params.filters.active
       const others = await this.$axios.$post(
-        // window.location.origin + '/.netlify/functions/api',
-        'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev',
+        window.location.origin + '/.netlify/functions/api',
+        // 'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev',
         params
       )
       if (active.statusCode === 200) {
