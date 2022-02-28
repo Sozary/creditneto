@@ -78,7 +78,6 @@ async function fetchProducts(connection, product, filters) {
   }
   type = type[0].type_n
 
-  let filtersChain = ''
   const params = [type]
   let filtersChain = generateQuery(filters, params)
   var response
