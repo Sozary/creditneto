@@ -237,9 +237,7 @@ export default {
       return this.$store.getters['options/getUserInteraction']
     },
     apiLink() {
-      return process.env.STAGE === 'prod'
-        ? window.location.origin + '/.netlify/functions/api'
-        : 'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev'
+      return 'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev'
     },
     amount() {
       return this.$store.getters['options/getAmount']
