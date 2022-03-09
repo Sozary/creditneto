@@ -21,14 +21,14 @@ export default {
   },
   mounted() {
     if (process.client) {
-      // this.show = !localStorage.getItem('hide-cookie-consent')
+      this.show = !localStorage.getItem('hide-cookie-consent')
     }
   },
   methods: {
     hideCookieConsent() {
       this.show = false
       if (process.client) {
-        // localStorage.setItem('hide-cookie-consent', true)
+        localStorage.setItem('hide-cookie-consent', true)
       }
     },
   },
