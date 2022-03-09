@@ -1,1 +1,0 @@
-__NUXT_JSONP__("manifest.js", {routes:["\u002Fcontact","\u002Frachat-credit","\u002Fcredit-entre-particuliers","\u002Fpret-personnel","\u002Fcompte---carte-bancaire","\u002Fcredit-consommation","\u002F","\u002Fcredit-auto---moto","\u002Fpret-travaux","\u002Fcredit-immobilier","\u002Fcredit-renouvelable"]})
