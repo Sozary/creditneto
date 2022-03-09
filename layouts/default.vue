@@ -3,7 +3,6 @@
     class="c-app"
     :class="{ '-show-menu': showMenu, '-show-calculate': showCalculate }"
   >
-    <CookieConsent />
     <Header />
     <Nav />
     <Nuxt />
