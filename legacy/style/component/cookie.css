@@ -71,6 +71,7 @@
     }
   }
   &-accept {
+    text-decoration: none;
     span {
       transition: margin-top 0.1s linear;
       @media (width <356px) {
