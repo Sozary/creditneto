@@ -22,7 +22,7 @@
       v-if="items.length > visibleItems.length"
       ref="more"
     >
-      <span>Voir plus d'annonces</span>
+      <span>Voir plus d’offres de crédit</span>
       <img src="/assets/icons/load-more.svg" @click="showMore" />
     </div>
     <div class="c-loader-center">

@@ -17,8 +17,8 @@
       v-if="selectedCategory"
       class="c-options-slider"
       v-model="selectedAmount"
-      :min="0"
-      :max="200000"
+      :min="amountMin"
+      :max="amountMax"
       title="Montant"
       :format="formatCurrency"
       type="€"
@@ -27,9 +27,9 @@
       v-if="selectedCategory"
       class="c-options-slider"
       v-model="selectedMonths"
-      :min="6"
+      :min="durationMin"
       :step="1"
-      :max="120"
+      :max="durationMax"
       title="Durée"
       type=" mois"
     />
@@ -112,6 +112,12 @@ export default {
     window.addEventListener('resize', this.resize)
   },
   watch: {
+    amountMax() {
+      this.selectedAmount = (this.amountMax - this.amountMin) / 2
+    },
+    durationMax() {
+      this.selectedDuration = (this.durationMax - this.durationMin) / 2
+    },
     selectedSort(val) {
       this.$store.commit('options/updateSort', {
         val,
@@ -130,6 +136,18 @@ export default {
     },
   },
   computed: {
+    amountMin() {
+      return this.$store.getters['options/getAmountMin']
+    },
+    amountMax() {
+      return this.$store.getters['options/getAmountMax']
+    },
+    durationMin() {
+      return this.$store.getters['options/getDurationMin']
+    },
+    durationMax() {
+      return this.$store.getters['options/getDurationMax']
+    },
     selectedNav() {
       return this.$store.getters['nav/selectedNav']
     },

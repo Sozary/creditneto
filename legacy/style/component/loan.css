@@ -18,6 +18,10 @@
   }
   &-items {
     &-item {
+      position: relative;
+      &:hover {
+        background-color: #e9e5e5;
+      }
       overflow: hidden;
       text-decoration: none;
       color: inherit;
@@ -48,6 +52,7 @@
           width: 19.8%;
         }
         img {
+          width: 60%;
           @media (--below-xs) {
             width: 100%;
           }
@@ -72,11 +77,17 @@
       &-example {
         display: flex;
         align-items: center;
-        padding-right: 47px;
-        width: 44%;
+        width: 37%;
         color: #707070;
-        font-size: 12px;
+        font-size: 9px;
         height: 50px;
+
+        @media (--below-lg) {
+          width: 30%;
+        }
+        @media (width < 1070px) {
+          width: 25%;
+        }
         span {
           display: -webkit-box;
           -webkit-line-clamp: 3;
@@ -175,7 +186,6 @@
         flex-direction: column;
         display: flex;
         padding-right: 16px;
-        width: 27%;
       }
 
       &-simulate {
@@ -193,6 +203,8 @@
         text-transform: uppercase;
         font-family: Roboto;
         font-size: 16px;
+        position: absolute;
+        right: 0;
         color: white;
         background: var(--color-green);
         border-bottom-right-radius: 26px;

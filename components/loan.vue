@@ -22,20 +22,25 @@
             </div>
             <div class="c-loan-items-item-taeg">
               <span>
-                <strong>TAEG </strong> de
-                <strong>{{ taeg(item.taeg)[0] }}</strong> à
-                <strong>{{ taeg(item.taeg)[1] }}</strong></span
+                <strong>TAEG </strong>
+                <span v-if="taeg(item.taeg)[0] !== 'n.d.'"
+                  >de <strong>{{ taeg(item.taeg)[0] }}</strong> à
+                  <strong>{{ taeg(item.taeg)[1] }}</strong></span
+                ><span v-else>
+                  <strong>{{ taeg(item.taeg)[0] }}</strong></span
+                ></span
               >
             </div>
             <div
               class="c-loan-items-item-example"
+              v-if="item.exemple"
               :class="{ '-hide': isMobile && addClass }"
             >
               <span v-html="item.exemple" />
             </div>
             <div
               class="c-loan-items-item-options"
-              :class="{ '-show': isMobile && addClass }"
+              :class="{ '-show': isMobile && (item.exemple ? addClass : 1) }"
             >
               <font-awesome-icon :icon="['fas', 'euro-sign']" />
               <font-awesome-icon :icon="['fas', 'calendar']" />
@@ -43,7 +48,8 @@
             </div>
             <div
               class="c-loan-items-item-data-options"
-              :class="{ '-show': isMobile && addClass }"
+              :style="!item.exemple ? 'width:auto' : ''"
+              :class="{ '-show': isMobile && (item.exemple ? addClass : 1) }"
             >
               <div class="c-loan-items-item-data-options-amount">
                 <div>
@@ -69,10 +75,13 @@
                 v-if="isMobile"
               >
                 <div>
-                  <strong>TAEG </strong> <span>de</span>
-                  <span>{{ taeg(item.taeg)[0] }}</span>
-                  <span>à</span>
-                  <span>{{ taeg(item.taeg)[1] }}</span>
+                  <strong>TAEG </strong>
+                  <span v-if="taeg(item.taeg)[0] !== 'n.d.'"
+                    >de <strong>{{ taeg(item.taeg)[0] }}</strong> à
+                    <strong>{{ taeg(item.taeg)[1] }}</strong></span
+                  ><span v-else>
+                    <strong>{{ taeg(item.taeg)[0] }}</strong></span
+                  >
                 </div>
               </div>
             </div>
@@ -118,6 +127,33 @@ export default {
     },
   },
   methods: {
+    getLimits() {
+      const arr = this.others.concat(this.active)
+      if (arr.length == 0) return
+      const amountMin = arr.reduce((prev, curr) =>
+        prev.montant_min < curr.montant_min ? prev : curr
+      ).montant_min
+      const amountMax = arr.reduce((prev, curr) =>
+        prev.montant_max > curr.montant_max ? prev : curr
+      ).montant_max
+
+      const durationMin = arr.reduce((prev, curr) =>
+        prev.duree_min < curr.duree_min ? prev : curr
+      ).duree_min
+      const durationMax = arr.reduce((prev, curr) =>
+        prev.duree_max > curr.duree_max ? prev : curr
+      ).duree_max
+
+      this.$store.commit('options/updateAmountLimits', {
+        amountMin,
+        amountMax,
+      })
+
+      this.$store.commit('options/updateDurationLimits', {
+        durationMin,
+        durationMax,
+      })
+    },
     showHideDetails() {
       if (this.isMobile) {
         this.interval = setInterval(() => {
@@ -155,27 +191,21 @@ export default {
       this.loading['active'] = true
       this.loading['others'] = true
 
-      const active = await this.$axios.$post(
-        window.location.origin + '/.netlify/functions/api',
-        // 'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev',
-        params
-      )
+      const active = await this.$axios.$post(this.apiLink, params)
 
       params.others = true
       delete params.filters.active
-      const others = await this.$axios.$post(
-        window.location.origin + '/.netlify/functions/api',
-        // 'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev',
-        params
-      )
+      const others = await this.$axios.$post(this.apiLink, params)
       if (active.statusCode === 200) {
         this.active = active.body
         this.loading['active'] = false
+        this.active = this.sort.sortFn(this.active)
       }
       if (others.statusCode === 200) {
         this.others = others.body
         this.loading['others'] = false
       }
+      this.getLimits()
     },
     taeg(value) {
       return value.split(' &agrave; ')
@@ -195,18 +225,22 @@ export default {
     }
   },
   watch: {
-    amount: debounce(function () {
-      this.fetchOffers()
-    }, 500),
-    duration: debounce(function () {
+    userInteraction: debounce(function () {
       this.fetchOffers()
     }, 500),
     sort() {
       this.active = this.sort.sortFn(this.active)
-      this.others = this.sort.sortFn(this.others)
     },
   },
   computed: {
+    userInteraction() {
+      return this.$store.getters['options/getUserInteraction']
+    },
+    apiLink() {
+      return process.env.STAGE === 'prod'
+        ? window.location.origin + '/.netlify/functions/api'
+        : 'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev'
+    },
     amount() {
       return this.$store.getters['options/getAmount']
     },

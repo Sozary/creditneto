@@ -2,6 +2,7 @@
   <div class="c-slider">
     <span class="c-slider-title" v-html="computedTitle" />
     <input
+      @click="updateSlider"
       type="range"
       :step="computedStep"
       :min="min"
@@ -25,6 +26,13 @@ export default {
     format: { type: Function, default: (v) => v },
     value: {
       type: Number,
+    },
+  },
+  methods: {
+    updateSlider() {
+      this.$store.commit('options/updateUserInteraction', {
+        userInteraction: true,
+      })
     },
   },
   watch: {
