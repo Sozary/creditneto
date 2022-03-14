@@ -90,7 +90,9 @@ export default {
       }
     },
     items() {
-      this.applyRange()
+      setTimeout(() => {
+        this.applyRange()
+      }, 500)
     },
   },
   computed: {

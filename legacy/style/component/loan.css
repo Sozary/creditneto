@@ -52,19 +52,19 @@
           width: 19.8%;
         }
         img {
-          width: 60%;
-          @media (--below-xs) {
-            width: 100%;
-          }
+          width: 100%;
         }
       }
       &-taeg {
         display: flex;
         align-items: center;
         font-size: 10px;
+        justify-content: center;
         text-align: center;
-        padding-right: 21px;
         width: 9%;
+        @media (--below-lg) {
+          padding-right: 21px;
+        }
         &.-show {
           @media (--below-md) {
             display: block;

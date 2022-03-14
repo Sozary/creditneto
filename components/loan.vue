@@ -168,7 +168,7 @@ export default {
     resize() {
       this.isMobile = window.innerWidth < 970
     },
-    async fetchOffers() {
+    async fetchOffers(loadOthers = true) {
       const productLabel = this.categories.find(
         (c) => c.slug === this.selectedNav
       )
@@ -189,22 +189,29 @@ export default {
       }
 
       this.loading['active'] = true
-      this.loading['others'] = true
+      if (loadOthers) {
+        this.loading['others'] = true
+      }
 
       const active = await this.$axios.$post(this.apiLink, params)
+      let others
+      if (loadOthers) {
+        params.others = true
+        others = await this.$axios.$post(this.apiLink, params)
+      }
 
-      params.others = true
-      delete params.filters.active
-      const others = await this.$axios.$post(this.apiLink, params)
       if (active.statusCode === 200) {
         this.active = active.body
         this.loading['active'] = false
         this.active = this.sort.sortFn(this.active)
       }
-      if (others.statusCode === 200) {
-        this.others = others.body
-        this.loading['others'] = false
+      if (loadOthers) {
+        if (others.statusCode === 200) {
+          this.others = others.body
+          this.loading['others'] = false
+        }
       }
+
       this.getLimits()
     },
     taeg(value) {
@@ -227,6 +234,9 @@ export default {
   watch: {
     userInteraction: debounce(function () {
       this.fetchOffers()
+      this.$store.commit('options/updateUserInteraction', {
+        userInteraction: false,
+      })
     }, 500),
     sort() {
       this.active = this.sort.sortFn(this.active)

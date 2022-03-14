@@ -4,6 +4,9 @@
       display: none;
     }
   }
+  @media (--below-xs) {
+    width: auto;
+  }
   width: 188px;
   &-box {
     border-radius: 9px;
