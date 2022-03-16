@@ -1,12 +1,7 @@
 <template>
   <div class="c-loader">
     <slot name="loading" v-if="loading" />
-    <transition-group
-      name="fade"
-      tag="a"
-      :class="customClassContainer"
-      ref="items"
-    >
+    <div :class="customClassContainer" ref="items">
       <a
         target="_blank"
         :href="'http://www.creditneto.fr' + item.url_redirection"
@@ -16,7 +11,7 @@
       >
         <slot :item="item" />
       </a>
-    </transition-group>
+    </div>
     <div
       class="c-loader-more"
       v-if="items.length > visibleItems.length"
@@ -58,10 +53,13 @@ export default {
     calculateMaxItemsToShow() {
       const element = this.$refs.items.$el
       const itemHeight = 56
-      const elementBottom = element.getBoundingClientRect().bottom
-      if (elementBottom < window.innerHeight) {
-        const elementThatFit = (window.innerHeight - elementBottom) / itemHeight
-        return Math.floor(elementThatFit)
+      if (element) {
+        const elementBottom = element.getBoundingClientRect().bottom
+        if (elementBottom < window.innerHeight) {
+          const elementThatFit =
+            (window.innerHeight - elementBottom) / itemHeight
+          return Math.floor(elementThatFit)
+        }
       }
       return this.maxItems
     },
