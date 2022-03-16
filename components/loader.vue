@@ -73,9 +73,7 @@ export default {
         left: 0,
         behavior: 'smooth',
       })
-      setTimeout(() => {
-        this.range += this.calculateMaxItemsToShow()
-      }, 200)
+      this.range += this.calculateMaxItemsToShow()
     },
   },
   watch: {
@@ -85,9 +83,7 @@ export default {
       }
     },
     items() {
-      setTimeout(() => {
-        this.applyRange()
-      }, 500)
+      this.applyRange()
     },
   },
   computed: {
