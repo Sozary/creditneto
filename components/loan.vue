@@ -118,7 +118,7 @@ export default {
   async mounted() {
     this.resize()
     window.addEventListener('resize', this.resize)
-    await this.fetchOffers()
+    await this.fetchOffers(true, true)
     this.showHideDetails()
   },
   watch: {
@@ -168,7 +168,7 @@ export default {
     resize() {
       this.isMobile = window.innerWidth < 970
     },
-    async fetchOffers(loadOthers = true) {
+    async fetchOffers(loadOthers = true, firstLoad = false) {
       const productLabel = this.categories.find(
         (c) => c.slug === this.selectedNav
       )
@@ -181,10 +181,22 @@ export default {
         product: productLabel.slug,
         filters: {
           active: { operator: '=', value: 1 },
-          montant_min: { operator: '<=', value: this.amount },
-          montant_max: { operator: '>=', value: this.amount },
-          duree_min: { operator: '<=', value: this.duration },
-          duree_max: { operator: '>=', value: this.duration },
+          montant_min: {
+            operator: '<=',
+            value: firstLoad ? null : this.amount,
+          },
+          montant_max: {
+            operator: '>=',
+            value: firstLoad ? null : this.amount,
+          },
+          duree_min: {
+            operator: '<=',
+            value: firstLoad ? null : this.duration,
+          },
+          duree_max: {
+            operator: '>=',
+            value: firstLoad ? null : this.duration,
+          },
         },
       }
 

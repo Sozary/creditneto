@@ -51,15 +51,12 @@ export default {
   },
   methods: {
     calculateMaxItemsToShow() {
-      const element = this.$refs.items.$el
+      const element = this.$refs['items']
       const itemHeight = 56
-      if (element) {
-        const elementBottom = element.getBoundingClientRect().bottom
-        if (elementBottom < window.innerHeight) {
-          const elementThatFit =
-            (window.innerHeight - elementBottom) / itemHeight
-          return Math.floor(elementThatFit)
-        }
+      const elementBottom = element.getBoundingClientRect().bottom
+      if (elementBottom < window.innerHeight) {
+        const elementThatFit = (window.innerHeight - elementBottom) / itemHeight
+        return Math.floor(elementThatFit)
       }
       return this.maxItems
     },
