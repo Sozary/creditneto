@@ -128,7 +128,7 @@ export default {
   },
   methods: {
     getLimits() {
-      const arr = this.others.concat(this.active)
+      const arr = this.active
       if (arr.length == 0) return
       const amountMin = arr.reduce((prev, curr) =>
         prev.montant_min < curr.montant_min ? prev : curr

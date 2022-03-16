@@ -113,7 +113,7 @@ const handler = async (event) => {
           )
         }
       }
-
+      await connection.end()
       return {
         headers: {
           'Access-Control-Allow-Origin': '*',
