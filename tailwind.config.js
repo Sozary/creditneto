@@ -14,8 +14,10 @@ module.exports = {
   theme: {
     colors: {
       'dark-grey': '#707070',
+      'medium-grey': '#11111152',
       'light-grey': '#EFEFEF',
       black: '#000',
+      white: '#fff',
     },
     screens: {
       sm: '576px',

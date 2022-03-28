@@ -25,7 +25,7 @@ export default {
     },
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['vue2-animate/dist/vue2-animate.min.css'],
+  css: ['~/assets/css/vue-animate'],
   tailwindcss: {
     cssPath: '~/assets/css/tailwind.css',
     configPath: 'tailwind.config.js',

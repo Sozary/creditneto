@@ -28,5 +28,7 @@ export default {
 }
 </script>
 <style lang="postcss">
-/* @import '../legacy/style/global'; */
+body {
+  margin: 0;
+}
 </style>

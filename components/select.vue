@@ -1,32 +1,41 @@
 <template>
-  <div class="c-select" v-on-clickaway="clickOutside">
-    <div class="c-select-box" @click="toggle">
-      <span class="c-select-box-label">{{ selectDisplay }}</span>
-      <div class="c-select-box-icons">
+  <div v-on-clickaway="clickOutside" class="relative">
+    <div
+      class="border rounded flex border-solid py-1.5 px-3.5 items-center"
+      @click="toggle"
+    >
+      <span class="text-sm font-roboto">{{ selectDisplay }}</span>
+      <div class="ml-5">
         <img
           src="/assets/icons/close.svg"
           @click.stop="clear"
           v-if="clearable"
-          class="c-select-box-icons-close"
+          class="w-2 h-2"
         />
         <img
           src="/assets/icons/arrow.svg"
-          class="c-select-box-icons-toggle"
-          :class="{ '-active': toggled }"
+          class="w-5 cursor-pointer transform transition-all"
+          :class="{ 'rotate-180': toggled }"
         />
       </div>
     </div>
-    <transition name="slide">
-      <div class="c-select-options" v-if="toggled">
+    <transition name="fade">
+      <div
+        class="flex flex-col border border-solid border-medium-grey w-3/4 p-4 rounded mt-4 absolute bg-white"
+        v-if="toggled"
+      >
         <div
-          class="c-select-options-option"
+          class="cursor-pointer flex justify-between"
           v-for="item of items"
           :key="item.id"
-          :class="{ '-selected': selectedValue === item.id }"
           @click="updateValue(item.id)"
         >
           <span>{{ item.label }}</span
-          ><img src="/assets/icons/done.svg" />
+          ><img
+            src="/assets/icons/done.svg"
+            class="w-3.5"
+            v-if="selectedValue === item.id"
+          />
         </div></div
     ></transition>
   </div>
@@ -91,3 +100,52 @@ export default {
   },
 }
 </script>
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+.fade-enter-active {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+.fade-leave-active {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+}
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+</style>

@@ -1,45 +1,48 @@
 <template>
-  <div class="c-options" :class="{ '-show-calculate': showCalculate }">
-    <img
-      :src="`/assets/images/calculate${showCalculate ? '-open' : ''}.png`"
-      @click="updateShowCalculate"
-      class="c-options-show-calculate"
-      v-if="selectedNav !== ''"
-    />
-    <Select
-      :items="categories"
-      v-if="isDesktop"
-      clearable
-      v-model="selectedCategory"
-      default="Sélectionnez un type de crédit"
-    />
-    <Slider
-      v-if="selectedCategory"
-      class="c-options-slider"
-      v-model="selectedAmount"
-      :min="amountMin"
-      :max="amountMax"
-      title="Montant"
-      :format="formatCurrency"
-      type="€"
-    />
-    <Slider
-      v-if="selectedCategory"
-      class="c-options-slider"
-      v-model="selectedMonths"
-      :min="durationMin"
-      :step="1"
-      :max="durationMax"
-      title="Durée"
-      type=" mois"
-    />
-    <img src="/assets/images/logo-right.png" class="c-options-logo-right" />
-    <Select
-      :items="sorts"
-      v-model="selectedSort"
-      default="Partenaire"
-      v-if="selectedNav !== ''"
-    />
+  <div>
+    <div class="flex mt-5 justify-between mx-3">
+      <img
+        src="/assets/icons/calculate.svg"
+        @click="updateShowCalculate"
+        class="w-36 h-8 cursor-pointer"
+      />
+      <Select
+        :items="sorts"
+        v-model="selectedSort"
+        default="Partenaire"
+        v-if="selectedNav !== ''"
+      />
+    </div>
+    <template v-if="0">
+      <Select
+        :items="categories"
+        v-if="isDesktop"
+        clearable
+        v-model="selectedCategory"
+        default="Sélectionnez un type de crédit"
+      />
+      <Slider
+        v-if="selectedCategory"
+        class="c-options-slider"
+        v-model="selectedAmount"
+        :min="amountMin"
+        :max="amountMax"
+        title="Montant"
+        :format="formatCurrency"
+        type="€"
+      />
+      <Slider
+        v-if="selectedCategory"
+        class="c-options-slider"
+        v-model="selectedMonths"
+        :min="durationMin"
+        :step="1"
+        :max="durationMax"
+        title="Durée"
+        type=" mois"
+      />
+      <img src="/assets/images/logo-right.png" class="c-options-logo-right" />
+    </template>
   </div>
 </template>
 <script>
