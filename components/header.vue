@@ -2,15 +2,17 @@
   <div class="flex flex-col items-center relative mt-4">
     <img
       src="/assets/icons/menu.svg"
-      class="w-7 h-5 absolute right-6 top-1"
-      @click="home"
+      class="w-7 h-5 absolute right-6 top-1 cursor-pointer"
+      @click="showMenu"
     />
     <img
       src="/assets/images/mobile-logo.png"
       class="w-32 h-9 mb-2"
       @click="home"
     />
-    <span class="text-grey text-[8px] font-helvetica text-center font-bold">
+    <span
+      class="text-dark-grey text-[8px] font-helvetica text-center font-bold"
+    >
       Un crédit vous engage et doit être remboursé. <br />Vérifiez vos capacités
       de remboursement avant de vous engager.
     </span>
@@ -29,6 +31,9 @@ export default {
       this.$router.push('/')
       this.$store.commit('nav/updateSelectedNav', '')
     },
+    showMenu() {
+      this.$store.commit('nav/updateShowMenu', true)
+    },
     menuAction() {
       if (this.showCalculate) {
         this.$store.commit('nav/updateShowCalculate', !this.showCalculate)
@@ -46,9 +51,6 @@ export default {
       return `/assets/icons/${
         this.showCalculate ? 'validate' : this.showMenu ? 'close-menu' : 'menu'
       }.svg`
-    },
-    showMenu() {
-      return this.$store.getters['nav/showMenu']
     },
     showCalculate() {
       return this.$store.getters['nav/showCalculate']

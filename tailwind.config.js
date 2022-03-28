@@ -13,7 +13,9 @@ module.exports = {
   darkMode: 'media',
   theme: {
     colors: {
-      grey: '#707070',
+      'dark-grey': '#707070',
+      'light-grey': '#EFEFEF',
+      black: '#000',
     },
     screens: {
       sm: '576px',
