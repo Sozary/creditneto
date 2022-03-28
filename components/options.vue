@@ -4,7 +4,7 @@
       <img
         src="/assets/icons/calculate.svg"
         @click="updateShowCalculate(true)"
-        class="w-36 h-8 cursor-pointer"
+        class="w-36 h-8 cursor-pointer ml-4"
       />
       <Select
         :items="sorts"

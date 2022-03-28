@@ -17,12 +17,34 @@ import Nav from '~/components/nav.vue'
 
 export default {
   components: { Header, Nav, Footer, CookieConsent },
+  mounted() {
+    this.redirectToFirstCategory()
+  },
+  methods: {
+    redirectToFirstCategory() {
+      if (this.selectedNav === '') {
+        window.history.pushState('', '', '/' + this.categories[0].slug)
+        this.$store.commit('nav/updateSelectedNav', this.categories[0].slug)
+      }
+    },
+  },
+  watch: {
+    selectedNav() {
+      this.redirectToFirstCategory()
+    },
+  },
   computed: {
+    categories() {
+      return this.$store.getters['nav/categories']
+    },
     showMenu() {
       return this.$store.getters['nav/showMenu']
     },
     showCalculate() {
       return this.$store.getters['nav/showCalculate']
+    },
+    selectedNav() {
+      return this.$store.getters['nav/selectedNav']
     },
   },
 }

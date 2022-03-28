@@ -7,7 +7,7 @@
     />
     <img
       src="/assets/images/mobile-logo.png"
-      class="w-32 h-9 mb-2"
+      class="w-32 h-9 mb-2 cursor-pointer"
       @click="home"
     />
     <span
@@ -28,7 +28,6 @@ export default {
       this.isMobile = window.innerWidth < 970
     },
     home() {
-      this.$router.push('/')
       this.$store.commit('nav/updateSelectedNav', '')
     },
     showMenu() {

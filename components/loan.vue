@@ -1,114 +1,115 @@
 <template>
-  <div class="c-loan">
-    <div v-if="selectedNav === ''" class="c-loan-no-nav">
-      <span class="c-loan-others"> Veuillez choisir un type de crédit </span>
-    </div>
-    <template v-else>
-      <span class="c-loan-title"> Annonces: </span>
-      <div class="c-loan-offers">
-        <Loader
-          v-for="(type, index) in [active, others]"
-          mode="fit"
-          :key="index"
-          :loading="loading[['active', 'others'][index]]"
-          custom-class-container="c-loan-items"
-          custom-class="c-loan-items-item"
-          :type="['active', 'others'][index]"
-          :items="type"
-        >
-          <template v-slot:default="{ item }">
-            <div class="c-loan-items-item-pic">
-              <img :src="'/assets' + item.url_logo" />
-            </div>
-            <div class="c-loan-items-item-taeg">
-              <span>
-                <strong>TAEG </strong>
-                <span v-if="taeg(item.taeg)[0] !== 'n.d.'"
-                  >de <strong>{{ taeg(item.taeg)[0] }}</strong> à
-                  <strong>{{ taeg(item.taeg)[1] }}</strong></span
-                ><span v-else>
-                  <strong>{{ taeg(item.taeg)[0] }}</strong></span
-                ></span
-              >
-            </div>
-            <div
-              class="c-loan-items-item-example"
+  <div class="px-3">
+    <span class="text-black text-[8px] font-bold font-montserrat ml-3">
+      Annonces:
+    </span>
+    <div class="c-loan-offers">
+      <Loader
+        v-for="(type, index) in [active, others]"
+        mode="fit"
+        :key="index"
+        :loading="loading[['active', 'others'][index]]"
+        custom-class-container="mb-2 mt-1.5"
+        custom-class="mb-2 flex loan-item rounded-[50px] overflow-hidden no-underline h-10"
+        :type="['active', 'others'][index]"
+        :items="type"
+      >
+        <template v-slot:default="{ item }">
+          <div class="flex justify-center items-center">
+            <img
+              :src="'/assets' + item.url_logo"
+              class="h-5 mr-3.5 ml-1.5 w-16"
+            />
+          </div>
+          <div class="flex justify-center items-center" v-if="showExample">
+            <span
+              v-html="item.exemple"
               v-if="item.exemple"
-              :class="{ '-hide': isMobile && addClass }"
-            >
-              <span v-html="item.exemple" />
-            </div>
-            <div
-              class="c-loan-items-item-options"
-              :class="{ '-show': isMobile && (item.exemple ? addClass : 1) }"
-            >
-              <font-awesome-icon :icon="['fas', 'euro-sign']" />
-              <font-awesome-icon :icon="['fas', 'calendar']" />
-              <font-awesome-icon :icon="['fas', 'percent']" v-if="isMobile" />
-            </div>
-            <div
-              class="c-loan-items-item-data-options"
-              :style="!item.exemple ? 'width:auto' : ''"
-              :class="{ '-show': isMobile && (item.exemple ? addClass : 1) }"
-            >
-              <div class="c-loan-items-item-data-options-amount">
-                <div>
-                  <span>Montant : Min </span
-                  ><span v-html="formatCurrency(item.montant_min)" />
-                  <span> - Max </span
-                  ><span v-html="formatCurrency(item.montant_max)" />
-                </div>
+              class="text-dark-grey text-[6px] font-helvetica"
+            />
+          </div>
+          <div class="flex flex-col flex-grow my-1" v-if="showData">
+            <div class="flex mb-0.5">
+              <font-awesome-icon
+                :icon="['fas', 'euro-sign']"
+                class="text-green w-2 text-[7px] mr-1.5"
+              />
+              <div class="text-[7px] font-bold font-montserrat text-black">
+                Montant : Min
+                <span
+                  class="text-green"
+                  v-html="formatCurrency(item.montant_min)"
+                />
+                - Max
+                <span
+                  class="text-green"
+                  v-html="formatCurrency(item.montant_max)"
+                />
               </div>
-              <div
-                class="c-loan-items-item-data-options-duration"
-                :class="{ '-show': isMobile && addClass }"
-              >
-                <div>
-                  <span>Durée : Min </span
-                  ><span v-html="item.duree_min + ' mois'" /><span> - Max </span
-                  ><span v-html="item.duree_max + ' mois'" />
-                </div>
+            </div>
+            <div class="flex mb-0.5">
+              <font-awesome-icon
+                :icon="['fas', 'calendar']"
+                class="text-green w-2 text-[7px] mr-1.5"
+              />
+              <div class="text-[7px] font-bold font-montserrat text-black">
+                Durée : Min
+                <span class="text-green" v-html="item.duree_min + ' mois'" />
+                - Max
+                <span class="text-green" v-html="item.duree_max + ' mois'" />
               </div>
-              <div
-                class="c-loan-items-item-data-options-taeg"
-                :class="{ '-show': isMobile && addClass }"
+            </div>
+            <div class="flex mb-0.5">
+              <font-awesome-icon
+                :icon="['fas', 'percent']"
                 v-if="isMobile"
-              >
-                <div>
-                  <strong>TAEG </strong>
-                  <span v-if="taeg(item.taeg)[0] !== 'n.d.'">
-                    <span>de </span>
-                    <span>{{ taeg(item.taeg)[0] }}</span
-                    ><span> à </span>
-                    <span>{{ taeg(item.taeg)[1] }}</span>
-                  </span>
-                  <span v-else>
-                    <strong>{{ taeg(item.taeg)[0] }}</strong></span
-                  >
-                </div>
+                class="text-green w-2 text-[7px] mr-1.5"
+              />
+              <div class="text-[7px] font-bold font-montserrat text-black">
+                TAEG
+                <span v-if="taeg(item.taeg)[0] !== 'n.d.'" class="font-normal">
+                  de
+                  <span class="font-bold text-green">{{
+                    taeg(item.taeg)[0]
+                  }}</span>
+                  à
+                  <span class="font-bold text-green">{{
+                    taeg(item.taeg)[1]
+                  }}</span>
+                </span>
+                <span v-else>{{ taeg(item.taeg)[0] }}</span>
               </div>
             </div>
-            <div class="c-loan-items-item-simulate">
-              <span>simuler</span>
-            </div>
-          </template>
-          <template
-            v-slot:no-data
-            v-if="
-              ![active, others][index].length &&
-              !loading[['active', 'others'][index]]
-            "
+          </div>
+          <div
+            class="bg-green flex justify-center items-center w-16 py-2.5 px-1.5"
           >
-            <span class="c-loan-others"> Aucune offre disponible </span>
-          </template>
-          <template v-slot:footer v-if="index === 0">
-            <span class="c-loan-others"> Autre crédits disponibles: </span>
-          </template>
-          <template v-slot:loading>
-            <CubeGrid />
-          </template>
-        </Loader></div
-    ></template>
+            <span
+              class="uppercase text-white text-[11px] font-bold font-montserrat"
+            >
+              Simuler
+            </span>
+          </div>
+        </template>
+        <template
+          v-slot:no-data
+          v-if="
+            ![active, others][index].length &&
+            !loading[['active', 'others'][index]]
+          "
+        >
+          <span class="c-loan-others"> Aucune offre disponible </span>
+        </template>
+        <template v-slot:footer v-if="index === 0">
+          <span class="text-black text-[8px] font-bold font-montserrat ml-3">
+            Autre crédits disponibles:
+          </span>
+        </template>
+        <template v-slot:loading>
+          <CubeGrid />
+        </template>
+      </Loader>
+    </div>
   </div>
 </template>
 <script>
@@ -160,7 +161,8 @@ export default {
     showHideDetails() {
       if (this.isMobile) {
         this.interval = setInterval(() => {
-          this.addClass = !this.addClass
+          this.showExample = !this.showExample
+          this.showData = !this.showData
         }, 5000)
       } else {
         if (this.interval) {
@@ -238,6 +240,8 @@ export default {
   },
   data() {
     return {
+      showExample: true,
+      showData: false,
       interval: null,
       addClass: false,
       active: [],

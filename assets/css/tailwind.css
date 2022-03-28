@@ -53,4 +53,7 @@
 }
 
 @layer components {
+  .loan-item {
+    box-shadow: 0px 3px 20px #04228e1a;
+  }
 }
