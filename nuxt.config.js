@@ -26,6 +26,14 @@ export default {
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['vue2-animate/dist/vue2-animate.min.css'],
+  tailwindcss: {
+    cssPath: '~/assets/css/tailwind.css',
+    configPath: 'tailwind.config.js',
+    exposeConfig: false,
+    config: {},
+    injectPosition: 0,
+    viewer: true,
+  },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
@@ -34,7 +42,7 @@ export default {
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ['@nuxtjs/google-analytics'],
+  buildModules: ['@nuxtjs/google-analytics', '@nuxtjs/tailwindcss'],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -70,24 +78,6 @@ export default {
       config.node = {
         fs: 'empty',
       }
-    },
-    postcss: {
-      plugins: {
-        'postcss-for': {},
-        'postcss-import': true,
-        'postcss-nested': {},
-        'postcss-color-mod-function': {
-          transformVars: true,
-        },
-        'postcss-momentum-scrolling': {},
-        'postcss-calc': {},
-        'postcss-flexbugs-fixes': {},
-        'postcss-clean': {},
-      },
-      preset: {
-        // Change the postcss-preset-env settings
-        stage: 1,
-      },
     },
   },
 }

@@ -1,27 +1,19 @@
 <template>
-  <div class="c-header">
-    <div class="c-header-logo">
-      <img
-        :src="'/assets/images/' + (isMobile ? 'mobile-logo.png' : 'logo.webp')"
-        @click="home"
-      />
-      <img :src="menuIco" @click="menuAction" />
-    </div>
-    <transition name="fade">
-      <div class="c-header-info">
-        <div class="c-header-info-first-line">
-          <span>Besoin d'un </span><span>crédit</span
-          ><span> ? Comparez les </span><span>meilleures offres</span
-          ><span> !</span>
-        </div>
-        <div class="c-header-info-second-line">
-          <span
-            >Un crédit vous engage et doit être remboursé. <br />
-            Vérifiez vos capactiés de remboursement avant de vous engager.</span
-          >
-        </div>
-      </div></transition
-    >
+  <div class="flex flex-col items-center relative mt-4">
+    <img
+      src="/assets/icons/menu.svg"
+      class="w-7 h-5 absolute right-6 top-1"
+      @click="home"
+    />
+    <img
+      src="/assets/images/mobile-logo.png"
+      class="w-32 h-9 mb-2"
+      @click="home"
+    />
+    <span class="text-grey text-[8px] font-helvetica text-center font-bold">
+      Un crédit vous engage et doit être remboursé. <br />Vérifiez vos capacités
+      de remboursement avant de vous engager.
+    </span>
   </div>
 </template>
 <script>
