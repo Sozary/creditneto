@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <transition name="slideRight">
     <div
       v-if="showMenu"
-      class="bg-light-grey w-screen h-screen absolute top-0 left-0"
+      class="bg-light-grey w-screen h-screen fixed top-0 left-0 z-20"
     >
       <img
         src="/assets/images/logo.png"
@@ -27,7 +27,7 @@
         />
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 <script>
 export default {

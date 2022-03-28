@@ -1,5 +1,5 @@
 <template>
-  <div class="c-content" :class="{ '-home': selectedNav === '' && isDesktop }">
+  <div :class="{ '-home': selectedNav === '' && isDesktop }">
     <Options />
     <transition name="fade" mode="out-in">
       <Home v-if="selectedNav === '' && isDesktop" />

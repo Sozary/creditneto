@@ -3,7 +3,7 @@
     <div class="flex mt-5 justify-between mx-3">
       <img
         src="/assets/icons/calculate.svg"
-        @click="updateShowCalculate"
+        @click="updateShowCalculate(true)"
         class="w-36 h-8 cursor-pointer"
       />
       <Select
@@ -13,36 +13,56 @@
         v-if="selectedNav !== ''"
       />
     </div>
-    <template v-if="0">
-      <Select
-        :items="categories"
-        v-if="isDesktop"
-        clearable
-        v-model="selectedCategory"
-        default="Sélectionnez un type de crédit"
-      />
-      <Slider
-        v-if="selectedCategory"
-        class="c-options-slider"
-        v-model="selectedAmount"
-        :min="amountMin"
-        :max="amountMax"
-        title="Montant"
-        :format="formatCurrency"
-        type="€"
-      />
-      <Slider
-        v-if="selectedCategory"
-        class="c-options-slider"
-        v-model="selectedMonths"
-        :min="durationMin"
-        :step="1"
-        :max="durationMax"
-        title="Durée"
-        type=" mois"
-      />
-      <img src="/assets/images/logo-right.png" class="c-options-logo-right" />
-    </template>
+    <transition name="slideLeft">
+      <div
+        class="bg-light-grey w-screen h-full overflow-y-hidden fixed top-0 left-0 z-10"
+        v-if="showCalculate"
+      >
+        <img
+          src="/assets/icons/calculate-simple.svg"
+          alt="logo"
+          class="w-20 transform -translate-x-1/2 ml-[50%] mt-16"
+        />
+        <img
+          src="/assets/icons/validate.svg"
+          alt="logo"
+          @click="updateShowCalculate(false)"
+          class="w-10 absolute top-6 cursor-pointer right-7"
+        />
+        <div class="flex flex-col mt-20 ml-12">
+          <Slider
+            v-if="selectedCategory"
+            class="c-options-slider"
+            v-model="selectedAmount"
+            :min="amountMin"
+            :max="amountMax"
+            title="Montant"
+            :format="formatCurrency"
+            type="€"
+          />
+          <Slider
+            v-if="selectedCategory"
+            class="c-options-slider"
+            v-model="selectedMonths"
+            :min="durationMin"
+            :step="1"
+            :max="durationMax"
+            title="Durée"
+            type=" mois"
+          />
+        </div>
+        <img
+          src="/assets/images/logo-right.png"
+          class="absolute bottom-20 right-12"
+        /></div
+    ></transition>
+    <Select
+      :items="categories"
+      v-if="isDesktop && 0"
+      clearable
+      v-model="selectedCategory"
+      default="Sélectionnez un type de crédit"
+    />
   </div>
 </template>
 <script>
@@ -92,10 +112,8 @@ export default {
     }
   },
   methods: {
-    updateShowCalculate() {
-      if (!this.showCalculate) {
-        this.$store.commit('nav/updateShowCalculate', !this.showCalculate)
-      }
+    updateShowCalculate(show) {
+      this.$store.commit('nav/updateShowCalculate', show)
     },
     resize() {
       this.isDesktop = window.innerWidth >= 970
