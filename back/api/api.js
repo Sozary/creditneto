@@ -36,7 +36,16 @@ async function addCustomerLine(connection, product, ip) {
   )
   return { status: 200 }
 }
+async function fetchTypes(connection) {
+  var response
+  try {
+    response = await query(connection, 'SELECT * FROM types')
+  } catch (error) {
+    throw error
+  }
 
+  return response
+}
 async function fetchOthers(connection, filters) {
   const params = []
   let filtersChain = generateQuery(filters, params)
@@ -70,7 +79,7 @@ async function fetchProducts(connection, product, filters) {
   try {
     type = await query(
       connection,
-      'SELECT type_n FROM type WHERE type_descriptif=?',
+      'SELECT type_n FROM type WHERE type_slug=?',
       [product]
     )
   } catch (error) {
@@ -97,12 +106,12 @@ async function fetchProducts(connection, product, filters) {
 const handler = async (event) => {
   try {
     const payload = JSON.parse(event.body)
-    if (payload.product && (payload.filters || payload.ip)) {
+    if ((payload.product && (payload.filters || payload.ip)) || payload.types) {
       const connection = await getConnection()
       let data
       if (payload.ip) {
         data = await addCustomerLine(connection, payload.product, payload.ip)
-      } else {
+      } else if (payload.filters) {
         if (payload?.others) {
           data = await fetchOthers(connection, payload.filters)
         } else {
@@ -112,13 +121,15 @@ const handler = async (event) => {
             payload.filters
           )
         }
+      } else if (payload.types) {
+        data = await fetchTypes(connection)
       }
       await connection.end()
       return {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Headers': 'Content-Type',
-          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+          'Access-Control-Allow-Methods': 'POST',
         },
         statusCode: 200,
         body: JSON.stringify({ body: data, statusCode: 200 }),

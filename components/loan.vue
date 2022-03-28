@@ -76,10 +76,13 @@
               >
                 <div>
                   <strong>TAEG </strong>
-                  <span v-if="taeg(item.taeg)[0] !== 'n.d.'"
-                    >de <strong>{{ taeg(item.taeg)[0] }}</strong> à
-                    <strong>{{ taeg(item.taeg)[1] }}</strong></span
-                  ><span v-else>
+                  <span v-if="taeg(item.taeg)[0] !== 'n.d.'">
+                    <span>de </span>
+                    <span>{{ taeg(item.taeg)[0] }}</span
+                    ><span> à </span>
+                    <span>{{ taeg(item.taeg)[1] }}</span>
+                  </span>
+                  <span v-else>
                     <strong>{{ taeg(item.taeg)[0] }}</strong></span
                   >
                 </div>

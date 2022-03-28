@@ -1,7 +1,7 @@
 <template>
   <div class="c-options" :class="{ '-show-calculate': showCalculate }">
     <img
-      :src="`/assets/images/calculate${showCalculate ? '-open' : ''}.svg`"
+      :src="`/assets/images/calculate${showCalculate ? '-open' : ''}.png`"
       @click="updateShowCalculate"
       class="c-options-show-calculate"
       v-if="selectedNav !== ''"

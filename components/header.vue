@@ -1,7 +1,10 @@
 <template>
   <div class="c-header">
     <div class="c-header-logo">
-      <img src="/assets/images/logo.webp" @click="home" />
+      <img
+        :src="'/assets/images/' + (isMobile ? 'mobile-logo.png' : 'logo.webp')"
+        @click="home"
+      />
       <img :src="menuIco" @click="menuAction" />
     </div>
     <transition name="fade">
@@ -23,7 +26,13 @@
 </template>
 <script>
 export default {
+  data() {
+    return { isMobile: false }
+  },
   methods: {
+    resize() {
+      this.isMobile = window.innerWidth < 970
+    },
     home() {
       this.$router.push('/')
       this.$store.commit('nav/updateSelectedNav', '')
@@ -35,6 +44,10 @@ export default {
         this.$store.commit('nav/updateShowMenu', !this.showMenu)
       }
     },
+  },
+  mounted() {
+    this.resize()
+    window.addEventListener('resize', this.resize)
   },
   computed: {
     menuIco() {
