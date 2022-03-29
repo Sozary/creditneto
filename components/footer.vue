@@ -1,131 +1,124 @@
 <template>
-  <div class="c-footer">
-    <img src="/assets/images/logo.png" class="c-footer-logo" />
-    <span class="c-footer-copyright"
-      >Copyright 2004-{{ year }} - Site édité par la société BLOGGERS VIRTUAL
-      WEB SL</span
-    >
+  <div class="bg-footer-bg">
+    <img
+      src="/assets/images/logo-footer.png"
+      class="w-36 h-6 ml-[50%] transform -translate-x-1/2 mt-2.5"
+    />
+    <div class="px-9">
+      <div class="font-bold text-[8px] font-montserrat mt-6">
+        Vous avez besoin d’argent rapidement ?<br />
+        Demande et simulation de crédit !
+      </div>
+      <div class="font-montserrat font-light text-[8px] mt-3">
+        Creditneto vous proposes des offres de crédits et de prêts bancaires
+        sélectionnés auprès de très grands organismes de crédits avec des
+        formules variées. Simulation, recherche et demande de crédit en ligne.
+        Vous pouvez avoir le crédit qui correspond parfaitement à votre
+        recherche de crédit pas cher !
+      </div>
+    </div>
     <div
-      :class="'c-footer-nav-' + (index + 1)"
-      v-for="(category, index) in categories"
-      :key="index"
+      class="flex justify-between font-bold text-[8px] font-montserrat px-7 mt-6"
     >
-      <span
-        v-html="category[0].label"
-        v-if="category[0]"
-        @click="updateSelectedNav(category[0].slug)"
-      />
-      <br />
-      <span
-        v-html="category[1].label"
-        v-if="category[1]"
-        @click="updateSelectedNav(category[1].slug)"
-      />
-    </div>
-    <template v-if="!isMobile">
       <a
         :href="country.link"
-        target="_blank"
-        :class="'c-footer-country-' + country.id"
-        v-for="country in countries"
-        :key="country.id"
+        class="no-underline text-black"
+        v-for="country of countries"
+        :key="country.label"
         v-html="'Creditneto ' + country.label"
-      ></a
-    ></template>
-
-    <div class="c-footer-countries" v-if="isMobile">
-      <a
-        :href="country.link"
-        target="_blank"
-        :class="'c-footer-countries-country-' + country.id"
-        v-for="country in countries"
-        :key="country.id"
-        v-html="'Creditneto ' + country.label"
-      ></a>
+      />
     </div>
-    <span class="c-footer-contact"
-      >Contact - Mentions legales - Adresses de nos partenaires</span
-    >
-    <p class="c-footer-pre-info">
-      Vous avez besoin d'argent rapidement ? <br />Demande et simulation de
-      crédit !
-    </p>
-    <p class="c-footer-info-1">
-      Creditneto vous proposes des offres de crédits et de prêts bancaires
-      sélectionnés auprès de très grands organismes de crédits avec des formules
-      variées. Simulation, recherche et demande de crédit en ligne. Vous pouvez
-      avoir le crédit qui correspond parfaitement à votre recherche de crédit
-      pas cher !
-    </p>
-
-    <div class="c-footer-network">
-      <font-awesome-icon :icon="['fab', 'facebook']" />
-      <font-awesome-icon :icon="['fab', 'twitter']" />
+    <div class="flex font-bold text-[8px] font-montserrat justify-center my-4">
+      <a href="#" class="no-underline text-black mx-1">Contact</a> -
+      <a href="#" class="no-underline text-black mx-1">Mentions legales</a> -
+      <a href="#" class="no-underline text-black mx-1"
+        >Adresses de nos partenaires</a
+      >
     </div>
-    <p class="c-footer-info-2">
-      Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de
-      remboursement avant de vous engager. <br />
-      <br />
-      *Voir les conditions financières sur les sites de nos partenaires.
-    </p>
+    <div class="px-9">
+      <div class="flex gap-8 mb-3">
+        <div class="flex flex-col items-start">
+          <div v-for="(category, index) in categories[0]" :key="index + '0'">
+            <img src="/assets/icons/arrow-right.svg" class="w-1 h-1.5 mr-1.5" />
+            <NuxtLink
+              class="text-[10px] font-montserrat font-light no-underline text-black inline mb-3"
+              :to="category.slug"
+              @click.native="updateSelectedNav(category.slug)"
+              v-html="category.label"
+            />
+          </div>
+        </div>
+        <div class="flex flex-col items-start">
+          <div v-for="(category, index) in categories[1]" :key="index + '1'">
+            <img src="/assets/icons/arrow-right.svg" class="w-1 h-1.5 mr-1.5" />
+            <NuxtLink
+              class="text-[10px] font-montserrat font-light no-underline text-black inline mb-3"
+              :to="category.slug"
+              @click.native="updateSelectedNav(category.slug)"
+              v-html="category.label"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="font-light text-[8px] font-montserrat">
+        <div>
+          Un crédit vous engage et doit être remboursé. Vérifiez vos capacités
+          de remboursement avant de vous engager.
+        </div>
+        <div class="mt-2">
+          *Voir les conditions financières sur les sites de nos partenaires.
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-center gap-6 mt-3">
+      <a href="#">
+        <font-awesome-icon
+          :icon="['fab', 'facebook']"
+          class="text-green w-6 h-6"
+      /></a>
+      <a href="#">
+        <font-awesome-icon
+          :icon="['fab', 'twitter']"
+          class="text-green w-6 h-6"
+      /></a>
+    </div>
+    <div class="text-center text-[7px] font-montserrat mt-3 pb-3">
+      Copyright 2004-{{ year }} - Site édité par la société BLOGGERS VIRTUAL WEB
+      SL
+    </div>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      isMobile: false,
       countries: [
         {
           label: 'Belgique',
-          id: 'belgium',
           link: 'https://www.creditneto.be/',
         },
         {
           label: 'Pays Bas',
-          id: 'netherlands',
         },
-        { label: 'France', id: 'france', link: 'https://www.creditneto.net/' },
+        { label: 'France', link: 'https://www.creditneto.net/' },
       ],
     }
   },
-  mounted() {
-    this.resize()
-    window.addEventListener('resize', this.resize)
-  },
   methods: {
     updateSelectedNav(slug) {
-      this.$store.commit('nav/updateShowMenu', !this.showMenu)
       this.$store.commit('nav/updateSelectedNav', slug)
       this.$router.push(slug)
-    },
-    resize() {
-      this.isMobile = window.innerWidth < 970
-    },
-    chunk(list, size) {
-      for (var position, i = 0, chunk = -1, chunks = []; i < list.length; i++) {
-        if ((position = i % size)) {
-          chunks[chunk][position] = list[i]
-        } else {
-          chunk++
-          chunks[chunk] = [list[i]]
-        }
-      }
-      return chunks
     },
   },
   computed: {
     categories() {
-      return this.chunk(this.$store.getters['nav/categories'], 2)
+      return this._.chunk(
+        this.$store.getters['nav/categories'],
+        Math.ceil(this.$store.getters['nav/categories'].length / 2)
+      )
     },
     year() {
       return new Date().getFullYear()
-    },
-    showMenu() {
-      return this.$store.getters['nav/showMenu']
-    },
-    showCalculate() {
-      return this.$store.getters['nav/showCalculate']
     },
   },
 }

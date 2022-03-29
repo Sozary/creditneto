@@ -19,7 +19,6 @@
         <NuxtLink
           class="before:content-[url('/assets/icons/arrow-right.svg')] before:w-3.5 before:h-2.5 before:mr-3 text-xl font-montserrat font-light no-underline text-black inline mb-3"
           :to="category.slug"
-          :class="{ '-active': selectedNav === category.slug }"
           v-for="(category, index) in categories"
           :key="index"
           @click.native="updateSelectedNav(category.slug)"
