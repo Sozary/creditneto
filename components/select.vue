@@ -1,7 +1,7 @@
 <template>
   <div v-on-clickaway="clickOutside" class="relative">
     <div
-      class="border rounded flex border-solid py-1.5 px-3.5 items-center"
+      class="border rounded flex border-solid py-1.5 px-3.5 items-center cursor-pointer"
       @click="toggle"
     >
       <span class="text-sm font-roboto">{{ selectDisplay }}</span>
@@ -14,7 +14,7 @@
         />
         <img
           src="/assets/icons/arrow.svg"
-          class="w-5 cursor-pointer transform transition-all"
+          class="w-5 transform transition-all"
           :class="{ 'rotate-180': toggled }"
         />
       </div>

@@ -13,17 +13,21 @@
       </a>
     </div>
     <div
-      class="c-loader-more"
+      class="flex flex-col text-center items-center"
       v-if="items.length > visibleItems.length"
       ref="more"
     >
-      <span>Voir plus d’offres de crédit</span>
-      <img src="/assets/icons/load-more.svg" @click="showMore" />
+      <span class="text-black text-sm font-bold font-montserrat"
+        >Voir plus d’offres de crédit</span
+      >
+      <img
+        src="/assets/icons/load-more.svg"
+        @click="showMore"
+        class="w-9 cursor-pointer"
+      />
     </div>
-    <div class="c-loader-center">
+    <div class="text-center">
       <slot name="no-data" />
-    </div>
-    <div class="c-loader-center">
       <slot name="footer" />
     </div>
   </div>

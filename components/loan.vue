@@ -28,7 +28,10 @@
               class="text-dark-grey text-[6px] font-helvetica"
             />
           </div>
-          <div class="flex flex-col flex-grow my-1" v-if="showData">
+          <div
+            class="flex flex-col flex-grow my-1"
+            v-if="showData || !item.exemple"
+          >
             <div class="flex mb-0.5">
               <font-awesome-icon
                 :icon="['fas', 'euro-sign']"
@@ -98,11 +101,13 @@
             !loading[['active', 'others'][index]]
           "
         >
-          <span class="c-loan-others"> Aucune offre disponible </span>
+          <span class="text-black text-sm font-bold font-montserrat">
+            Aucune offre disponible
+          </span>
         </template>
         <template v-slot:footer v-if="index === 0">
-          <span class="text-black text-[8px] font-bold font-montserrat ml-3">
-            Autre crédits disponibles:
+          <span class="text-black text-sm font-bold font-montserrat">
+            Autres crédits disponibles:
           </span>
         </template>
         <template v-slot:loading>
