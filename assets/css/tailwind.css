@@ -56,4 +56,7 @@
   .loan-item {
     box-shadow: 0px 3px 20px #04228e1a;
   }
+  .selected-shadow {
+    box-shadow: 0px 3px 0px 0px #1ab16a;
+  }
 }

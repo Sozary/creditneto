@@ -18,6 +18,8 @@ module.exports = {
       'light-grey': '#EFEFEF',
       'drop-shadow': '#04228E1A',
       'footer-bg': '#ECECEC',
+      'nav-odd': '#E9E5E5',
+      'nav-even': '#E0DEDE',
       black: '#000',
       white: '#fff',
       green: '#1AB16A',
