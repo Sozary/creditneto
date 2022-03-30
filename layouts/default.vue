@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     resize() {
-      this.isMobile = window.innerWidth < 970
+      this.isMobile = window.innerWidth < 987
     },
     redirectToFirstCategory() {
       if (this.selectedNav === '') {

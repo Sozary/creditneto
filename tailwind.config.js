@@ -23,10 +23,11 @@ module.exports = {
       black: '#000',
       white: '#fff',
       green: '#1AB16A',
+      'dark-green': '#1E824C',
     },
     screens: {
       sm: '576px',
-      md: '800px',
+      md: '987px',
       lg: '1190px',
     },
     extend: {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mt-3.5 lg:flex hidden">
+    <div class="mt-3.5 md:flex hidden">
       <div
         class="py-2.5 px-1 h-12 flex-1 flex items-center text-center justify-center hover:selected-shadow transition-all cursor-pointer"
         v-for="(category, index) in categories"
@@ -20,7 +20,7 @@
         />
       </div>
     </div>
-    <transition name="slideRight" class="block lg:hidden">
+    <transition name="slideRight" class="block md:hidden">
       <div
         v-if="showMenu"
         class="bg-light-grey w-screen h-screen fixed top-0 left-0 z-20"

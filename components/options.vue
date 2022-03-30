@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="flex mt-5 justify-between mx-3 lg:px-20">
+    <div class="flex mt-5 justify-between mx-3 md:px-20">
       <Select
-        class="hidden lg:block"
+        class="hidden md:block"
         :items="categories"
         clearable
         v-model="selectedCategory"
@@ -11,11 +11,11 @@
       <img
         src="/assets/icons/calculate.svg"
         @click="updateShowCalculate(true)"
-        class="w-36 h-8 cursor-pointer ml-4 lg:hidden"
+        class="w-36 h-8 cursor-pointer ml-4 md:hidden"
       />
       <Slider
         v-if="selectedCategory"
-        class="hidden lg:block"
+        class="hidden md:block"
         v-model="selectedAmount"
         :min="amountMin"
         :max="amountMax"
@@ -25,7 +25,7 @@
       />
       <Slider
         v-if="selectedCategory"
-        class="hidden lg:block"
+        class="hidden md:block"
         v-model="selectedMonths"
         :min="durationMin"
         :step="1"

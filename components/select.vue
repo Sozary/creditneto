@@ -1,7 +1,7 @@
 <template>
   <div v-on-clickaway="clickOutside" class="relative">
     <div
-      class="border rounded flex justify-between border-solid py-1.5 px-3.5 items-center cursor-pointer lg:w-44"
+      class="border rounded flex justify-between border-solid py-1.5 px-3.5 items-center cursor-pointer md:w-44"
       @click="toggle"
     >
       <span class="text-sm font-roboto">{{ selectDisplay }}</span>

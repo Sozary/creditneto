@@ -1,7 +1,7 @@
 <template>
-  <div class="px-3 lg:px-20">
+  <div class="px-3 md:px-20">
     <span
-      class="text-black text-[8px] font-bold font-montserrat ml-3 lg:text-[15px]"
+      class="text-black text-[8px] font-bold font-montserrat ml-3 md:text-[15px]"
     >
       Annonces:
     </span>
@@ -12,7 +12,7 @@
         :key="index"
         :loading="loading[['active', 'others'][index]]"
         custom-class-container="mb-2 mt-1.5"
-        custom-class="mb-2 flex loan-item rounded-[50px] justify-between overflow-hidden no-underline h-10 lg:h-[50px]"
+        custom-class="mb-2 flex loan-item rounded-[50px] justify-between overflow-hidden no-underline h-10 md:h-[50px] group"
         :type="['active', 'others'][index]"
         :items="type"
       >
@@ -20,11 +20,11 @@
           <div class="flex justify-center items-center">
             <img
               :src="'/assets' + item.url_logo"
-              class="h-5 mr-3.5 ml-1.5 w-16 lg:w-28 lg:h-9 lg:mr-1.5"
+              class="h-5 mr-3.5 ml-1.5 w-16 md:w-28 md:h-9 md:mr-1.5"
             />
           </div>
           <div
-            class="text-center items-center lg:max-w-[104px] lg:px-2 lg:flex hidden"
+            class="text-center items-center md:max-w-[104px] md:px-2 md:flex hidden"
           >
             <div class="font-montserrat text-[10px] font-bold text-black">
               TAEG
@@ -38,25 +38,27 @@
             </div>
           </div>
           <div
-            class="flex justify-center items-center lg:max-w-[381px]"
+            class="flex justify-center items-center flex-grow md:max-w-[380px]"
             v-if="showExample"
           >
             <span
               v-html="item.exemple"
               v-if="item.exemple"
-              class="text-dark-grey text-[6px] lg:text-[9px] font-helvetica"
+              class="text-dark-grey text-[6px] md:text-[9px] font-helvetica"
             />
           </div>
           <div
-            class="flex flex-col flex-grow my-1 justify-center text-[7px] lg:text-[13px]"
+            class="flex flex-col flex-grow my-1 justify-center text-[7px] md:text-[13px] md:min-w-[300px]"
             v-if="showData || !item.exemple"
           >
             <div class="flex mb-0.5">
               <font-awesome-icon
                 :icon="['fas', 'euro-sign']"
-                class="text-green w-2 lg:w-3.5 mr-1.5"
+                class="text-green w-2 md:w-3.5 mr-1.5"
               />
-              <div class="font-bold font-montserrat text-black">
+              <div
+                class="font-bold font-montserrat text-black md:one-line lg:one-line"
+              >
                 Montant : Min
                 <span
                   class="text-green"
@@ -72,16 +74,18 @@
             <div class="flex mb-0.5">
               <font-awesome-icon
                 :icon="['fas', 'calendar']"
-                class="text-green w-2 lg:w-3.5 mr-1.5"
+                class="text-green w-2 md:w-3.5 mr-1.5"
               />
-              <div class="font-bold font-montserrat text-black">
+              <div
+                class="font-bold font-montserrat text-black md:one-line lg:one-line"
+              >
                 Durée : Min
                 <span class="text-green" v-html="item.duree_min + ' mois'" />
                 - Max
                 <span class="text-green" v-html="item.duree_max + ' mois'" />
               </div>
             </div>
-            <div class="flex mb-0.5 lg:hidden">
+            <div class="flex mb-0.5 md:hidden">
               <font-awesome-icon
                 :icon="['fas', 'percent']"
                 v-if="isMobile"
@@ -104,10 +108,10 @@
             </div>
           </div>
           <div
-            class="bg-green flex justify-center items-center w-16 py-2.5 px-1.5 lg:px-6"
+            class="bg-green flex justify-center items-center w-16 py-2.5 px-1.5 md:px-6 group-hover:bg-dark-green transition-all"
           >
             <span
-              class="uppercase text-white text-[11px] lg:text-base font-bold font-montserrat"
+              class="uppercase text-white text-[11px] md:text-base font-bold font-montserrat"
             >
               Simuler
             </span>
@@ -197,7 +201,7 @@ export default {
       }
     },
     resize() {
-      this.isMobile = window.innerWidth < 970
+      this.isMobile = window.innerWidth < 987
     },
     async fetchOffers(loadOthers = true, firstLoad = false) {
       const productLabel = this.categories.find(
