@@ -1,6 +1,9 @@
 <template>
   <div class="flex flex-col">
-    <div class="text-xs font-montserrat font-bold" v-html="computedTitle" />
+    <div
+      class="text-xs font-montserrat font-bold mb-2 md:mb-0"
+      v-html="computedTitle"
+    />
     <input
       @click="updateSlider"
       type="range"

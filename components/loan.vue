@@ -88,7 +88,6 @@
             <div class="flex mb-0.5 md:hidden">
               <font-awesome-icon
                 :icon="['fas', 'percent']"
-                v-if="isMobile"
                 class="text-green w-2 mr-1.5"
               />
               <div class="font-bold font-montserrat text-black">
@@ -281,6 +280,12 @@ export default {
     }
   },
   watch: {
+    selectedNav() {
+      this.fetchOffers()
+      this.$store.commit('options/updateUserInteraction', {
+        userInteraction: false,
+      })
+    },
     userInteraction: debounce(function () {
       this.fetchOffers()
       this.$store.commit('options/updateUserInteraction', {

@@ -57,10 +57,10 @@
           @click="updateShowCalculate(false)"
           class="w-10 absolute top-6 cursor-pointer right-7"
         />
-        <div class="flex flex-col mt-20 ml-12">
+        <div class="flex flex-col mt-20 mx-12 items-start gap-6">
           <Slider
             v-if="selectedCategory"
-            class="c-options-slider"
+            class="w-full"
             v-model="selectedAmount"
             :min="amountMin"
             :max="amountMax"
@@ -70,7 +70,7 @@
           />
           <Slider
             v-if="selectedCategory"
-            class="c-options-slider"
+            class="w-full"
             v-model="selectedMonths"
             :min="durationMin"
             :step="1"
