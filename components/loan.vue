@@ -1,6 +1,8 @@
 <template>
-  <div class="px-3">
-    <span class="text-black text-[8px] font-bold font-montserrat ml-3">
+  <div class="px-3 lg:px-20">
+    <span
+      class="text-black text-[8px] font-bold font-montserrat ml-3 lg:text-[15px]"
+    >
       Annonces:
     </span>
     <div class="c-loan-offers">
@@ -10,7 +12,7 @@
         :key="index"
         :loading="loading[['active', 'others'][index]]"
         custom-class-container="mb-2 mt-1.5"
-        custom-class="mb-2 flex loan-item rounded-[50px] overflow-hidden no-underline h-10"
+        custom-class="mb-2 flex loan-item rounded-[50px] justify-between overflow-hidden no-underline h-10 lg:h-[50px]"
         :type="['active', 'others'][index]"
         :items="type"
       >
@@ -18,26 +20,43 @@
           <div class="flex justify-center items-center">
             <img
               :src="'/assets' + item.url_logo"
-              class="h-5 mr-3.5 ml-1.5 w-16"
-            />
-          </div>
-          <div class="flex justify-center items-center" v-if="showExample">
-            <span
-              v-html="item.exemple"
-              v-if="item.exemple"
-              class="text-dark-grey text-[6px] font-helvetica"
+              class="h-5 mr-3.5 ml-1.5 w-16 lg:w-28 lg:h-9 lg:mr-1.5"
             />
           </div>
           <div
-            class="flex flex-col flex-grow my-1"
+            class="text-center items-center lg:max-w-[104px] lg:px-2 lg:flex hidden"
+          >
+            <div class="font-montserrat text-[10px] font-bold text-black">
+              TAEG
+              <span v-if="taeg(item.taeg)[0] !== 'n.d.'" class="font-normal">
+                de
+                <span class="font-bold">{{ taeg(item.taeg)[0] }}</span>
+                à
+                <span class="font-bold">{{ taeg(item.taeg)[1] }}</span>
+              </span>
+              <span v-else>{{ taeg(item.taeg)[0] }}</span>
+            </div>
+          </div>
+          <div
+            class="flex justify-center items-center lg:max-w-[381px]"
+            v-if="showExample"
+          >
+            <span
+              v-html="item.exemple"
+              v-if="item.exemple"
+              class="text-dark-grey text-[6px] lg:text-[9px] font-helvetica"
+            />
+          </div>
+          <div
+            class="flex flex-col flex-grow my-1 justify-center text-[7px] lg:text-[13px]"
             v-if="showData || !item.exemple"
           >
             <div class="flex mb-0.5">
               <font-awesome-icon
                 :icon="['fas', 'euro-sign']"
-                class="text-green w-2 text-[7px] mr-1.5"
+                class="text-green w-2 lg:w-3.5 mr-1.5"
               />
-              <div class="text-[7px] font-bold font-montserrat text-black">
+              <div class="font-bold font-montserrat text-black">
                 Montant : Min
                 <span
                   class="text-green"
@@ -53,22 +72,22 @@
             <div class="flex mb-0.5">
               <font-awesome-icon
                 :icon="['fas', 'calendar']"
-                class="text-green w-2 text-[7px] mr-1.5"
+                class="text-green w-2 lg:w-3.5 mr-1.5"
               />
-              <div class="text-[7px] font-bold font-montserrat text-black">
+              <div class="font-bold font-montserrat text-black">
                 Durée : Min
                 <span class="text-green" v-html="item.duree_min + ' mois'" />
                 - Max
                 <span class="text-green" v-html="item.duree_max + ' mois'" />
               </div>
             </div>
-            <div class="flex mb-0.5">
+            <div class="flex mb-0.5 lg:hidden">
               <font-awesome-icon
                 :icon="['fas', 'percent']"
                 v-if="isMobile"
-                class="text-green w-2 text-[7px] mr-1.5"
+                class="text-green w-2 mr-1.5"
               />
-              <div class="text-[7px] font-bold font-montserrat text-black">
+              <div class="font-bold font-montserrat text-black">
                 TAEG
                 <span v-if="taeg(item.taeg)[0] !== 'n.d.'" class="font-normal">
                   de
@@ -85,10 +104,10 @@
             </div>
           </div>
           <div
-            class="bg-green flex justify-center items-center w-16 py-2.5 px-1.5"
+            class="bg-green flex justify-center items-center w-16 py-2.5 px-1.5 lg:px-6"
           >
             <span
-              class="uppercase text-white text-[11px] font-bold font-montserrat"
+              class="uppercase text-white text-[11px] lg:text-base font-bold font-montserrat"
             >
               Simuler
             </span>
@@ -170,6 +189,8 @@ export default {
           this.showData = !this.showData
         }, 5000)
       } else {
+        this.showExample = true
+        this.showData = true
         if (this.interval) {
           clearInterval(this.interval)
         }
