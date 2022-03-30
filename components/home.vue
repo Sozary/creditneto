@@ -1,21 +1,24 @@
 <template>
-  <div class="c-home">
-    <div class="c-home-title">
-      <div><span>Besoin d'un </span><span>crédit</span><span> ?</span></div>
+  <div class="mt-10 px-[91px]">
+    <div class="text-3xl font-bold font-montserrat mb-11">
+      <div>Besoin d'un <span class="text-green">crédit</span> ?</div>
       <div>
-        <span>Comparez les </span><span>meilleures offres</span><span> !</span>
+        Comparez les <span class="text-green">meilleures offres</span> !
       </div>
     </div>
-    <div class="c-home-categories">
-      <div
-        class="c-home-categories-category"
+    <div class="flex flex-wrap">
+      <a
+        class="w-40 h-28 bg-home-green text-white font-montserrat font-bold text-lg mr-12 mb-11 rounded relative overflow-hidden cursor-pointer transition-all hover:scale-110"
         v-for="category in categories"
         :key="category.slug"
+        :href="category.slug"
         @click="updateSelectedNav(category.slug)"
       >
-        <div class="c-home-categories-category-ellipsis"></div>
-        <div class="c-home-categories-category-text" v-html="category.label" />
-      </div>
+        <div
+          class="absolute w-40 h-40 bg-home-green-light left-1/2 bottom-[40%] rounded-[50%]"
+        ></div>
+        <span class="absolute top-12 px-3 two-lines" v-html="category.label" />
+      </a>
     </div>
   </div>
 </template>

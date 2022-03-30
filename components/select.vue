@@ -60,7 +60,7 @@ export default {
       type: String,
       required: true,
     },
-    default: {
+    defaultValue: {
       type: String,
     },
   },
@@ -71,7 +71,7 @@ export default {
     selectDisplay() {
       return this.selectedValue
         ? this.items.find((i) => i.id === this.selectedValue).label
-        : this.default
+        : this.defaultValue
     },
   },
   methods: {

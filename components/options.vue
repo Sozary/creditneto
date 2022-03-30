@@ -5,8 +5,9 @@
         class="hidden md:block"
         :items="categories"
         clearable
+        v-if="selectedCategory"
         v-model="selectedCategory"
-        default="Sélectionnez un type de crédit"
+        default-value="Sélectionnez un type de crédit"
       />
       <img
         src="/assets/icons/calculate.svg"
@@ -36,7 +37,7 @@
       <Select
         :items="sorts"
         v-model="selectedSort"
-        default="Partenaire"
+        default-value="Partenaire"
         v-if="selectedNav !== ''"
       />
     </div>

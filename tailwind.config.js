@@ -24,6 +24,8 @@ module.exports = {
       white: '#fff',
       green: '#1AB16A',
       'dark-green': '#1E824C',
+      'home-green': '#1ab16a',
+      'home-green-light': '#71c192',
     },
     screens: {
       sm: '576px',
