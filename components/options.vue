@@ -1,10 +1,37 @@
 <template>
   <div>
-    <div class="flex mt-5 justify-between mx-3">
+    <div class="flex mt-5 justify-between mx-3 lg:px-20">
+      <Select
+        class="hidden lg:block"
+        :items="categories"
+        clearable
+        v-model="selectedCategory"
+        default="Sélectionnez un type de crédit"
+      />
       <img
         src="/assets/icons/calculate.svg"
         @click="updateShowCalculate(true)"
-        class="w-36 h-8 cursor-pointer ml-4"
+        class="w-36 h-8 cursor-pointer ml-4 lg:hidden"
+      />
+      <Slider
+        v-if="selectedCategory"
+        class="hidden lg:block"
+        v-model="selectedAmount"
+        :min="amountMin"
+        :max="amountMax"
+        title="Montant"
+        :format="formatCurrency"
+        type="€"
+      />
+      <Slider
+        v-if="selectedCategory"
+        class="hidden lg:block"
+        v-model="selectedMonths"
+        :min="durationMin"
+        :step="1"
+        :max="durationMax"
+        title="Durée"
+        type=" mois"
       />
       <Select
         :items="sorts"
@@ -56,13 +83,6 @@
           class="absolute bottom-20 right-12"
         /></div
     ></transition>
-    <Select
-      :items="categories"
-      v-if="isDesktop && 0"
-      clearable
-      v-model="selectedCategory"
-      default="Sélectionnez un type de crédit"
-    />
   </div>
 </template>
 <script>

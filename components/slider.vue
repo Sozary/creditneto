@@ -1,15 +1,18 @@
 <template>
-  <div class="c-slider">
-    <span class="c-slider-title" v-html="computedTitle" />
+  <div class="flex flex-col">
+    <div class="text-xs font-montserrat font-bold" v-html="computedTitle" />
     <input
       @click="updateSlider"
       type="range"
       :step="computedStep"
       :min="min"
+      class="slider"
       :max="max"
       v-model="selectedValue"
     />
-    <div class="c-slider-info">
+    <div
+      class="flex justify-between text-[10px] font-montserrat text-dark-grey"
+    >
       <span v-html="format(min) + type"></span>
       <span v-html="format(max) + type"></span>
     </div>

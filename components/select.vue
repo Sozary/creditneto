@@ -5,7 +5,7 @@
       @click="toggle"
     >
       <span class="text-sm font-roboto">{{ selectDisplay }}</span>
-      <div class="ml-5">
+      <div class="ml-5 flex items-center gap-2">
         <img
           src="/assets/icons/close.svg"
           @click.stop="clear"

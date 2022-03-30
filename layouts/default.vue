@@ -17,10 +17,20 @@ import Nav from '~/components/nav.vue'
 
 export default {
   components: { Header, Nav, Footer, CookieConsent },
+  data() {
+    return { isMobile: false }
+  },
   mounted() {
-    this.redirectToFirstCategory()
+    this.resize()
+    window.addEventListener('resize', this.resize)
+    if (this.isMobile) {
+      this.redirectToFirstCategory()
+    }
   },
   methods: {
+    resize() {
+      this.isMobile = window.innerWidth < 970
+    },
     redirectToFirstCategory() {
       if (this.selectedNav === '') {
         window.history.pushState('', '', '/' + this.categories[0].slug)
@@ -30,7 +40,9 @@ export default {
   },
   watch: {
     selectedNav() {
-      this.redirectToFirstCategory()
+      if (this.isMobile) {
+        this.redirectToFirstCategory()
+      }
     },
   },
   computed: {

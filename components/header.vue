@@ -40,12 +40,9 @@
 <script>
 export default {
   data() {
-    return { isMobile: false }
+    return {}
   },
   methods: {
-    resize() {
-      this.isMobile = window.innerWidth < 970
-    },
     home() {
       this.$store.commit('nav/updateSelectedNav', '')
     },
@@ -60,16 +57,7 @@ export default {
       }
     },
   },
-  mounted() {
-    this.resize()
-    window.addEventListener('resize', this.resize)
-  },
   computed: {
-    menuIco() {
-      return `/assets/icons/${
-        this.showCalculate ? 'validate' : this.showMenu ? 'close-menu' : 'menu'
-      }.svg`
-    },
     showCalculate() {
       return this.$store.getters['nav/showCalculate']
     },
