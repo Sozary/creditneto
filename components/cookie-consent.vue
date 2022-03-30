@@ -1,5 +1,5 @@
 <template>
-  <div v-if="show" class="flex border border-solid border-[#F8FCFA] h-10">
+  <div v-if="show" class="flex border border-solid border-[#F8FCFA] h-10 z-50">
     <span
       class="text-dark-grey font-helvetica md:basis-2/4 basis-1/4 text-base mx-4 my-2 font-bold one-line flex-1"
     >
