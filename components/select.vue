@@ -1,7 +1,7 @@
 <template>
   <div v-on-clickaway="clickOutside" class="relative">
     <div
-      class="border rounded flex border-solid py-1.5 px-3.5 items-center cursor-pointer"
+      class="border rounded flex justify-between border-solid py-1.5 px-3.5 items-center cursor-pointer lg:w-44"
       @click="toggle"
     >
       <span class="text-sm font-roboto">{{ selectDisplay }}</span>
@@ -30,7 +30,7 @@
           :key="item.id"
           @click="updateValue(item.id)"
         >
-          <span>{{ item.label }}</span
+          <span class="text-sm font-roboto">{{ item.label }}</span
           ><img
             src="/assets/icons/done.svg"
             class="w-3.5"
