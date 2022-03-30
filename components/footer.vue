@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-footer-bg">
+  <div class="bg-footer-bg mt-2">
     <img
       src="/assets/images/logo-footer.png"
       class="w-36 h-6 ml-[50%] transform -translate-x-1/2 mt-2.5 md:mt-6"
