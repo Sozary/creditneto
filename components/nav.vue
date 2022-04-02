@@ -1,9 +1,12 @@
 <template>
   <div>
     <div class="mt-3.5 md:flex hidden">
-      <div
-        class="py-2.5 px-1 h-12 flex-1 flex items-center text-center justify-center hover:selected-shadow transition-all cursor-pointer"
+      <NuxtLink
+        class="py-2.5 px-1 h-12 flex-1 flex items-center text-center justify-center hover:selected-shadow transition-all cursor-pointer text-black no-underline font-bold text-sm font-montserrat"
         v-for="(category, index) in categories"
+        :to="category.slug"
+        @click.native="updateSelectedNav(category.slug)"
+        v-html="category.label"
         :key="index"
         :class="{
           'border-solid border-0 border-b-[3px] border-green hover:shadow-none':
@@ -11,14 +14,7 @@
           'bg-nav-even': (index + 1) % 2 === 0,
           'bg-nav-odd': (index + 1) % 2 !== 0,
         }"
-      >
-        <NuxtLink
-          class="font-bold text-sm text-black no-underline font-montserrat"
-          :to="category.slug"
-          @click.native="updateSelectedNav(category.slug)"
-          v-html="category.label"
-        />
-      </div>
+      />
     </div>
     <transition name="slideRight" class="block md:hidden">
       <div

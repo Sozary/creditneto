@@ -39,11 +39,10 @@
           </div>
           <div
             class="flex justify-center items-center flex-grow md:max-w-[380px]"
-            v-if="showExample"
+            v-if="showExample && item.exemple !== ''"
           >
             <span
               v-html="item.exemple"
-              v-if="item.exemple"
               class="text-dark-grey text-[6px] md:text-[9px] font-helvetica"
             />
           </div>
@@ -190,7 +189,7 @@ export default {
         this.interval = setInterval(() => {
           this.showExample = !this.showExample
           this.showData = !this.showData
-        }, 5000)
+        }, 2500)
       } else {
         this.showExample = true
         this.showData = true

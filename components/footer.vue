@@ -93,7 +93,7 @@
       </div>
     </div>
     <div class="hidden md:block px-16 mt-14">
-      <div class="flex gap-8">
+      <div class="flex gap-8 justify-center">
         <div
           class="flex flex-col items-start"
           v-for="(category, index) of categories"
