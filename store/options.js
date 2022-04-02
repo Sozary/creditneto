@@ -7,8 +7,16 @@ export const state = () => ({
   durationMax: 120,
   durationMin: 6,
   userInteraction: false,
+  resetFilter: '',
+  lockValue: {},
 })
 export const mutations = {
+  updateResetFilter(state, value) {
+    state.resetFilter = value
+  },
+  updateLockValue(state, value) {
+    state.lockValue = value
+  },
   updateUserInteraction(state, payload) {
     state.userInteraction = payload.userInteraction
   },
@@ -31,6 +39,12 @@ export const mutations = {
   },
 }
 export const getters = {
+  getResetFilter(state) {
+    return state.resetFilter
+  },
+  getLockValue(state) {
+    return state.lockValue
+  },
   getUserInteraction(state) {
     return state.userInteraction
   },

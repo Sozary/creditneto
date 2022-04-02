@@ -38,7 +38,7 @@
             </div>
           </div>
           <div
-            class="flex justify-center items-center flex-grow md:max-w-[380px]"
+            class="flex items-center flex-grow md:max-w-[380px]"
             v-if="showExample && item.exemple !== ''"
           >
             <span
@@ -148,7 +148,8 @@ export default {
   async mounted() {
     this.resize()
     window.addEventListener('resize', this.resize)
-    await this.fetchOffers(true, true)
+    console.log('resetNeeded')
+    this.$store.commit('options/updateResetFilter', 'resetNeeded')
     this.showHideDetails()
   },
   watch: {
@@ -173,7 +174,6 @@ export default {
       const durationMax = arr.reduce((prev, curr) =>
         prev.duree_max > curr.duree_max ? prev : curr
       ).duree_max
-
       this.$store.commit('options/updateAmountLimits', {
         amountMin,
         amountMax,
@@ -202,6 +202,7 @@ export default {
       this.isMobile = window.innerWidth < 987
     },
     async fetchOffers(loadOthers = true, firstLoad = false) {
+      console.log('FETCH')
       const productLabel = this.categories.find(
         (c) => c.slug === this.selectedNav
       )
@@ -280,12 +281,19 @@ export default {
   },
   watch: {
     selectedNav() {
-      this.fetchOffers()
-      this.$store.commit('options/updateUserInteraction', {
-        userInteraction: false,
-      })
+      this.$store.commit('options/updateResetFilter', 'resetNeeded')
+    },
+    async resetFilter(value) {
+      console.log(value, 'reset')
+      if (value === 'resetDone') {
+        console.log('Reset done')
+        await this.fetchOffers(true, true)
+        console.log('get Limits')
+        this.getLimits()
+      }
     },
     userInteraction: debounce(function () {
+      console.log('HO')
       this.fetchOffers()
       this.$store.commit('options/updateUserInteraction', {
         userInteraction: false,
@@ -296,6 +304,9 @@ export default {
     },
   },
   computed: {
+    resetFilter() {
+      return this.$store.getters['options/getResetFilter']
+    },
     userInteraction() {
       return this.$store.getters['options/getUserInteraction']
     },
