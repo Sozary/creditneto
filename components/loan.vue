@@ -123,7 +123,7 @@
           "
         >
           <span class="text-black text-sm font-bold font-montserrat">
-            Aucune offre disponible
+            <!-- Aucune offre disponible -->
           </span>
         </template>
         <template v-slot:footer v-if="index === 0">
@@ -148,7 +148,6 @@ export default {
   async mounted() {
     this.resize()
     window.addEventListener('resize', this.resize)
-    console.log('resetNeeded')
     this.$store.commit('options/updateResetFilter', 'resetNeeded')
     this.showHideDetails()
   },
@@ -183,6 +182,8 @@ export default {
         durationMin,
         durationMax,
       })
+
+      this.$store.commit('options/updateLimits', true)
     },
     showHideDetails() {
       if (this.isMobile) {
@@ -202,7 +203,6 @@ export default {
       this.isMobile = window.innerWidth < 987
     },
     async fetchOffers(loadOthers = true, firstLoad = false) {
-      console.log('FETCH')
       const productLabel = this.categories.find(
         (c) => c.slug === this.selectedNav
       )
@@ -257,8 +257,6 @@ export default {
           this.loading['others'] = false
         }
       }
-
-      this.getLimits()
     },
     taeg(value) {
       return value.split(' &agrave; ')
@@ -284,16 +282,13 @@ export default {
       this.$store.commit('options/updateResetFilter', 'resetNeeded')
     },
     async resetFilter(value) {
-      console.log(value, 'reset')
       if (value === 'resetDone') {
-        console.log('Reset done')
         await this.fetchOffers(true, true)
-        console.log('get Limits')
         this.getLimits()
+        this.$store.commit('options/updateResetFilter', '')
       }
     },
     userInteraction: debounce(function () {
-      console.log('HO')
       this.fetchOffers()
       this.$store.commit('options/updateUserInteraction', {
         userInteraction: false,

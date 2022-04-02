@@ -29,7 +29,6 @@
         class="hidden md:block"
         v-model="selectedMonths"
         :min="durationMin"
-        :step="1"
         :max="durationMax"
         title="Durée"
         type=" mois"
@@ -73,7 +72,6 @@
             class="w-full"
             v-model="selectedMonths"
             :min="durationMin"
-            :step="1"
             :max="durationMax"
             title="Durée"
             type=" mois"
@@ -93,8 +91,6 @@ export default {
   components: { Select, Slider },
   data() {
     return {
-      fixedAmount: false,
-      fixedDuration: false,
       selectedCategory: this.$route.path.slice(1),
       selectedSort: '',
       selectedMonths: 60,
@@ -146,20 +142,9 @@ export default {
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     },
     updateDuration() {
-      console.log('Update duration limits')
-      console.log('Lock duration')
-
-      this.$store.commit('options/updateLockValue', {
-        Durée: true,
-      })
-      this.selectedDuration = (this.durationMax - this.durationMin) / 2
+      this.selectedMonths = (this.durationMax - this.durationMin) / 2
     },
     updateAmount() {
-      console.log('Update amount limits')
-      console.log('Lock amount')
-      this.$store.commit('options/updateLockValue', {
-        Montant: true,
-      })
       this.selectedAmount = (this.amountMax - this.amountMin) / 2
     },
   },
@@ -167,35 +152,20 @@ export default {
     this.selectedSort = this.sorts[0].id
   },
   watch: {
-    resetFilter(value) {
-      if (value === 'resetNeeded') {
-        console.log('Reset selected value')
-        console.log('Lock values')
-        this.$store.commit('options/updateLockValue', {
-          Montant: true,
-          Durée: true,
-        })
-        this.fixedAmount = true
-        this.fixedDuration = true
-        this.selectedMonths = 0
-        this.selectedAmount = 0
-        this.fixedAmount = false
-        this.fixedDuration = false
-        console.log('Unlock values')
-        this.$store.commit('options/updateResetFilter', 'resetDone')
+    updateLimits(val) {
+      if (val) {
+        this.updateDuration()
+        this.updateAmount()
+        this.$store.commit('options/updateLimits', false)
       }
     },
-    amountMax() {
-      this.updateAmount()
-    },
-    amountMin() {
-      this.updateAmount()
-    },
-    durationMax() {
-      this.updateDuration()
-    },
-    durationMin() {
-      this.updateDuration()
+    resetFilter(value) {
+      if (value === 'resetNeeded') {
+        this.selectedMonths = 0
+        this.selectedAmount = 0
+        this.$store.commit('options/updatePass', true)
+        this.$store.commit('options/updateResetFilter', 'resetDone')
+      }
     },
     selectedSort(val) {
       this.$store.commit('options/updateSort', {
@@ -215,6 +185,9 @@ export default {
     },
   },
   computed: {
+    updateLimits() {
+      return this.$store.getters['options/getUpdateLimits']
+    },
     resetFilter() {
       return this.$store.getters['options/getResetFilter']
     },

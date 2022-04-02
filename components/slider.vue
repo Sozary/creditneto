@@ -29,38 +29,38 @@ export default {
     title: { type: String, default: '' },
     type: { type: String, default: '' },
     format: { type: Function, default: (v) => v },
-    fixedValue: { type: Boolean, default: false },
     value: {
       type: Number,
     },
+  },
+  data() {
+    return {
+      pass: 2,
+    }
   },
   watch: {
     value(value) {
       this.selectedValue = value
     },
-    fixedValue(val) {
-      console.log(val, 'enfin')
+    getPass(value) {
+      if (value) {
+        this.pass = 2
+        this.$store.commit('options/updatePass', false)
+      }
     },
     selectedValue(val) {
       this.$emit('input', parseInt(val))
-      console.log(
-        JSON.parse(JSON.stringify(this.$store.getters['options/getLockValue']))
-      )
-      if (!this.lockValue) {
-        console.log(`for ${val}, with ${this.fixedValue}`)
+      if (this.pass === 0) {
         this.$store.commit('options/updateUserInteraction', {
           userInteraction: true,
         })
-      } else {
-        this.$store.commit('nav/updateLockValue', {
-          [this.title]: false,
-        })
       }
+      this.pass--
     },
   },
   computed: {
-    lockValue() {
-      return this.$store.getters['options/getLockValue'][this.title]
+    getPass() {
+      return this.$store.getters['options/getPass']
     },
     computedStep() {
       return this.step || (this.max - this.min) / 100
