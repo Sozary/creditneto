@@ -44,6 +44,7 @@ export default {
   },
   methods: {
     home() {
+      this.$router.push('/')
       this.$store.commit('nav/updateSelectedNav', '')
     },
     showMenu() {
