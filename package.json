@@ -1,0 +1,48 @@
+{
+  "name": "overhaul",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "invoke": "netlify functions:invoke --port 9000",
+    "generate": "nuxt generate; ./update_s3.sh",
+    "lint:prettier": "prettier --check .",
+    "lint": "yarn lint:prettier",
+    "lintfix": "prettier --write --list-yfferent ."
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-brands-svg-icons": "^5.15.4",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/vue-fontawesome": "^2.0.6",
+    "@nuxtjs/axios": "^5.13.6",
+    "autoprefixer": "^9",
+    "debounce": "^1.2.1",
+    "dotenv": "^16.0.0",
+    "mysql": "^2.18.1",
+    "nuxt": "^2.15.8",
+    "nuxt-fontawesome": "^0.4.0",
+    "postcss-calc": "7.0.2",
+    "postcss-clean": "1.1.0",
+    "postcss-flexbugs-fixes": "4.2.1",
+    "postcss-for": "^2.1.1",
+    "postcss-import": "12.0.1",
+    "postcss-momentum-scrolling": "2.8.20",
+    "postcss-nested": "4.2.1",
+    "vue": "^2.6.14",
+    "vue-clickaway": "^2.2.2",
+    "vue-lodash": "^2.1.2",
+    "vue-server-renderer": "^2.6.14",
+    "vue-template-compiler": "^2.6.14",
+    "vue2-animate": "^2.1.4",
+    "webpack": "^4.46.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/google-analytics": "^2.4.0",
+    "@nuxtjs/tailwindcss": "^5.0.2",
+    "eslint-config-prettier": "^8.3.0",
+    "prettier": "^2.5.1"
+  }
+}

@@ -1,0 +1,225 @@
+.c-footer {
+  .-show-menu & {
+    @media (--below-md) {
+      display: none;
+    }
+  }
+  .-show-calculate & {
+    @media (--below-md) {
+      display: none;
+    }
+  }
+  padding: 0 60px 60px 60px;
+  background-color: #ececec;
+  display: grid;
+  @media (--md) {
+    grid-gap: 10px;
+  }
+  @media (--below-md) {
+    padding: 0 30px 5px 30px;
+  }
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  grid-template-areas:
+    '.        .           logo      logo      .         .      '
+    '.        copyright   copyright copyright copyright .      '
+    'nav-1    nav-2       nav-3     nav-4     nav-5     nav-6  '
+    'belgium  netherlands france    contact   contact   contact'
+    'pre-info pre-info    .         .         .         .      '
+    'info-1   info-1      network   network   info-2    info-2 ';
+
+  @media (--below-md) {
+    grid-template-areas:
+      'logo logo'
+      'pre-info pre-info'
+      'info-1 info-1'
+      'countries countries'
+      'contact contact'
+      'nav-1 nav-2'
+      'nav-3 nav-4'
+      'nav-5 nav-6'
+      'info-2 info-2'
+      'network network'
+      'copyright copyright';
+  }
+  &-logo {
+    grid-area: logo;
+    margin: 24px 0 11px;
+    justify-self: center;
+  }
+  &-copyright {
+    justify-self: center;
+    font-size: 15px;
+    grid-area: copyright;
+    margin-bottom: 31px;
+    @media (--below-md) {
+      font-size: 7px;
+      margin-bottom: 0px;
+    }
+  }
+  @for $i from 1 to 6 {
+    &-nav-$i {
+      font-size: 15px;
+      grid-area: nav-$i;
+      padding: 5px;
+      &:nth-child(odd) {
+        @media (--below-md) {
+          justify-self: flex-end;
+        }
+      }
+      @media (--below-md) {
+        margin: -3px 0 -3px;
+        width: 138px;
+      }
+      span {
+        @media (--below-md) {
+          margin: 5px 0 5px;
+          font-size: 10px;
+        }
+        text-overflow: ellipsis;
+        max-width: 100%;
+        display: inline-block;
+        white-space: nowrap;
+        cursor: pointer;
+        overflow: hidden;
+        transition: all 0.1s ease-in-out;
+        &:hover {
+          transform: scale(1.03);
+        }
+        &:before {
+          vertical-align: -25%;
+          content: '';
+          margin-right: 9px;
+          display: inline-block;
+          height: 15px;
+          width: 15px;
+          background-image: url('/assets/icons/chevron-right.svg');
+        }
+      }
+    }
+  }
+  [class^='c-footer-country-'] {
+    margin: 34px 0 27px;
+    font-size: 15px;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  &-countries {
+    a {
+      @media (--below-md) {
+        text-decoration: none;
+        color: inherit;
+      }
+    }
+    @media (--below-md) {
+      grid-area: countries;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      display: inline-block;
+      white-space: nowrap;
+      cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      justify-content: space-around;
+      font-size: 8px;
+      margin: 22px 0 16px;
+      font-weight: bold;
+    }
+  }
+  &-country {
+    &-belgium {
+      grid-area: belgium;
+    }
+    &-france {
+      grid-area: france;
+    }
+    &-netherlands {
+      grid-area: netherlands;
+    }
+  }
+  &-contact {
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: inline-block;
+    justify-self: center;
+    white-space: nowrap;
+    cursor: pointer;
+    overflow: hidden;
+    margin: 34px 0 27px;
+    @media (--below-md) {
+      font-size: 8px;
+      justify-self: center;
+      margin-top: 0;
+    }
+    font-size: 15px;
+    font-weight: bold;
+    grid-area: contact;
+  }
+  &-network {
+    @media (--md) {
+      margin-top: 61px;
+    }
+    justify-self: center;
+    grid-area: network;
+    color: #1ab16a;
+    > svg {
+      @media (--below-md) {
+        width: 25px;
+        height: 25px;
+        margin-bottom: 11px;
+      }
+      width: 40px !important;
+      height: 40px;
+      &:first-of-type {
+        @media (--md) {
+          margin-right: 30px;
+        }
+      }
+      &:last-of-type {
+        @media (--md) {
+          margin-left: 30px;
+        }
+      }
+      transition: all 0.1s ease-in-out;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+  [class^='c-footer-info-'] {
+    font-size: 15px;
+    @media (--below-md) {
+      font-size: 8px;
+    }
+    font-weight: 300;
+  }
+  &-pre-info {
+    font-size: 15px;
+    font-weight: 300;
+    grid-area: pre-info;
+    margin-bottom: 0;
+    @media (--below-md) {
+      font-weight: bold;
+      font-size: 8px;
+    }
+  }
+  &-info-1 {
+    margin-top: 0;
+    grid-area: info-1;
+  }
+  &-info-2 {
+    @media (--below-md) {
+      text-align: left;
+    }
+    text-align: right;
+    grid-area: info-2;
+  }
+}

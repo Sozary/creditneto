@@ -1,0 +1,124 @@
+.c-select {
+  .-show-calculate & {
+    @media (--below-md) {
+      display: none;
+    }
+  }
+  @media (--below-xs) {
+    width: auto;
+  }
+  width: 188px;
+  &-box {
+    border-radius: 9px;
+    border: 1px solid #111111a3;
+    max-height: 33px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &-label {
+      overflow: hidden;
+      line-height: 33px;
+      display: inline-block;
+      white-space: nowrap;
+      font-size: 14px;
+      font-family: 'Roboto';
+      text-overflow: ellipsis;
+      padding: 6px 15px 6px 15px;
+    }
+    &-icons {
+      display: flex;
+      margin-right: 5px;
+      img {
+        width: 9px;
+        height: 9px;
+        padding: 6px;
+      }
+      &-toggle {
+        transition: transform 0.3s linear;
+        transform: rotate(180deg);
+        &.-active {
+          transform: rotate(0deg);
+        }
+      }
+    }
+  }
+  .slide-enter-active {
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in;
+  }
+  .slide-leave-active {
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in;
+  }
+  .slide-enter-to,
+  .slide-leave {
+    opacity: 1;
+    overflow: hidden;
+    transform: translateY(15px);
+  }
+
+  .slide-enter,
+  .slide-leave-to {
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(0px);
+  }
+  &-options {
+    transform: translateY(15px);
+    background-color: #fff;
+    overflow: hidden;
+    position: absolute;
+    z-index: 100;
+    border-radius: 8px;
+    border: 1px solid #111111a3;
+    width: 188px;
+    &-option {
+      &.-selected {
+        background-color: #e0dede;
+        img {
+          display: block;
+        }
+      }
+      &:first-of-type {
+        margin-top: 16px;
+      }
+      &:last-of-type {
+        margin-bottom: 21px;
+      }
+      img {
+        display: none;
+      }
+      transition: background-color 0.1s linear;
+      cursor: pointer;
+      &:hover {
+        background-color: #e0dede;
+      }
+      display: flex;
+      justify-content: space-between;
+      padding: 3px 15px 3px 17px;
+      span {
+        font-family: 'Roboto';
+        font-size: 14px;
+      }
+      img {
+        width: 15px;
+        height: 15px;
+      }
+    }
+    @keyframes slide-bottom {
+      0% {
+        height: 0px;
+        transform: translateY(0);
+        opacity: 0;
+      }
+      1% {
+        height: 279px;
+      }
+      100% {
+        transform: translateY(10px);
+        opacity: 1;
+      }
+    }
+  }
+}

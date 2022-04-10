@@ -1,0 +1,87 @@
+.c-nav {
+  .-show-menu & {
+    @media (--below-md) {
+      display: flex;
+      justify-content: center;
+      height: calc(100vh - 82px);
+      align-items: center;
+      overflow: scroll;
+      transform: translateX(0px);
+    }
+  }
+  @media (--below-md) {
+    position: absolute;
+    width: 100%;
+  }
+  &-items {
+    .-show-menu & {
+      @media (--below-md) {
+        display: inline-block;
+      }
+    }
+    display: flex;
+    flex-direction: row;
+    @media (--below-md) {
+      display: none;
+      flex-direction: column;
+    }
+    &-item {
+      flex: 1 1 0;
+      &:before {
+        @media (--below-md) {
+          content: url('/assets/icons/arrow-right.svg');
+          margin-right: 11px;
+        }
+      }
+      @media (--below-md) {
+        height: 40px;
+        font-weight: 300;
+        justify-content: normal;
+        font-size: 20px;
+        text-align: left;
+        background: #efefef;
+      }
+      @media (--below-lg) {
+        font-size: 12px;
+      }
+      justify-content: center;
+      height: 50px;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+      text-align: center;
+      font-weight: bold;
+      cursor: pointer;
+      transition: clip-path 0.1s linear;
+      border-bottom: solid 3px var(--color-green);
+      clip-path: polygon(
+        0 0,
+        100% 0,
+        calc(100%) calc(100% - 4px),
+        0% calc(100% - 4px)
+      );
+      &:hover {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
+      &:nth-child(even) {
+        transition: all 0.3s ease-in-out;
+        @media (--below-md) {
+          background: #efefef;
+        }
+        background-color: #e9e5e5;
+      }
+      &:nth-child(odd) {
+        transition: all 0.3s ease-in-out;
+        @media (--below-md) {
+          background: #efefef;
+        }
+        background-color: #e0dede;
+      }
+      &.-active {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
+    }
+  }
+}

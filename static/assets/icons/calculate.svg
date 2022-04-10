@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="137" height="31" viewBox="0 0 137 31">
+  <g id="Groupe_7" data-name="Groupe 7" transform="translate(-38 -83)">
+    <text id="Calculer" transform="translate(78 89)" fill="#a1b3bd" font-size="13" font-family="Montserrat-SemiBold, Montserrat" font-weight="600"><tspan x="0" y="13">Calculer</tspan></text>
+    <g id="calculate_black_24dp" transform="translate(38 83.313)">
+      <g id="Groupe_4" data-name="Groupe 4">
+        <rect id="Rectangle_557" data-name="Rectangle 557" width="31" height="31" transform="translate(0 -0.313)" fill="none"/>
+      </g>
+      <g id="Groupe_6" data-name="Groupe 6" transform="translate(3.836 3.836)">
+        <g id="Groupe_5" data-name="Groupe 5">
+          <path id="Tracé_3231" data-name="Tracé 3231" d="M23.458,3H5.557A2.565,2.565,0,0,0,3,5.557v17.9a2.565,2.565,0,0,0,2.557,2.557h17.9a2.565,2.565,0,0,0,2.557-2.557V5.557A2.565,2.565,0,0,0,23.458,3Zm0,20.458H5.557V5.557h17.9Z" transform="translate(-3 -3)" fill="#1ab16a"/>
+          <rect id="Rectangle_558" data-name="Rectangle 558" width="6.393" height="1.918" transform="translate(4.156 6.035)" fill="#1ab16a"/>
+          <rect id="Rectangle_559" data-name="Rectangle 559" width="6.393" height="1.918" transform="translate(12.786 16.303)" fill="#1ab16a"/>
+          <rect id="Rectangle_560" data-name="Rectangle 560" width="6.393" height="1.918" transform="translate(12.786 13.106)" fill="#1ab16a"/>
+          <path id="Tracé_3232" data-name="Tracé 3232" d="M8.557,19.533h1.918V16.975h2.557V15.057H10.475V12.5H8.557v2.557H6v1.918H8.557Z" transform="translate(-2.164 -0.353)" fill="#1ab16a"/>
+          <path id="Tracé_3233" data-name="Tracé 3233" d="M14.385,12.329l1.8-1.8,1.8,1.8,1.355-1.355-1.8-1.816,1.8-1.8L17.991,6l-1.8,1.8L14.385,6,13.03,7.355l1.8,1.8-1.8,1.816Z" transform="translate(-0.205 -2.164)" fill="#1ab16a"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

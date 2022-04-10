@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@custom-media --below-md (width < 970px);
+
+@layer base {
+  @font-face {
+    font-family: 'Helvetica Neue';
+    src: url('/assets/fonts/helvetica-neue-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Montserrat';
+    src: url('/assets/fonts/montserrat-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Montserrat';
+    src: url('/assets/fonts/montserrat-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Montserrat';
+    src: url('/assets/fonts/montserrat-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Montserrat';
+    src: url('/assets/fonts/montserrat-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Roboto';
+    src: url('/assets/fonts/roboto-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+}
+
+@layer components {
+  .min-viewport {
+    min-height: calc(100vh - 621px);
+  }
+  .loan-item {
+    box-shadow: 0px 3px 20px #04228e1a;
+  }
+  .selected-shadow {
+    box-shadow: 0px 3px 0px 0px #1ab16a;
+  }
+  .one-line {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+  .two-lines {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  .slider {
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 3px;
+
+    background: #d3d3d3;
+    outline: none;
+    @media (--below-md) {
+      height: 6px;
+    }
+    border-radius: 2px;
+    &::-moz-range-progress {
+      border-radius: 2px;
+      @media (--below-md) {
+        height: 6px;
+      }
+      background: #1ab16a;
+    }
+    &::-moz-range-thumb {
+      @media (--below-md) {
+        width: 20px;
+        height: 20px;
+      }
+      width: 13px;
+      height: 13px;
+      border-radius: 100%;
+      background: #1ab16a;
+      cursor: pointer;
+      border: none;
+    }
+    &::-webkit-slider-thumb {
+      @media (--below-md) {
+        width: 26px;
+        height: 26px;
+      }
+      width: 13px;
+      height: 13px;
+      border-radius: 100%;
+      background: #1ab16a;
+      cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
+      border: none;
+    }
+  }
+}
