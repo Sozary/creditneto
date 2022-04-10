@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/credit-consommation", {data:[{}],fetch:{},mutations:[["nav\u002FupdateSelectedNav","credit-consommation"]]});

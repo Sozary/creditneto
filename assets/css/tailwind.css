@@ -54,6 +54,9 @@
 }
 
 @layer components {
+  .min-viewport {
+    min-height: calc(100vh - 621px);
+  }
   .loan-item {
     box-shadow: 0px 3px 20px #04228e1a;
   }

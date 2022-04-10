@@ -36,24 +36,34 @@ async function addCustomerLine(connection, product, ip) {
   )
   return { status: 200 }
 }
-async function fetchTypes(connection) {
-  var response
+
+async function fetchProducts(connection, product, filters) {
+  var type
   try {
-    response = await query(connection, 'SELECT * FROM types')
+    type = await query(
+      connection,
+      'SELECT type_n FROM type WHERE type_slug=?',
+      [product]
+    )
   } catch (error) {
     throw error
   }
+  type = type[0].type_n
 
-  return response
-}
-async function fetchOthers(connection, filters) {
-  const params = []
-  let filtersChain = generateQuery(filters, params)
+  let filtersChain = ''
+  const params = [type]
+
+  Object.keys(filters).forEach((k) => {
+    if (filters[k]['value'] !== null) {
+      filtersChain += ` AND ${k}${filters[k]['operator']}?`
+      params.push(filters[k]['value'])
+    }
+  })
   var response
   try {
     response = await query(
       connection,
-      'SELECT * FROM produit WHERE promo=1 OR type=99 ' + filtersChain,
+      'SELECT * FROM produit WHERE type=? ' + filtersChain,
       params
     )
   } catch (error) {
@@ -73,27 +83,14 @@ function generateQuery(filters, params) {
   })
   return filtersChain
 }
-
-async function fetchProducts(connection, product, filters) {
-  var type
-  try {
-    type = await query(
-      connection,
-      'SELECT type_n FROM type WHERE type_slug=?',
-      [product]
-    )
-  } catch (error) {
-    throw error
-  }
-  type = type[0].type_n
-
-  const params = [type]
+async function fetchOthers(connection, filters) {
+  const params = []
   let filtersChain = generateQuery(filters, params)
   var response
   try {
     response = await query(
       connection,
-      'SELECT * FROM produit WHERE type=? ' + filtersChain,
+      'SELECT * FROM produit WHERE promo=1 OR type=99 ' + filtersChain,
       params
     )
   } catch (error) {
@@ -102,10 +99,20 @@ async function fetchProducts(connection, product, filters) {
 
   return response
 }
-
-const handler = async (event) => {
+async function fetchTypes(connection) {
+  var response
   try {
-    const payload = JSON.parse(event.body)
+    response = await query(connection, 'SELECT * FROM types')
+  } catch (error) {
+    throw error
+  }
+
+  return response
+}
+
+const handler = async (payload, context) => {
+  try {
+    context.callbackWaitsForEmptyEventLoop = false
     if ((payload.product && (payload.filters || payload.ip)) || payload.types) {
       const connection = await getConnection()
       let data
@@ -125,6 +132,7 @@ const handler = async (event) => {
         data = await fetchTypes(connection)
       }
       await connection.end()
+
       return {
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -132,7 +140,7 @@ const handler = async (event) => {
           'Access-Control-Allow-Methods': 'POST',
         },
         statusCode: 200,
-        body: JSON.stringify({ body: data, statusCode: 200 }),
+        body: data,
       }
     }
   } catch (error) {

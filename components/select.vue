@@ -70,7 +70,7 @@ export default {
   computed: {
     selectDisplay() {
       return this.selectedValue
-        ? this.items.find((i) => i.id === this.selectedValue).label
+        ? this.items.find((i) => i?.id === this.selectedValue)?.label
         : this.defaultValue
     },
   },

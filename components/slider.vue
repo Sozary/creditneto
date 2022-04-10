@@ -33,11 +33,6 @@ export default {
       type: Number,
     },
   },
-  data() {
-    return {
-      pass: 2,
-    }
-  },
   watch: {
     value(value) {
       this.selectedValue = value
@@ -54,8 +49,9 @@ export default {
         this.$store.commit('options/updateUserInteraction', {
           userInteraction: true,
         })
+      } else {
+        this.pass--
       }
-      this.pass--
     },
   },
   computed: {
@@ -70,7 +66,7 @@ export default {
     },
   },
   data() {
-    return { selectedValue: this.value }
+    return { selectedValue: this.value, pass: 2 }
   },
 }
 </script>

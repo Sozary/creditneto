@@ -91,7 +91,7 @@ export default {
   components: { Select, Slider },
   data() {
     return {
-      selectedCategory: this.$route.path.slice(1),
+      selectedCategory: this.$route.path.replace(/\//g, ''),
       selectedSort: '',
       selectedMonths: 60,
       selectedAmount: 100000,
@@ -204,7 +204,7 @@ export default {
       return this.$store.getters['options/getDurationMax']
     },
     selectedNav() {
-      return this.$store.getters['nav/selectedNav']
+      return this.$store.getters['nav/selectedNav'].replace(/\//g, '')
     },
     showCalculate() {
       return this.$store.getters['nav/showCalculate']

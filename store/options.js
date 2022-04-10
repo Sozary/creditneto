@@ -15,7 +15,7 @@ export const mutations = {
   updateResetFilter(state, value) {
     state.resetFilter = value
   },
-  updatPass(state, value) {
+  updatePass(state, value) {
     state.pass = value
   },
   updateLimits(state, value) {

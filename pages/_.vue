@@ -1,9 +1,9 @@
 <template>
-  <div :class="{ '-home': selectedNav === '' && isDesktop }">
+  <div>
     <Options />
-    <transition name="fade" mode="out-in">
-      <Home v-if="selectedNav === '' && isDesktop" />
-      <Loan v-else />
+    <transition name="fade">
+      <Loan v-if="selectedNav !== ''" class="min-viewport" />
+      <Home v-if="isDesktop && selectedNav === ''" class="min-viewport" />
     </transition>
     <CookieConsent />
   </div>

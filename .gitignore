@@ -90,3 +90,5 @@ sw.*
 
 # Local Netlify folder
 .netlify
+
+dist/

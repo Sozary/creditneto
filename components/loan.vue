@@ -5,137 +5,135 @@
     >
       Annonces:
     </span>
-    <div class="c-loan-offers">
-      <Loader
-        v-for="(type, index) in [active, others]"
-        mode="fit"
-        :key="index"
-        :loading="loading[['active', 'others'][index]]"
-        custom-class-container="mb-2 mt-1.5"
-        custom-class="mb-2 flex loan-item rounded-[50px] justify-between overflow-hidden no-underline h-10 md:h-[50px] group"
-        :type="['active', 'others'][index]"
-        :items="type"
-      >
-        <template v-slot:default="{ item }">
-          <div class="flex justify-center items-center">
-            <img
-              :src="'/assets' + item.url_logo"
-              class="h-5 mr-3.5 ml-1.5 w-16 md:w-28 md:h-9 md:mr-1.5"
-            />
+    <Loader
+      v-for="(type, index) in [active, others]"
+      mode="fit"
+      :key="index"
+      :loading="loading[['active', 'others'][index]]"
+      custom-class-container="mb-2 mt-1.5"
+      custom-class="mb-2 flex loan-item rounded-[50px] justify-between overflow-hidden no-underline h-10 md:h-[50px] group"
+      :type="['active', 'others'][index]"
+      :items="type"
+    >
+      <template v-slot:default="{ item }">
+        <div class="flex justify-center items-center">
+          <img
+            :src="'/assets' + item.url_logo"
+            class="h-5 mr-3.5 ml-1.5 w-16 md:w-28 md:h-9 md:mr-1.5"
+          />
+        </div>
+        <div
+          class="text-center items-center md:max-w-[104px] md:px-2 md:flex hidden"
+        >
+          <div class="font-montserrat text-[10px] font-bold text-black">
+            TAEG
+            <span v-if="taeg(item.taeg)[0] !== 'n.d.'" class="font-normal">
+              de
+              <span class="font-bold">{{ taeg(item.taeg)[0] }}</span>
+              à
+              <span class="font-bold">{{ taeg(item.taeg)[1] }}</span>
+            </span>
+            <span v-else>{{ taeg(item.taeg)[0] }}</span>
           </div>
-          <div
-            class="text-center items-center md:max-w-[104px] md:px-2 md:flex hidden"
-          >
-            <div class="font-montserrat text-[10px] font-bold text-black">
+        </div>
+        <div
+          class="flex items-center flex-grow md:max-w-[380px]"
+          v-if="showExample && item.exemple !== ''"
+        >
+          <span
+            v-html="item.exemple"
+            class="text-dark-grey text-[6px] md:text-[9px] font-helvetica"
+          />
+        </div>
+        <div
+          class="flex flex-col flex-grow my-1 justify-center text-[7px] md:text-[13px] md:min-w-[300px]"
+          v-if="showData || !item.exemple"
+        >
+          <div class="flex mb-0.5">
+            <font-awesome-icon
+              :icon="['fas', 'euro-sign']"
+              class="text-green w-2 md:w-3.5 mr-1.5"
+            />
+            <div
+              class="font-bold font-montserrat text-black md:one-line lg:one-line"
+            >
+              Montant : Min
+              <span
+                class="text-green"
+                v-html="formatCurrency(item.montant_min)"
+              />
+              - Max
+              <span
+                class="text-green"
+                v-html="formatCurrency(item.montant_max)"
+              />
+            </div>
+          </div>
+          <div class="flex mb-0.5">
+            <font-awesome-icon
+              :icon="['fas', 'calendar']"
+              class="text-green w-2 md:w-3.5 mr-1.5"
+            />
+            <div
+              class="font-bold font-montserrat text-black md:one-line lg:one-line"
+            >
+              Durée : Min
+              <span class="text-green" v-html="item.duree_min + ' mois'" />
+              - Max
+              <span class="text-green" v-html="item.duree_max + ' mois'" />
+            </div>
+          </div>
+          <div class="flex mb-0.5 md:hidden">
+            <font-awesome-icon
+              :icon="['fas', 'percent']"
+              class="text-green w-2 mr-1.5"
+            />
+            <div class="font-bold font-montserrat text-black">
               TAEG
               <span v-if="taeg(item.taeg)[0] !== 'n.d.'" class="font-normal">
                 de
-                <span class="font-bold">{{ taeg(item.taeg)[0] }}</span>
+                <span class="font-bold text-green">{{
+                  taeg(item.taeg)[0]
+                }}</span>
                 à
-                <span class="font-bold">{{ taeg(item.taeg)[1] }}</span>
+                <span class="font-bold text-green">{{
+                  taeg(item.taeg)[1]
+                }}</span>
               </span>
               <span v-else>{{ taeg(item.taeg)[0] }}</span>
             </div>
           </div>
-          <div
-            class="flex items-center flex-grow md:max-w-[380px]"
-            v-if="showExample && item.exemple !== ''"
-          >
-            <span
-              v-html="item.exemple"
-              class="text-dark-grey text-[6px] md:text-[9px] font-helvetica"
-            />
-          </div>
-          <div
-            class="flex flex-col flex-grow my-1 justify-center text-[7px] md:text-[13px] md:min-w-[300px]"
-            v-if="showData || !item.exemple"
-          >
-            <div class="flex mb-0.5">
-              <font-awesome-icon
-                :icon="['fas', 'euro-sign']"
-                class="text-green w-2 md:w-3.5 mr-1.5"
-              />
-              <div
-                class="font-bold font-montserrat text-black md:one-line lg:one-line"
-              >
-                Montant : Min
-                <span
-                  class="text-green"
-                  v-html="formatCurrency(item.montant_min)"
-                />
-                - Max
-                <span
-                  class="text-green"
-                  v-html="formatCurrency(item.montant_max)"
-                />
-              </div>
-            </div>
-            <div class="flex mb-0.5">
-              <font-awesome-icon
-                :icon="['fas', 'calendar']"
-                class="text-green w-2 md:w-3.5 mr-1.5"
-              />
-              <div
-                class="font-bold font-montserrat text-black md:one-line lg:one-line"
-              >
-                Durée : Min
-                <span class="text-green" v-html="item.duree_min + ' mois'" />
-                - Max
-                <span class="text-green" v-html="item.duree_max + ' mois'" />
-              </div>
-            </div>
-            <div class="flex mb-0.5 md:hidden">
-              <font-awesome-icon
-                :icon="['fas', 'percent']"
-                class="text-green w-2 mr-1.5"
-              />
-              <div class="font-bold font-montserrat text-black">
-                TAEG
-                <span v-if="taeg(item.taeg)[0] !== 'n.d.'" class="font-normal">
-                  de
-                  <span class="font-bold text-green">{{
-                    taeg(item.taeg)[0]
-                  }}</span>
-                  à
-                  <span class="font-bold text-green">{{
-                    taeg(item.taeg)[1]
-                  }}</span>
-                </span>
-                <span v-else>{{ taeg(item.taeg)[0] }}</span>
-              </div>
-            </div>
-          </div>
-          <div
-            class="bg-green flex justify-center items-center w-16 py-2.5 px-1.5 md:px-6 group-hover:bg-dark-green transition-all"
-          >
-            <span
-              class="uppercase text-white text-[11px] md:text-base font-bold font-montserrat"
-            >
-              Simuler
-            </span>
-          </div>
-        </template>
-        <template
-          v-slot:no-data
-          v-if="
-            ![active, others][index].length &&
-            !loading[['active', 'others'][index]]
-          "
+        </div>
+        <div
+          class="bg-green flex justify-center items-center w-16 py-2.5 px-1.5 md:px-6 group-hover:bg-dark-green transition-all"
         >
-          <span class="text-black text-sm font-bold font-montserrat">
-            <!-- Aucune offre disponible -->
+          <span
+            class="uppercase text-white text-[11px] md:text-base font-bold font-montserrat"
+          >
+            Simuler
           </span>
-        </template>
-        <template v-slot:footer v-if="index === 0">
-          <span class="text-black text-sm font-bold font-montserrat">
-            Autres crédits disponibles:
-          </span>
-        </template>
-        <template v-slot:loading>
-          <CubeGrid />
-        </template>
-      </Loader>
-    </div>
+        </div>
+      </template>
+      <template
+        v-slot:no-data
+        v-if="
+          ![active, others][index].length &&
+          !loading[['active', 'others'][index]]
+        "
+      >
+        <span class="text-black text-sm font-bold font-montserrat">
+          <!-- Aucune offre disponible -->
+        </span>
+      </template>
+      <template v-slot:footer v-if="index === 0">
+        <span class="text-black text-sm font-bold font-montserrat">
+          Autres crédits disponibles:
+        </span>
+      </template>
+      <template v-slot:loading>
+        <CubeGrid />
+      </template>
+    </Loader>
   </div>
 </template>
 <script>
@@ -206,6 +204,8 @@ export default {
       const productLabel = this.categories.find(
         (c) => c.slug === this.selectedNav
       )
+      console.log(this.categories, this.selectedNav)
+      console.log(productLabel)
       if (!productLabel) {
         this.$router.push('/')
         this.$store.commit('nav/updateSelectedNav', '')
@@ -245,13 +245,16 @@ export default {
         params.others = true
         others = await this.$axios.$post(this.apiLink, params)
       }
-
+      console.log(active)
       if (active.statusCode === 200) {
         this.active = active.body
         this.loading['active'] = false
+        console.log(this.sort.sortFn(this.active))
         this.active = this.sort.sortFn(this.active)
+        console.log(this.active)
       }
       if (loadOthers) {
+        console.log(others)
         if (others.statusCode === 200) {
           this.others = others.body
           this.loading['others'] = false
@@ -288,11 +291,13 @@ export default {
         this.$store.commit('options/updateResetFilter', '')
       }
     },
-    userInteraction: debounce(function () {
-      this.fetchOffers()
-      this.$store.commit('options/updateUserInteraction', {
-        userInteraction: false,
-      })
+    userInteraction: debounce(async function () {
+      if (this.userInteraction) {
+        await this.fetchOffers(false)
+        this.$store.commit('options/updateUserInteraction', {
+          userInteraction: false,
+        })
+      }
     }, 500),
     sort() {
       this.active = this.sort.sortFn(this.active)
@@ -321,7 +326,7 @@ export default {
       return this.$store.getters['nav/categories']
     },
     selectedNav() {
-      return this.$store.getters['nav/selectedNav']
+      return this.$store.getters['nav/selectedNav'].replace(/\//g, '')
     },
   },
 }
