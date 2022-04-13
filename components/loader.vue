@@ -20,7 +20,7 @@
       <span class="text-black text-sm font-bold font-montserrat"
         >Voir plus d’offres de crédit</span
       >
-      <img src="/assets/icons/load-more.svg" class="w-9 cursor-pointer" />
+      <img src="/assets/icons/load-more.svg" class="w-9" />
     </div>
     <div class="text-center">
       <slot name="no-data" />

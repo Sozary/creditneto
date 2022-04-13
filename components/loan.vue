@@ -41,7 +41,7 @@
         >
           <span
             v-html="item.exemple"
-            class="text-dark-grey text-[6px] md:text-[9px] font-montserrat"
+            class="text-dark-grey text-[6px] md:text-[9px] font-montserrat three-lines"
           />
         </div>
         <div
@@ -270,6 +270,7 @@ export default {
       interval: null,
       addClass: false,
       active: [],
+      interactedAlready: 0,
       others: [],
       loading: { active: false, others: false },
       isMobile: false,
@@ -287,12 +288,14 @@ export default {
       }
     },
     userInteraction: debounce(async function () {
-      if (this.userInteraction) {
+      if (this.interactedAlready < 2) {
+        this.interactedAlready++
+      } else {
         await this.fetchOffers(false)
-        this.$store.commit('options/updateUserInteraction', {
-          userInteraction: false,
-        })
       }
+      this.$store.commit('options/updateUserInteraction', {
+        userInteraction: false,
+      })
     }, 500),
     sort() {
       this.active = this.sort.sortFn(this.active)
