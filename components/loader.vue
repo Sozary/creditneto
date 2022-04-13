@@ -46,6 +46,13 @@ export default {
     window.addEventListener('scroll', this.scrollBehavior)
     this.scrollBehavior()
   },
+  watch: {
+    items() {
+      this.$nextTick(() => {
+        this.scrollBehavior()
+      })
+    },
+  },
   methods: {
     scrollBehavior() {
       const element = this.$refs['items']

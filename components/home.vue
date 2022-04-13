@@ -21,7 +21,6 @@
           v-for="category in categories"
           :key="category.slug"
           :href="'/' + category.slug"
-          @click.native="updateSelectedNav(category.slug)"
         >
           <div
             class="absolute w-40 h-40 bg-home-green-light left-1/2 bottom-[40%] rounded-[50%]"
@@ -40,11 +39,6 @@ export default {
   computed: {
     categories() {
       return this.$store.getters['nav/categories']
-    },
-  },
-  methods: {
-    updateSelectedNav(slug) {
-      this.$store.commit('nav/updateSelectedNav', slug)
     },
   },
 }

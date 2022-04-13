@@ -1,5 +1,4 @@
 ip = window.ip || 'no-ip'
-console.log(ip)
 var _gaq = _gaq || []
 _gaq.push(['_setAccount', 'UA-219885464-1'])
 _gaq.push(['_trackPageview'])

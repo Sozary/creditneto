@@ -277,12 +277,10 @@ export default {
   },
   watch: {
     selectedNav() {
-      console.log('reset need')
       this.$store.commit('options/updateResetFilter', 'resetNeeded')
     },
     async resetFilter(value) {
       if (value === 'resetDone') {
-        console.log('Done => fetch offers')
         await this.fetchOffers(true, true)
         this.getLimits()
         this.$store.commit('options/updateResetFilter', '')

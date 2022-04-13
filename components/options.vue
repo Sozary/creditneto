@@ -156,7 +156,6 @@ export default {
       if (val) {
         this.updateDuration()
         this.updateAmount()
-        console.log('updated limits')
         this.$store.commit('options/updateLimits', false)
       }
     },
@@ -164,7 +163,6 @@ export default {
       if (value === 'resetNeeded') {
         this.selectedMonths = 0
         this.selectedAmount = 0
-        console.log('limit reset')
         this.$store.commit('options/updatePass', true)
         this.$store.commit('options/updateResetFilter', 'resetDone')
       }

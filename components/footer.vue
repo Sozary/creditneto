@@ -50,7 +50,6 @@
               <a
                 class="text-[10px] font-montserrat font-light no-underline text-black inline mb-3"
                 :href="'/' + category.slug"
-                @click.native="updateSelectedNav(category.slug)"
                 v-html="category.label"
               />
             </div>
@@ -64,7 +63,6 @@
               <a
                 class="text-[10px] font-montserrat font-light no-underline text-black inline mb-3"
                 :href="'/' + category.slug"
-                @click.native="updateSelectedNav(category.slug)"
                 v-html="category.label"
               />
             </div>
@@ -108,7 +106,6 @@
             <a
               class="text-[10px] md:text-lg md:font-normal font-montserrat font-light no-underline text-black inline mb-3 hover:border-solid hover:border-0 hover:border-b-[3px] hover:border-green transition-all"
               :href="'/' + item.slug"
-              @click.native="updateSelectedNav(item.slug)"
               v-html="item.label"
             />
           </div>
@@ -199,10 +196,6 @@ export default {
   methods: {
     resize() {
       this.isMobile = window.innerWidth < 987
-    },
-    updateSelectedNav(slug) {
-      this.$store.commit('nav/updateSelectedNav', slug)
-      this.$router.push(slug)
     },
   },
   computed: {
