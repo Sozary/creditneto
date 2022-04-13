@@ -1,5 +1,5 @@
 <template>
-  <div class="px-3 md:px-20">
+  <div class="px-3 md:px-20 max-w-[1300px] mx-auto">
     <span
       class="text-black text-[8px] font-bold font-montserrat ml-3 md:text-[15px]"
     >
@@ -7,11 +7,10 @@
     </span>
     <Loader
       v-for="(type, index) in [active, others]"
-      mode="fit"
       :key="index"
       :loading="loading[['active', 'others'][index]]"
       custom-class-container="mb-2 mt-1.5"
-      custom-class="mb-2 flex loan-item rounded-[50px] justify-between overflow-hidden no-underline h-10 md:h-[50px] group"
+      custom-class="mb-2 flex loan-item rounded-[50px] justify-between overflow-hidden no-underline h-10 md:h-[50px] group hover:bg-[#e9e5e5] transition-all"
       :type="['active', 'others'][index]"
       :items="type"
     >
@@ -37,12 +36,12 @@
           </div>
         </div>
         <div
-          class="flex items-center flex-grow md:max-w-[380px]"
+          class="flex items-center flex-grow md:max-w-[480px] md:mr-3"
           v-if="showExample && item.exemple !== ''"
         >
           <span
             v-html="item.exemple"
-            class="text-dark-grey text-[6px] md:text-[9px] font-helvetica"
+            class="text-dark-grey text-[6px] md:text-[9px] font-montserrat"
           />
         </div>
         <div
@@ -131,7 +130,9 @@
         </span>
       </template>
       <template v-slot:loading>
-        <CubeGrid />
+        <div class="flex justify-center my-2">
+          <CubeGrid />
+        </div>
       </template>
     </Loader>
   </div>
@@ -143,7 +144,7 @@ import CubeGrid from '~/components/cubegrid.vue'
 
 export default {
   components: { Loader, CubeGrid },
-  async mounted() {
+  mounted() {
     this.resize()
     window.addEventListener('resize', this.resize)
     this.$store.commit('options/updateResetFilter', 'resetNeeded')
@@ -204,8 +205,6 @@ export default {
       const productLabel = this.categories.find(
         (c) => c.slug === this.selectedNav
       )
-      console.log(this.categories, this.selectedNav)
-      console.log(productLabel)
       if (!productLabel) {
         this.$router.push('/')
         this.$store.commit('nav/updateSelectedNav', '')
@@ -245,16 +244,12 @@ export default {
         params.others = true
         others = await this.$axios.$post(this.apiLink, params)
       }
-      console.log(active)
       if (active.statusCode === 200) {
         this.active = active.body
         this.loading['active'] = false
-        console.log(this.sort.sortFn(this.active))
         this.active = this.sort.sortFn(this.active)
-        console.log(this.active)
       }
       if (loadOthers) {
-        console.log(others)
         if (others.statusCode === 200) {
           this.others = others.body
           this.loading['others'] = false
@@ -282,10 +277,12 @@ export default {
   },
   watch: {
     selectedNav() {
+      console.log('reset need')
       this.$store.commit('options/updateResetFilter', 'resetNeeded')
     },
     async resetFilter(value) {
       if (value === 'resetDone') {
+        console.log('Done => fetch offers')
         await this.fetchOffers(true, true)
         this.getLimits()
         this.$store.commit('options/updateResetFilter', '')
@@ -326,7 +323,7 @@ export default {
       return this.$store.getters['nav/categories']
     },
     selectedNav() {
-      return this.$store.getters['nav/selectedNav'].replace(/\//g, '')
+      return this.$store.getters['nav/selectedNav']
     },
   },
 }

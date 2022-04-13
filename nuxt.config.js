@@ -3,6 +3,7 @@ export default {
   target: 'static',
   generate: {
     fallback: true,
+    routes: ['/'],
   },
   loading: { color: '#1ab16a' },
   head: {

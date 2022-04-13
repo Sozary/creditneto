@@ -32,10 +32,11 @@
       <div
         class="flex font-bold text-[8px] font-montserrat justify-center my-4 md:hidden"
       >
-        <a href="#" class="no-underline text-black mx-1">Contact</a> -
-        <a href="#" class="no-underline text-black mx-1">Mentions legales</a> -
-        <a href="#" class="no-underline text-black mx-1"
-          >Adresses de nos partenaires</a
+        <a
+          href="https://www.credit-creditneto.com/contact.php?"
+          target="_blank"
+          class="no-underline text-black"
+          >Contact - Mentions legales - Adresses de nos partenaires</a
         >
       </div>
       <div class="px-9">
@@ -46,9 +47,9 @@
                 src="/assets/icons/arrow-right.svg"
                 class="w-1 h-1.5 mr-1.5"
               />
-              <NuxtLink
+              <a
                 class="text-[10px] font-montserrat font-light no-underline text-black inline mb-3"
-                :to="category.slug"
+                :href="'/' + category.slug"
                 @click.native="updateSelectedNav(category.slug)"
                 v-html="category.label"
               />
@@ -60,9 +61,9 @@
                 src="/assets/icons/arrow-right.svg"
                 class="w-1 h-1.5 mr-1.5"
               />
-              <NuxtLink
+              <a
                 class="text-[10px] font-montserrat font-light no-underline text-black inline mb-3"
-                :to="category.slug"
+                :href="'/' + category.slug"
                 @click.native="updateSelectedNav(category.slug)"
                 v-html="category.label"
               />
@@ -80,12 +81,12 @@
         </div>
       </div>
       <div class="flex justify-center gap-6 mt-3">
-        <a href="#">
+        <a target="_blank" href="https://www.facebook.com/credit.rapide">
           <font-awesome-icon
             :icon="['fab', 'facebook']"
             class="text-green w-6 h-6"
         /></a>
-        <a href="#">
+        <a target="_blank" href="https://twitter.com/creditneto">
           <font-awesome-icon
             :icon="['fab', 'twitter']"
             class="text-green w-6 h-6"
@@ -104,9 +105,9 @@
               src="/assets/icons/arrow-right.svg"
               class="w-1 h-1.5 mr-1.5 md:w-3 md:h-3.5"
             />
-            <NuxtLink
+            <a
               class="text-[10px] md:text-lg md:font-normal font-montserrat font-light no-underline text-black inline mb-3 hover:border-solid hover:border-0 hover:border-b-[3px] hover:border-green transition-all"
-              :to="item.slug"
+              :href="'/' + item.slug"
               @click.native="updateSelectedNav(item.slug)"
               v-html="item.label"
             />
@@ -118,17 +119,18 @@
       >
         <a
           :href="country.link"
+          target="_blank"
           class="no-underline text-black"
           v-for="country of countries"
           :key="country.label"
           v-html="'Creditneto ' + country.label"
         />
         <div>
-          <a href="#" class="no-underline text-black mx-1">Contact</a> -
-          <a href="#" class="no-underline text-black mx-1">Mentions legales</a>
-          -
-          <a href="#" class="no-underline text-black mx-1"
-            >Adresses de nos partenaires</a
+          <a
+            href="https://www.credit-creditneto.com/contact.php?"
+            target="_blank"
+            class="no-underline text-black"
+            >Contact - Mentions legales - Adresses de nos partenaires</a
           >
         </div>
       </div>
@@ -143,12 +145,12 @@
           recherche de crédit pas cher !
         </div>
         <div class="flex gap-6 flex-1 justify-center">
-          <a href="#">
+          <a target="_blank" href="https://www.facebook.com/credit.rapide">
             <font-awesome-icon
               :icon="['fab', 'facebook']"
               class="text-green w-6 h-6 md:w-10 md:h-10"
           /></a>
-          <a href="#">
+          <a target="_blank" href="https://twitter.com/creditneto">
             <font-awesome-icon
               :icon="['fab', 'twitter']"
               class="text-green w-6 h-6 md:w-10 md:h-10"
@@ -177,12 +179,16 @@ export default {
       countries: [
         {
           label: 'Belgique',
-          link: 'https://www.creditneto.be/',
+          link: 'https://www.creditneto.be/index.php?p=1&montant=0&duree=0&simulation=1',
         },
         {
           label: 'Pays Bas',
+          link: 'https://www.creditneto.nl/index.php?p=1&montant=0&duree=0&simulation=1',
         },
-        { label: 'France', link: 'https://www.creditneto.net/' },
+        {
+          label: 'France',
+          link: 'https://www.credit-creditneto.com/index.php?p=1&montant=0&duree=0&simulation=1',
+        },
       ],
     }
   },

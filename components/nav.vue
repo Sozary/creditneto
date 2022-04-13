@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="mt-3.5 md:flex hidden">
-      <NuxtLink
+      <a
         class="py-2.5 px-1 h-12 flex-1 flex items-center text-center justify-center hover:selected-shadow transition-all cursor-pointer text-black no-underline font-bold text-sm font-montserrat"
         v-for="(category, index) in categories"
-        :to="category.slug"
+        :href="'/' + category.slug"
         @click.native="updateSelectedNav(category.slug)"
         v-html="category.label"
         :key="index"
@@ -33,13 +33,13 @@
           class="w-12 h-12 absolute right-6 top-11 transform -translate-y-1/4 cursor-pointer"
         />
         <div class="flex flex-col items-start mt-32 ml-12">
-          <NuxtLink
+          <a
             class="before:content-[url('/assets/icons/arrow-right.svg')] before:w-3.5 before:h-2.5 before:mr-3 text-xl font-montserrat font-light no-underline text-black inline mb-3"
             :class="{
               'border-solid border-0 border-b-2 border-green':
                 selectedNav === category.slug,
             }"
-            :to="category.slug"
+            :href="'/' + category.slug"
             v-for="(category, index) in categories"
             :key="index"
             @click.native="updateSelectedNav(category.slug)"
@@ -63,6 +63,7 @@ export default {
       this.$store.commit('nav/updateShowMenu', false)
     },
     updateSelectedNav(slug, created = false) {
+      this.$router.push('/' + slug)
       this.$store.commit('nav/updateSelectedNav', slug)
       if (!created) {
         this.closeMenu()

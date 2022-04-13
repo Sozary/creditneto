@@ -35,7 +35,6 @@
 <script>
 export default {
   props: {
-    mode: { type: String },
     customClass: { type: String },
     customClassContainer: { type: String },
     items: {
@@ -54,19 +53,21 @@ export default {
     return { range: this.maxItems, showItems: false }
   },
   methods: {
-    calculateMaxItemsToShow() {
+    calculateMaxItemsToShow(initial = false) {
       const element = this.$refs['items']
       const itemHeight = 56
       const elementBottom = element.getBoundingClientRect().bottom
       if (elementBottom < window.innerHeight) {
-        const elementThatFit = (window.innerHeight - elementBottom) / itemHeight
+        const elementThatFit = initial
+          ? (window.innerHeight - elementBottom) / itemHeight
+          : window.innerHeight / itemHeight
         return Math.floor(elementThatFit)
       }
       return this.maxItems
     },
     applyRange() {
       this.showItems = false
-      this.range = this.calculateMaxItemsToShow()
+      this.range = this.calculateMaxItemsToShow(true)
       this.showItems = true
     },
     showMore() {

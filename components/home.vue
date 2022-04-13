@@ -15,12 +15,12 @@
         src="/assets/images/home-right.svg"
         class="absolute bottom-[-50px] right-0"
       />
-      <div class="flex flex-wrap z-10">
-        <NuxtLink
+      <div class="flex flex-wrap z-10 max-w-[1200px]">
+        <a
           class="w-40 h-28 bg-home-green text-white font-montserrat font-bold text-lg mr-12 mb-11 rounded relative overflow-hidden cursor-pointer transition-all hover:scale-110"
           v-for="category in categories"
           :key="category.slug"
-          :to="category.slug"
+          :href="'/' + category.slug"
           @click.native="updateSelectedNav(category.slug)"
         >
           <div
@@ -30,7 +30,7 @@
             class="absolute top-12 px-3 two-lines"
             v-html="category.label"
           />
-        </NuxtLink>
+        </a>
       </div>
     </div>
   </div>
