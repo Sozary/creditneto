@@ -77,6 +77,9 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
   }
+  .bg-gradiant {
+    background: linear-gradient(to bottom, transparent 0%, #fff 40%);
+  }
   .slider {
     cursor: pointer;
     -webkit-appearance: none;

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-footer-bg">
+  <footer class="bg-footer-bg">
     <img
       src="/assets/images/logo-footer.png"
       class="w-36 h-6 ml-[50%] transform -translate-x-1/2 mt-2.5 md:mt-6"
@@ -169,7 +169,7 @@
       Copyright 2004-{{ year }} - Site édité par la société BLOGGERS VIRTUAL WEB
       SL
     </div>
-  </div>
+  </footer>
 </template>
 <script>
 export default {
