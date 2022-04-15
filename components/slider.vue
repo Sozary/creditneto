@@ -55,6 +55,9 @@ export default {
     },
   },
   computed: {
+    trueDisplay() {
+      return this.$store.getters['options/getTrueDisplay']
+    },
     getPass() {
       return this.$store.getters['options/getPass']
     },
@@ -62,7 +65,11 @@ export default {
       return this.step || (this.max - this.min) / 100
     },
     computedTitle() {
-      return this.title + ': ' + this.format(this.value) + this.type
+      return (
+        this.title +
+        ': ' +
+        (this.trueDisplay ? this.format(this.value) + this.type : '-')
+      )
     },
   },
   data() {

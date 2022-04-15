@@ -5,7 +5,7 @@
         class="py-2.5 px-1 h-12 flex-1 flex items-center text-center justify-center hover:selected-shadow transition-all cursor-pointer text-black no-underline font-bold text-sm font-montserrat"
         v-for="(category, index) in categories"
         :href="'/' + category.slug"
-        v-html="category.label"
+        v-html="formatTwoLines(category.label)"
         :key="index"
         :class="{
           'border-solid border-0 border-b-[3px] border-green hover:shadow-none':
@@ -57,6 +57,11 @@ export default {
     this.updateSelectedNav(this.$route.path.slice(1), true)
   },
   methods: {
+    formatTwoLines(text) {
+      const arr = text.split(' ')
+      arr.splice(-1, 0, '<br>')
+      return arr.join(' ')
+    },
     closeMenu() {
       this.$store.commit('nav/updateShowMenu', false)
     },
@@ -73,7 +78,7 @@ export default {
       return this.$store.getters['nav/showMenu']
     },
     categories() {
-      return this.$store.getters['nav/categories']
+      return this.$store.getters['nav/categories'].filter((c) => c.visible)
     },
     selectedNav() {
       return this.$store.getters['nav/selectedNav']

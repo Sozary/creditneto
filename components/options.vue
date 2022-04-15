@@ -2,11 +2,12 @@
   <div>
     <div class="flex mt-5 justify-between mx-3 md:px-20">
       <Select
-        class="hidden md:block"
+        class="hidden md:block w-60"
         :items="categories"
         clearable
         v-if="selectedCategory"
         v-model="selectedCategory"
+        :redirect="true"
         default-value="Sélectionnez un type de crédit"
       />
       <img
@@ -37,6 +38,7 @@
         :items="sorts"
         v-model="selectedSort"
         default-value="Partenaire"
+        class="w-40"
         v-if="selectedNav !== ''"
       />
     </div>

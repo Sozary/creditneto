@@ -3,16 +3,27 @@ export const state = () => ({
   showMenu: false,
   showCalculate: false,
   categories: [
-    { label: 'Prêt Personnel', id: 'pret-personnel' },
-    { label: 'Rachat de Crédit', id: 'rachat-de-credit' },
-    { label: 'Crédit Renouvelable', id: 'credit-renouvelable' },
-    { label: 'Prêt Travaux', id: 'pret-travaux' },
-    { label: 'Crédit Immobilier', id: 'credit-immobilier' },
-    { label: 'Crédit Auto', id: 'credit-auto' },
-    { label: 'Crédit Moto', id: 'credit-moto' },
-    { label: 'Crédit Entre Particuliers', id: 'credit-entre-particuliers' },
-    { label: 'Crédit Consommation', id: 'credit-consommation' },
-    { label: 'Compte / Carte Bancaire', id: 'compte-carte-bancaire' },
+    { label: 'Prêt Personnel', id: 'pret-personnel', visible: true },
+    { label: 'Rachat de Crédit', id: 'rachat-de-credit', visible: true },
+    { label: 'Crédit Renouvelable', id: 'credit-renouvelable', visible: true },
+    { label: 'Prêt Travaux', id: 'pret-travaux', visible: true },
+    { label: 'Crédit Immobilier', id: 'credit-immobilier', visible: true },
+    { label: 'Crédit Auto', id: 'credit-auto', visible: true },
+    { label: 'Crédit Moto', id: 'credit-moto', visible: true },
+    { label: 'Crédit Bateau', id: 'credit-bateau', visible: false },
+    { label: 'Crédit Camping Car', id: 'credit-camping-car', visible: false },
+    { label: 'Crédit Moto', id: 'credit-moto', visible: true },
+    {
+      label: 'Crédit Entre Particuliers',
+      id: 'credit-entre-particuliers',
+      visible: true,
+    },
+    { label: 'Crédit Consommation', id: 'credit-consommation', visible: true },
+    {
+      label: 'Compte / Carte Bancaire',
+      id: 'compte-carte-bancaire',
+      visible: true,
+    },
   ],
 })
 
@@ -42,6 +53,7 @@ export const getters = {
       return {
         label: e.label,
         slug: e.id,
+        visible: e.visible,
       }
     })
   },

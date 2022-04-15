@@ -24,11 +24,13 @@
         class="flex flex-col border border-solid border-medium-grey w-3/4 p-4 rounded mt-4 absolute bg-white"
         v-if="toggled"
       >
-        <div
-          class="cursor-pointer flex justify-between"
+        <component
+          class="cursor-pointer flex justify-between no-underline text-black hover:bg-light-grey rounded p-1 transition-all"
           v-for="item of items"
-          :key="item.id"
           @click="updateValue(item.id)"
+          :is="redirect ? 'a' : 'div'"
+          :key="item.id"
+          :href="'/' + item.id"
         >
           <span class="text-sm font-roboto">{{ item.label }}</span
           ><img
@@ -36,7 +38,7 @@
             class="w-3.5"
             v-if="selectedValue === item.id"
           />
-        </div></div
+        </component></div
     ></transition>
   </div>
 </template>
@@ -53,6 +55,10 @@ export default {
       required: true,
     },
     clearable: {
+      type: Boolean,
+      default: false,
+    },
+    redirect: {
       type: Boolean,
       default: false,
     },
@@ -83,6 +89,7 @@ export default {
       this.toggled = false
     },
     updateValue(value) {
+      if (this.redirect) return
       this.selectedValue = value
       this.toggle()
     },

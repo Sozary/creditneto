@@ -1,5 +1,5 @@
 <template>
-  <div class="px-3 md:px-20 max-w-[1300px] mx-auto">
+  <div class="px-3 md:px-28 max-w-[1300px] mx-auto">
     <span
       class="text-black text-[8px] font-bold font-montserrat ml-3 md:text-[15px]"
     >
@@ -10,7 +10,7 @@
       :key="index"
       :loading="loading[['active', 'others'][index]]"
       custom-class-container="mb-2 mt-1.5"
-      custom-class="mb-2 flex loan-item rounded-[50px] justify-between overflow-hidden no-underline h-10 md:h-[50px] group hover:bg-[#e9e5e5] transition-all"
+      custom-class="mb-2 flex loan-item rounded-[50px] overflow-hidden no-underline h-10 md:h-[50px] group hover:bg-[#e9e5e5] transition-all"
       :type="['active', 'others'][index]"
       :items="type"
     >
@@ -36,7 +36,7 @@
           </div>
         </div>
         <div
-          class="flex items-center flex-grow md:max-w-[480px] md:mr-3"
+          class="flex items-center flex-grow max-w-[300px] md:max-w-[400px] md:mr-3"
           v-if="showExample && item.exemple !== ''"
         >
           <span
@@ -104,7 +104,7 @@
           </div>
         </div>
         <div
-          class="bg-green flex justify-center items-center w-16 py-2.5 px-1.5 md:px-6 group-hover:bg-dark-green transition-all"
+          class="bg-green flex justify-center items-center w-16 py-2.5 px-1.5 md:px-6 group-hover:bg-dark-green transition-all ml-auto"
         >
           <span
             class="uppercase text-white text-[11px] md:text-base font-bold font-montserrat"
@@ -291,6 +291,7 @@ export default {
       if (this.interactedAlready < 2) {
         this.interactedAlready++
       } else {
+        this.$store.commit('options/updateTrueDisplay', true)
         await this.fetchOffers(false)
       }
       this.$store.commit('options/updateUserInteraction', {

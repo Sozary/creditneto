@@ -9,11 +9,15 @@ export const state = () => ({
   userInteraction: false,
   resetFilter: '',
   updateLimits: false,
+  trueDisplay: false,
   pass: false,
 })
 export const mutations = {
   updateResetFilter(state, value) {
     state.resetFilter = value
+  },
+  updateTrueDisplay(state, value) {
+    state.trueDisplay = value
   },
   updatePass(state, value) {
     state.pass = value
@@ -45,6 +49,9 @@ export const mutations = {
 export const getters = {
   getResetFilter(state) {
     return state.resetFilter
+  },
+  getTrueDisplay(state) {
+    return state.trueDisplay
   },
   getUpdateLimits(state) {
     return state.updateLimits
