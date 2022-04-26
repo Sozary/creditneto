@@ -20,6 +20,7 @@ module.exports = {
       'footer-bg': '#ECECEC',
       'nav-odd': '#E9E5E5',
       'nav-even': '#E0DEDE',
+      transparent: 'transparent',
       black: '#000',
       white: '#fff',
       green: '#1AB16A',

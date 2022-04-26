@@ -10,15 +10,18 @@
       :key="index"
       :loading="loading[['active', 'others'][index]]"
       custom-class-container="mb-2 mt-1.5"
-      custom-class="mb-2 flex loan-item rounded-[50px] overflow-hidden no-underline h-10 md:h-[50px] group hover:bg-[#e9e5e5] transition-all"
+      custom-class="mb-2 flex loan-item rounded-[50px] overflow-hidden no-underline h-10 md:h-[50px] group transition-all relative"
       :type="['active', 'others'][index]"
       :items="type"
     >
       <template v-slot:default="{ item }">
+        <div
+          class="w-full h-full bg-transparent transition-all z-10 absolute group-hover:bg-[rgba(0,0,0,.1)]"
+        ></div>
         <div class="flex justify-center items-center">
           <img
             :src="'/assets' + item.url_logo"
-            class="h-5 mr-3.5 ml-1.5 w-16 md:w-28 md:h-9 md:mr-1.5"
+            class="h-full mr-3.5 ml-1.5 w-16 md:w-28 md:h-9 md:mr-1.5"
           />
         </div>
         <div
