@@ -39,7 +39,7 @@
           </div>
         </div>
         <div
-          class="flex items-center flex-grow max-w-[300px] md:max-w-[400px] md:mr-3"
+          class="flex items-center flex-grow w-[300px] md:max-w-[400px] md:mr-3"
           v-if="showExample && item.exemple !== ''"
         >
           <span
@@ -48,7 +48,7 @@
           />
         </div>
         <div
-          class="flex flex-col flex-grow my-1 justify-center text-[7px] md:text-[13px] md:min-w-[300px]"
+          class="flex flex-col flex-grow w-[300px] my-1 justify-center text-[7px] md:text-[13px] md:min-w-[300px]"
           v-if="showData || !item.exemple"
         >
           <div class="flex mb-0.5">
@@ -128,13 +128,16 @@
         </span>
       </template>
       <template v-slot:footer v-if="index === 0">
-        <span class="text-black text-sm font-bold font-montserrat">
+        <span
+          class="text-black text-sm font-bold font-montserrat"
+          v-if="!globalLoading"
+        >
           Autres crédits disponibles:
         </span>
       </template>
       <template v-slot:loading>
         <div class="flex justify-center my-2">
-          <CubeGrid />
+          <!-- <CubeGrid /> -->
         </div>
       </template>
     </Loader>
@@ -306,6 +309,9 @@ export default {
     },
   },
   computed: {
+    globalLoading() {
+      return this.loading['active'] && this.loading['others']
+    },
     resetFilter() {
       return this.$store.getters['options/getResetFilter']
     },

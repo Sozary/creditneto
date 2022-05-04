@@ -21,7 +21,7 @@
     </div>
     <transition name="fade">
       <div
-        class="flex flex-col border border-solid border-medium-grey w-3/4 p-4 rounded mt-4 absolute bg-white"
+        class="flex flex-col border border-solid border-medium-grey w-3/4 p-4 rounded mt-4 absolute bg-white z-20"
         v-if="toggled"
       >
         <component

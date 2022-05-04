@@ -17,7 +17,7 @@
       v-if="showMore"
       ref="more"
     >
-      <span class="text-black text-sm font-bold font-montserrat"
+      <span class="text-black text-sm font-bold font-montserrat z-20"
         >Voir plus d’offres de crédit</span
       >
       <img src="/assets/icons/load-more.svg" class="w-9" />
