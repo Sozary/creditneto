@@ -1,11 +1,11 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   target: 'static',
+  loading: false,
   generate: {
     fallback: true,
     routes: ['/'],
   },
-  loading: { color: '#1ab16a' },
   head: {
     title: 'overhaul',
     htmlAttrs: {

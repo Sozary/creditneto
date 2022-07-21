@@ -4,7 +4,7 @@
     class="flex border border-solid border-[#F8FCFA] z-50 fixed bottom-0 w-full bg-white"
   >
     <span
-      class="text-dark-grey font-helvetica md:basis-2/4 basis-1/4 text-sm mx-4 my-2 font-bold flex-1"
+      class="text-dark-grey font-helvetica md:basis-2/4 basis-1/4 text-[8px] mx-4 my-2 font-bold flex-1"
     >
       Ce site utilise des cookies destinés à vous offrir une meilleure
       expérience utilisateur. En poursuivant votre navigation, vous en acceptez

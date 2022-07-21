@@ -1,5 +1,5 @@
 <template>
-  <div class="px-3 md:px-28 max-w-[1300px] mx-auto">
+  <div class="px-3 md:px-28 max-w-[1000px] mx-auto">
     <span
       class="text-black text-[8px] font-bold font-montserrat ml-3 md:text-[15px]"
     >

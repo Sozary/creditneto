@@ -5,7 +5,7 @@
   >
     <Header />
     <Nav />
-    <Nuxt />
+    <Nuxt v-if="showLoan" />
     <Footer />
   </div>
 </template>
@@ -18,7 +18,7 @@ import Nav from '~/components/nav.vue'
 export default {
   components: { Header, Nav, Footer, CookieConsent },
   data() {
-    return { isMobile: false }
+    return { isMobile: false, showLoan: false }
   },
   mounted() {
     this.resize()
@@ -26,8 +26,22 @@ export default {
     if (this.isMobile) {
       this.redirectToFirstCategory()
     }
+    this.handleClickref()
   },
   methods: {
+    handleClickref() {
+      const query = this.$route.query
+      const clickrefs = JSON.parse(localStorage.getItem('clickrefs') || '{}')
+      console.log(query)
+      for (let i = 2; i < 8; i++) {
+        if (query['clickref' + i]) {
+          clickrefs[i] = query['clickref' + i]
+        }
+      }
+
+      localStorage.setItem('clickrefs', JSON.stringify(clickrefs))
+      this.showLoan = true
+    },
     resize() {
       this.isMobile = window.innerWidth < 987
     },

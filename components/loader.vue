@@ -4,7 +4,7 @@
     <div :class="customClassContainer" ref="items">
       <a
         target="_blank"
-        :href="'http://www.creditneto.fr' + item.url_redirection"
+        :href="'http://www.creditneto.fr' + item.url_redirection + clickrefs"
         :class="customClass"
         v-for="item in items"
         :key="item.id"
@@ -40,11 +40,12 @@ export default {
     loading: { type: Boolean },
   },
   data() {
-    return { showMore: true }
+    return { showMore: true, clickrefs: '' }
   },
   mounted() {
     window.addEventListener('scroll', this.scrollBehavior)
     this.scrollBehavior()
+    this.generateClickrefs()
   },
   watch: {
     items() {
@@ -54,6 +55,15 @@ export default {
     },
   },
   methods: {
+    generateClickrefs() {
+      const clickrefs = JSON.parse(localStorage.getItem('clickrefs') || '{}')
+
+      for (let i = 2; i < 8; i++) {
+        if (clickrefs[i]) {
+          this.clickrefs += '&clickref' + i + '=' + clickrefs[i]
+        }
+      }
+    },
     scrollBehavior() {
       const element = this.$refs['items']
       const elementBottom =
