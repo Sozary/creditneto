@@ -244,11 +244,11 @@ export default {
         this.loading['others'] = true
       }
 
-      const active = await this.$axios.$post(this.apiLink, params)
+      const active = await this.$axios.$post(this.apiLink)
       let others
       if (loadOthers) {
         params.others = true
-        others = await this.$axios.$post(this.apiLink, params)
+        others = await this.$axios.$post(this.apiLink)
       }
       if (active.statusCode === 200) {
         this.active = active.body
@@ -319,7 +319,7 @@ export default {
       return this.$store.getters['options/getUserInteraction']
     },
     apiLink() {
-      return 'https://lv3qt7akj5.execute-api.eu-west-3.amazonaws.com/dev'
+      return 'https://cisede.eu/demo/aim/credit-creditneto/api/credit'
     },
     amount() {
       return this.$store.getters['options/getAmount']
