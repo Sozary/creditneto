@@ -286,6 +286,7 @@ export default {
     selectedNav() {
       this.$store.commit('options/updateResetFilter', 'resetNeeded')
     },
+
     async resetFilter(value) {
       if (value === 'resetDone') {
         await this.fetchOffers(true, true)
