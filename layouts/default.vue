@@ -20,13 +20,19 @@ export default {
   data() {
     return { isMobile: false, showLoan: false }
   },
-  mounted() {
+  async mounted() {
     this.resize()
     window.addEventListener('resize', this.resize)
     if (this.isMobile) {
       this.redirectToFirstCategory()
     }
     this.handleClickref()
+
+    const loans = await this.$axios.$post(
+      'https://cisede.eu/demo/aim/credit-creditneto/api/credit'
+    )
+
+    this.$store.dispatch('loans/updateLoans', loans.body)
   },
   methods: {
     handleClickref() {

@@ -1,19 +1,21 @@
 <template>
   <div>
     <div class="mt-3.5 md:flex hidden">
-      <a
+      <nuxt-link
         class="py-2.5 px-1 h-12 flex-1 flex items-center text-center justify-center hover:selected-shadow transition-all cursor-pointer text-black no-underline font-bold text-sm font-montserrat"
         v-for="(category, index) in categories"
-        :href="'/' + category.slug"
-        v-html="formatTwoLines(category.label)"
+        :to="category.slug"
         :key="index"
+        @click.native="updateSelectedNav"
+        v-html="formatTwoLines(category.label)"
         :class="{
           'border-solid border-0 border-b-[3px] border-green hover:shadow-none':
             selectedNav === category.slug,
           'bg-nav-even': (index + 1) % 2 === 0,
           'bg-nav-odd': (index + 1) % 2 !== 0,
         }"
-      />
+      >
+      </nuxt-link>
     </div>
     <transition name="slideRight" class="block md:hidden">
       <div
@@ -54,7 +56,7 @@ export default {
     return {}
   },
   created() {
-    this.updateSelectedNav(this.$route.path.slice(1), true)
+    this.updateSelectedNav(true)
   },
   methods: {
     formatTwoLines(text) {
@@ -65,7 +67,8 @@ export default {
     closeMenu() {
       this.$store.commit('nav/updateShowMenu', false)
     },
-    updateSelectedNav(slug, created = false) {
+    updateSelectedNav(created = false) {
+      const slug = this.$route.path.slice(1)
       this.$router.push('/' + slug)
       this.$store.commit('nav/updateSelectedNav', slug)
       if (!created) {
