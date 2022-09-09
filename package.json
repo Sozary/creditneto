@@ -7,7 +7,8 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "invoke": "netlify functions:invoke --port 9000",
-    "generate": "nuxt generate --fail-on-error; ./update_s3.sh",
+    "generate": "nuxt generate --fail-on-error;",
+    "full-generate": "nuxt generate --fail-on-error; ./update_s3.sh",
     "lint:prettier": "prettier --check .",
     "lint": "yarn lint:prettier",
     "lintfix": "prettier --write --list-yfferent ."
