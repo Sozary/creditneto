@@ -4,7 +4,11 @@
     <div :class="customClassContainer" ref="items">
       <a
         target="_blank"
-        :href="'http://www.creditneto.fr' + item.url_redirection + clickrefs"
+        :href="
+          'https://www.credit-creditneto.com/credit.php?ul=' +
+          item.url_redirection +
+          clickrefs
+        "
         :class="customClass"
         v-for="item in items"
         :key="item.id"

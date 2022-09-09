@@ -207,6 +207,21 @@ export default {
     resize() {
       this.isMobile = window.innerWidth < 987
     },
+    applyParams(loans, params) {
+      return loans.filter((loan) => {
+        for (let param of Object.keys(params)) {
+          if (loan.hasOwnProperty(param)) {
+            const ev = eval(
+              `${loan[param]} ${params[param].operator} ${params[param].value}`
+            )
+            if (!ev) {
+              return false
+            }
+          }
+        }
+        return true
+      })
+    },
     async fetchOffers(loadOthers = true, firstLoad = false) {
       const productLabel = this.categories.find(
         (c) => c.slug === this.selectedNav
@@ -219,7 +234,7 @@ export default {
       const params = {
         product: productLabel.slug,
         filters: {
-          active: { operator: '=', value: 1 },
+          active: { operator: '==', value: 1 },
           montant_min: {
             operator: '<=',
             value: firstLoad ? null : this.amount,
@@ -239,27 +254,16 @@ export default {
         },
       }
 
-      this.loading['active'] = true
-      if (loadOthers) {
+      if (this.getLoans) {
+        this.loading['active'] = true
         this.loading['others'] = true
-      }
+        this.active = [...this.getLoans]
+        this.others = [...this.getLoans].splice(0, 5)
 
-      const active = await this.$axios.$post(this.apiLink)
-      let others
-      if (loadOthers) {
-        params.others = true
-        others = await this.$axios.$post(this.apiLink)
-      }
-      if (active.statusCode === 200) {
-        this.active = active.body
-        this.loading['active'] = false
         this.active = this.sort.sortFn(this.active)
-      }
-      if (loadOthers) {
-        if (others.statusCode === 200) {
-          this.others = others.body
-          this.loading['others'] = false
-        }
+        this.active = this.applyParams(this.active, params.filters)
+        this.loading['active'] = false
+        this.loading['others'] = false
       }
     },
     taeg(value) {
@@ -283,6 +287,9 @@ export default {
     }
   },
   watch: {
+    getLoans() {
+      this.fetchOffers()
+    },
     selectedNav() {
       this.$store.commit('options/updateResetFilter', 'resetNeeded')
     },
@@ -309,6 +316,9 @@ export default {
     },
   },
   computed: {
+    getLoans() {
+      return this.$store.getters['loans/getLoans']
+    },
     globalLoading() {
       return this.loading['active'] && this.loading['others']
     },

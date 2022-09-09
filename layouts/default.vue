@@ -38,7 +38,7 @@ export default {
     handleClickref() {
       const query = this.$route.query
       const clickrefs = JSON.parse(localStorage.getItem('clickrefs') || '{}')
-      console.log(query)
+
       for (let i = 2; i < 8; i++) {
         if (query['clickref' + i]) {
           clickrefs[i] = query['clickref' + i]

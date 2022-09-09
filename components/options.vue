@@ -44,7 +44,7 @@
     </div>
     <transition name="slideLeft">
       <div
-        class="bg-light-grey w-screen h-full overflow-y-hidden fixed top-0 left-0 z-10"
+        class="bg-light-grey w-screen h-full overflow-y-hidden fixed top-0 left-0 z-50"
         v-if="showCalculate"
       >
         <img
