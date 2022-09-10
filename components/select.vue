@@ -49,6 +49,7 @@ export default {
     onClickaway: onClickaway,
   },
   props: {
+    reason: { type: String, default: '' },
     items: {
       type: Array,
       default: [],
@@ -105,6 +106,7 @@ export default {
       this.$emit('input', value)
       this.$store.commit('options/updateUserInteraction', {
         userInteraction: true,
+        reason: this.reason,
       })
     },
   },

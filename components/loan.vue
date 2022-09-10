@@ -203,7 +203,7 @@ export default {
     applyParams(filters) {
       return this.loansForCategory.filter((loan) => {
         for (let filter of Object.keys(filters)) {
-          if (loan.hasOwnProperty(filter)) {
+          if (loan.hasOwnProperty(filter) && filters[filter].value !== null) {
             const ev = eval(
               `${loan[filter]} ${filters[filter].operator} ${filters[filter].value}`
             )
@@ -250,7 +250,6 @@ export default {
       if (this.loansForCategory && this.getLoans) {
         this.loading['active'] = true
         this.loading['others'] = true
-
         this.active = [...this.loansForCategory]
         this.others = [...this.getLoans].splice(0, 5)
 
@@ -283,7 +282,7 @@ export default {
   },
   watch: {
     userInteraction(value) {
-      if (value) {
+      if (value.value && value.reason !== 'limit') {
         this.fetchOffers()
         this.$store.commit('options/updateUserInteraction', {
           userInteraction: false,

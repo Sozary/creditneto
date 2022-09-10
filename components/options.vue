@@ -6,6 +6,7 @@
         :items="categories"
         clearable
         v-if="selectedCategory"
+        :reason="reason"
         v-model="selectedCategory"
         :redirect="true"
         default-value="Sélectionnez un type de crédit"
@@ -23,9 +24,11 @@
         :max="amountMax"
         title="Montant"
         :format="formatCurrency"
+        :reason="reason"
         type="€"
       />
       <Slider
+        :reason="reason"
         v-if="selectedCategory"
         class="hidden md:block"
         v-model="selectedMonths"
@@ -35,6 +38,7 @@
         type=" mois"
       />
       <Select
+        :reason="reason"
         :items="sorts"
         v-model="selectedSort"
         default-value="Partenaire"
@@ -68,10 +72,12 @@
             title="Montant"
             :format="formatCurrency"
             type="€"
+            :reason="reason"
           />
           <Slider
             v-if="selectedCategory"
             class="w-full"
+            :reason="reason"
             v-model="selectedMonths"
             :min="durationMin"
             :max="durationMax"
@@ -93,6 +99,7 @@ export default {
   components: { Select, Slider },
   data() {
     return {
+      reason: 'limit',
       selectedCategory: this.$route.path.replace(/\//g, ''),
       selectedSort: '',
       selectedMonths: 60,
@@ -156,10 +163,14 @@ export default {
   watch: {
     updateLimits(val) {
       if (val) {
+        this.reason = 'limit'
         this.updateDuration()
         this.updateAmount()
         this.$store.commit('options/updateLimits', false)
         this.$store.commit('options/updateLockUpdate', false)
+        this.$nextTick(() => {
+          this.reason = 'after-limit'
+        })
       }
     },
     selectedSort(val) {

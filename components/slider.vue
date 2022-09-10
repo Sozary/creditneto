@@ -28,6 +28,7 @@ export default {
     step: { type: Number },
     title: { type: String, default: '' },
     type: { type: String, default: '' },
+    reason: { type: String, default: '' },
     format: { type: Function, default: (v) => v },
     value: {
       type: Number,
@@ -38,16 +39,17 @@ export default {
       this.selectedValue = value
     },
     selectedValue(value) {
+      if (this.reason === 'after-limit') {
+        this.showValue = true
+      }
       this.$emit('input', parseInt(value))
       this.$store.commit('options/updateUserInteraction', {
         userInteraction: true,
+        reason: this.reason,
       })
     },
   },
   computed: {
-    trueDisplay() {
-      return this.$store.getters['options/getTrueDisplay']
-    },
     computedStep() {
       return this.step || (this.max - this.min) / 100
     },
@@ -55,12 +57,15 @@ export default {
       return (
         this.title +
         ': ' +
-        (this.trueDisplay ? this.format(this.value) + this.type : '-')
+        (this.showValue ? this.format(this.value) + this.type : '-')
       )
     },
   },
   data() {
-    return { selectedValue: this.value }
+    return {
+      selectedValue: this.value,
+      showValue: false,
+    }
   },
 }
 </script>

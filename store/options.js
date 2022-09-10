@@ -6,23 +6,22 @@ export const state = () => ({
   amountMin: 0,
   durationMax: 120,
   durationMin: 6,
-  userInteraction: false,
+  userInteraction: { value: false, reason: '' },
   updateLimits: false,
-  trueDisplay: false,
   lockUpdate: true,
 })
 export const mutations = {
   updateLockUpdate(state, value) {
     state.lockUpdate = value
   },
-  updateTrueDisplay(state, value) {
-    state.trueDisplay = value
-  },
   updateLimits(state, value) {
     state.updateLimits = value
   },
   updateUserInteraction(state, payload) {
-    state.userInteraction = payload.userInteraction
+    state.userInteraction = {
+      value: payload.userInteraction,
+      reason: payload.reason || '',
+    }
   },
   updateAmountLimits(state, payload) {
     state.amountMax = payload.amountMax
@@ -46,8 +45,6 @@ export const getters = {
   getLockUpdate(state) {
     return state.lockUpdate
   },
-  getTrueDisplay(state) {
-    return state.trueDisplay
   },
   getUpdateLimits(state) {
     return state.updateLimits
