@@ -45,7 +45,6 @@ export const getters = {
   getLockUpdate(state) {
     return state.lockUpdate
   },
-  },
   getUpdateLimits(state) {
     return state.updateLimits
   },
