@@ -7,20 +7,16 @@ export const state = () => ({
   durationMax: 120,
   durationMin: 6,
   userInteraction: false,
-  resetFilter: '',
   updateLimits: false,
   trueDisplay: false,
-  pass: false,
+  lockUpdate: true,
 })
 export const mutations = {
-  updateResetFilter(state, value) {
-    state.resetFilter = value
+  updateLockUpdate(state, value) {
+    state.lockUpdate = value
   },
   updateTrueDisplay(state, value) {
     state.trueDisplay = value
-  },
-  updatePass(state, value) {
-    state.pass = value
   },
   updateLimits(state, value) {
     state.updateLimits = value
@@ -47,8 +43,8 @@ export const mutations = {
   },
 }
 export const getters = {
-  getResetFilter(state) {
-    return state.resetFilter
+  getLockUpdate(state) {
+    return state.lockUpdate
   },
   getTrueDisplay(state) {
     return state.trueDisplay
@@ -61,9 +57,6 @@ export const getters = {
   },
   getAmountMin(state) {
     return state.amountMin
-  },
-  getPass(state) {
-    return state.pass
   },
   getAmountMax(state) {
     return state.amountMax

@@ -159,14 +159,7 @@ export default {
         this.updateDuration()
         this.updateAmount()
         this.$store.commit('options/updateLimits', false)
-      }
-    },
-    resetFilter(value) {
-      if (value === 'resetNeeded') {
-        this.selectedMonths = 0
-        this.selectedAmount = 0
-        this.$store.commit('options/updatePass', true)
-        this.$store.commit('options/updateResetFilter', 'resetDone')
+        this.$store.commit('options/updateLockUpdate', false)
       }
     },
     selectedSort(val) {
@@ -189,9 +182,6 @@ export default {
   computed: {
     updateLimits() {
       return this.$store.getters['options/getUpdateLimits']
-    },
-    resetFilter() {
-      return this.$store.getters['options/getResetFilter']
     },
     amountMin() {
       return this.$store.getters['options/getAmountMin']

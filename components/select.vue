@@ -103,6 +103,9 @@ export default {
     },
     selectedValue(value) {
       this.$emit('input', value)
+      this.$store.commit('options/updateUserInteraction', {
+        userInteraction: true,
+      })
     },
   },
 }

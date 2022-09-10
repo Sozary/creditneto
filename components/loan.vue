@@ -144,7 +144,6 @@
   </div>
 </template>
 <script>
-import { debounce } from 'debounce'
 import Loader from '~/components/loader.vue'
 import CubeGrid from '~/components/cubegrid.vue'
 
@@ -153,39 +152,33 @@ export default {
   mounted() {
     this.resize()
     window.addEventListener('resize', this.resize)
-    this.$store.commit('options/updateResetFilter', 'resetNeeded')
     this.showHideDetails()
-  },
-  watch: {
-    isMobile() {
-      this.showHideDetails()
-    },
   },
   methods: {
     getLimits() {
-      const arr = this.active
-      if (arr.length == 0) return
-      const amountMin = arr.reduce((prev, curr) =>
+      if (this.loansForCategory.length == 0) return
+      const amountMin = this.loansForCategory.reduce((prev, curr) =>
         prev.montant_min < curr.montant_min ? prev : curr
       ).montant_min
-      const amountMax = arr.reduce((prev, curr) =>
+      const amountMax = this.loansForCategory.reduce((prev, curr) =>
         prev.montant_max > curr.montant_max ? prev : curr
       ).montant_max
 
-      const durationMin = arr.reduce((prev, curr) =>
+      const durationMin = this.loansForCategory.reduce((prev, curr) =>
         prev.duree_min < curr.duree_min ? prev : curr
       ).duree_min
-      const durationMax = arr.reduce((prev, curr) =>
+      const durationMax = this.loansForCategory.reduce((prev, curr) =>
         prev.duree_max > curr.duree_max ? prev : curr
       ).duree_max
+
       this.$store.commit('options/updateAmountLimits', {
-        amountMin,
-        amountMax,
+        amountMin: parseInt(amountMin),
+        amountMax: parseInt(amountMax),
       })
 
       this.$store.commit('options/updateDurationLimits', {
-        durationMin,
-        durationMax,
+        durationMin: parseInt(durationMin),
+        durationMax: parseInt(durationMax),
       })
 
       this.$store.commit('options/updateLimits', true)
@@ -207,12 +200,12 @@ export default {
     resize() {
       this.isMobile = window.innerWidth < 987
     },
-    applyParams(loans, params) {
-      return loans.filter((loan) => {
-        for (let param of Object.keys(params)) {
-          if (loan.hasOwnProperty(param)) {
+    applyParams(filters) {
+      return this.loansForCategory.filter((loan) => {
+        for (let filter of Object.keys(filters)) {
+          if (loan.hasOwnProperty(filter)) {
             const ev = eval(
-              `${loan[param]} ${params[param].operator} ${params[param].value}`
+              `${loan[filter]} ${filters[filter].operator} ${filters[filter].value}`
             )
             if (!ev) {
               return false
@@ -222,48 +215,51 @@ export default {
         return true
       })
     },
-    async fetchOffers(loadOthers = true, firstLoad = false) {
-      const productLabel = this.categories.find(
-        (c) => c.slug === this.selectedNav
-      )
-      if (!productLabel) {
+    fetchOffers() {
+      this.$store.commit('options/updateLockUpdate', true)
+      if (this.firstLoad) {
+        this.getLimits()
+      }
+
+      if (!this.productLabel) {
         this.$router.push('/')
         this.$store.commit('nav/updateSelectedNav', '')
         return
       }
-      const params = {
-        product: productLabel.slug,
-        filters: {
-          active: { operator: '==', value: 1 },
-          montant_min: {
-            operator: '<=',
-            value: firstLoad ? null : this.amount,
-          },
-          montant_max: {
-            operator: '>=',
-            value: firstLoad ? null : this.amount,
-          },
-          duree_min: {
-            operator: '<=',
-            value: firstLoad ? null : this.duration,
-          },
-          duree_max: {
-            operator: '>=',
-            value: firstLoad ? null : this.duration,
-          },
+
+      const filters = {
+        active: { operator: '==', value: 1 },
+        montant_min: {
+          operator: '<=',
+          value: this.firstLoad ? null : this.amount,
+        },
+        montant_max: {
+          operator: '>=',
+          value: this.firstLoad ? null : this.amount,
+        },
+        duree_min: {
+          operator: '<=',
+          value: this.firstLoad ? null : this.duration,
+        },
+        duree_max: {
+          operator: '>=',
+          value: this.firstLoad ? null : this.duration,
         },
       }
 
-      if (this.getLoans) {
+      if (this.loansForCategory && this.getLoans) {
         this.loading['active'] = true
         this.loading['others'] = true
-        this.active = [...this.getLoans]
+
+        this.active = [...this.loansForCategory]
         this.others = [...this.getLoans].splice(0, 5)
 
         this.active = this.sort.sortFn(this.active)
-        this.active = this.applyParams(this.active, params.filters)
+        this.active = this.applyParams(filters)
+
         this.loading['active'] = false
         this.loading['others'] = false
+        this.firstLoad = false
       }
     },
     taeg(value) {
@@ -278,52 +274,49 @@ export default {
       showExample: true,
       showData: false,
       interval: null,
-      addClass: false,
       active: [],
-      interactedAlready: 0,
       others: [],
       loading: { active: false, others: false },
       isMobile: false,
+      firstLoad: true,
     }
   },
   watch: {
-    getLoans() {
+    userInteraction(value) {
+      if (value) {
+        this.fetchOffers()
+        this.$store.commit('options/updateUserInteraction', {
+          userInteraction: false,
+        })
+      }
+    },
+    isMobile() {
+      this.showHideDetails()
+    },
+    loansForCategory() {
       this.fetchOffers()
     },
-    selectedNav() {
-      this.$store.commit('options/updateResetFilter', 'resetNeeded')
-    },
-    async resetFilter(value) {
-      if (value === 'resetDone') {
-        await this.fetchOffers(true, true)
-        this.getLimits()
-        this.$store.commit('options/updateResetFilter', '')
-      }
-    },
-    userInteraction: debounce(async function () {
-      if (this.interactedAlready < 2) {
-        this.interactedAlready++
-      } else {
-        this.$store.commit('options/updateTrueDisplay', true)
-        await this.fetchOffers(false)
-      }
-      this.$store.commit('options/updateUserInteraction', {
-        userInteraction: false,
-      })
-    }, 500),
     sort() {
       this.active = this.sort.sortFn(this.active)
     },
   },
   computed: {
+    loansForCategory() {
+      return (this.getLoans || []).filter(
+        (loan) => loan.type == this.productLabel.id_produit
+      )
+    },
+    productLabel() {
+      return this.categories.find((c) => c.slug === this.selectedNav)
+    },
+    getLockUpdate() {
+      return this.$store.getters['options/getLockUpdate']
+    },
     getLoans() {
       return this.$store.getters['loans/getLoans']
     },
     globalLoading() {
       return this.loading['active'] && this.loading['others']
-    },
-    resetFilter() {
-      return this.$store.getters['options/getResetFilter']
     },
     userInteraction() {
       return this.$store.getters['options/getUserInteraction']

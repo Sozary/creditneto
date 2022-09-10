@@ -37,29 +37,16 @@ export default {
     value(value) {
       this.selectedValue = value
     },
-    getPass(value) {
-      if (value) {
-        this.pass = 2
-        this.$store.commit('options/updatePass', false)
-      }
-    },
-    selectedValue(val) {
-      this.$emit('input', parseInt(val))
-      if (this.pass === 0) {
-        this.$store.commit('options/updateUserInteraction', {
-          userInteraction: true,
-        })
-      } else {
-        this.pass--
-      }
+    selectedValue(value) {
+      this.$emit('input', parseInt(value))
+      this.$store.commit('options/updateUserInteraction', {
+        userInteraction: true,
+      })
     },
   },
   computed: {
     trueDisplay() {
       return this.$store.getters['options/getTrueDisplay']
-    },
-    getPass() {
-      return this.$store.getters['options/getPass']
     },
     computedStep() {
       return this.step || (this.max - this.min) / 100
@@ -73,7 +60,7 @@ export default {
     },
   },
   data() {
-    return { selectedValue: this.value, pass: 2 }
+    return { selectedValue: this.value }
   },
 }
 </script>
