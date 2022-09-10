@@ -157,6 +157,7 @@ export default {
   methods: {
     getLimits() {
       if (this.loansForCategory.length == 0) return
+
       const amountMin = this.loansForCategory.reduce((prev, curr) =>
         prev.montant_min < curr.montant_min ? prev : curr
       ).montant_min
@@ -172,13 +173,13 @@ export default {
       ).duree_max
 
       this.$store.commit('options/updateAmountLimits', {
-        amountMin: parseInt(amountMin),
-        amountMax: parseInt(amountMax),
+        amountMin: amountMin,
+        amountMax: amountMax,
       })
 
       this.$store.commit('options/updateDurationLimits', {
-        durationMin: parseInt(durationMin),
-        durationMax: parseInt(durationMax),
+        durationMin: durationMin,
+        durationMax: durationMax,
       })
 
       this.$store.commit('options/updateLimits', true)
@@ -301,9 +302,17 @@ export default {
   },
   computed: {
     loansForCategory() {
-      return (this.getLoans || []).filter(
-        (loan) => loan.type == this.productLabel.id_produit
-      )
+      return (this.getLoans || [])
+        .filter((loan) => loan.type == this.productLabel.id_produit)
+        .map((loan) => {
+          return {
+            ...loan,
+            duree_min: parseInt(loan.duree_min),
+            duree_max: parseInt(loan.duree_max),
+            montant_max: parseInt(loan.montant_max),
+            montant_min: parseInt(loan.montant_min),
+          }
+        })
     },
     productLabel() {
       return this.categories.find((c) => c.slug === this.selectedNav)
