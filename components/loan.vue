@@ -218,7 +218,7 @@ export default {
     },
     fetchOffers() {
       this.$store.commit('options/updateLockUpdate', true)
-      if (this.firstLoad) {
+      if (!this.slidersActive) {
         this.getLimits()
       }
 
@@ -232,19 +232,19 @@ export default {
         active: { operator: '==', value: 1 },
         montant_min: {
           operator: '<=',
-          value: this.firstLoad ? null : this.amount,
+          value: !this.slidersActive ? null : this.amount,
         },
         montant_max: {
           operator: '>=',
-          value: this.firstLoad ? null : this.amount,
+          value: !this.slidersActive ? null : this.amount,
         },
         duree_min: {
           operator: '<=',
-          value: this.firstLoad ? null : this.duration,
+          value: !this.slidersActive ? null : this.duration,
         },
         duree_max: {
           operator: '>=',
-          value: this.firstLoad ? null : this.duration,
+          value: !this.slidersActive ? null : this.duration,
         },
       }
 
@@ -259,7 +259,6 @@ export default {
 
         this.loading['active'] = false
         this.loading['others'] = false
-        this.firstLoad = false
       }
     },
     taeg(value) {
@@ -278,7 +277,6 @@ export default {
       others: [],
       loading: { active: false, others: false },
       isMobile: false,
-      firstLoad: true,
     }
   },
   watch: {
@@ -289,6 +287,9 @@ export default {
           userInteraction: false,
         })
       }
+    },
+    selectedNav() {
+      console.log('change')
     },
     isMobile() {
       this.showHideDetails()
@@ -301,6 +302,19 @@ export default {
     },
   },
   computed: {
+    amountActive() {
+      return (
+        this.$store.getters['options/getSliderStatus']['amount'] === 'active'
+      )
+    },
+    durationActive() {
+      return (
+        this.$store.getters['options/getSliderStatus']['duration'] === 'active'
+      )
+    },
+    slidersActive() {
+      return this.amountActive || this.durationActive
+    },
     loansForCategory() {
       return (this.getLoans || [])
         .filter((loan) => loan.type == this.productLabel.id_produit)

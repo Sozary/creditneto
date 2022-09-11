@@ -9,8 +9,12 @@ export const state = () => ({
   userInteraction: { value: false, reason: '' },
   updateLimits: false,
   lockUpdate: true,
+  sliderStatus: { amount: 'inactive', duration: 'inactive' },
 })
 export const mutations = {
+  updateSliderStatus(state, payload) {
+    state.sliderStatus[payload.type] = payload.value
+  },
   updateLockUpdate(state, value) {
     state.lockUpdate = value
   },
@@ -42,6 +46,9 @@ export const mutations = {
   },
 }
 export const getters = {
+  getSliderStatus(state) {
+    return state.sliderStatus
+  },
   getLockUpdate(state) {
     return state.lockUpdate
   },

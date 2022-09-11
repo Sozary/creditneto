@@ -35,6 +35,19 @@ export default {
     },
   },
   watch: {
+    showValue() {
+      if (this.showValue) {
+        this.$store.commit('options/updateSliderStatus', {
+          type: { Montant: 'amount', Durée: 'duration' }[this.title],
+          value: 'active',
+        })
+      } else {
+        this.$store.commit('options/updateSliderStatus', {
+          type: { Montant: 'amount', Durée: 'duration' }[this.title],
+          value: 'inactive',
+        })
+      }
+    },
     value(value) {
       this.selectedValue = value
     },
