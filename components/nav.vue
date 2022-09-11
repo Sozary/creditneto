@@ -6,7 +6,7 @@
         v-for="(category, index) in categories"
         :href="category.slug"
         :key="index"
-        @click.native="updateSelectedNav()"
+        @click="updateSelectedNav()"
         v-html="formatTwoLines(category.label)"
         :class="{
           'border-solid border-0 border-b-[3px] border-green hover:shadow-none':

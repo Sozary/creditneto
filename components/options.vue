@@ -102,8 +102,8 @@ export default {
       reason: 'limit',
       selectedCategory: this.$route.path.replace(/\//g, ''),
       selectedSort: '',
-      selectedMonths: 60,
-      selectedAmount: 100000,
+      selectedMonths: null,
+      selectedAmount: null,
       sorts: [
         {
           label: 'Partenaire',

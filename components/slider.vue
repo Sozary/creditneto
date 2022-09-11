@@ -23,8 +23,8 @@
 <script>
 export default {
   props: {
-    min: { type: Number, default: 0 },
-    max: { type: Number, default: 100 },
+    min: { type: Number },
+    max: { type: Number },
     step: { type: Number },
     title: { type: String, default: '' },
     type: { type: String, default: '' },
