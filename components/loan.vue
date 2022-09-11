@@ -21,7 +21,7 @@
         <div class="flex justify-center items-center">
           <img
             :src="'/assets' + item.url_logo"
-            class="h-full mr-3.5 ml-1.5 w-16 md:w-28 md:h-9 md:mr-1.5"
+            class="h-6 mr-3.5 ml-1.5 w-16 md:w-28 md:h-9 md:mr-1.5"
           />
         </div>
         <div

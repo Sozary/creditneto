@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="mt-3.5 md:flex hidden">
-      <nuxt-link
+      <a
         class="py-2.5 px-1 h-12 flex-1 flex items-center text-center justify-center hover:selected-shadow transition-all cursor-pointer text-black no-underline font-bold text-sm font-montserrat"
         v-for="(category, index) in categories"
-        :to="category.slug"
+        :href="category.slug"
         :key="index"
         @click.native="updateSelectedNav()"
         v-html="formatTwoLines(category.label)"
@@ -15,7 +15,7 @@
           'bg-nav-odd': (index + 1) % 2 !== 0,
         }"
       >
-      </nuxt-link>
+      </a>
     </div>
     <transition name="slideRight" class="block md:hidden">
       <div
