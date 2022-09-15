@@ -4,7 +4,7 @@
       <a
         class="py-2.5 px-1 h-12 flex-1 flex items-center text-center justify-center hover:selected-shadow transition-all cursor-pointer text-black no-underline font-bold text-sm font-montserrat"
         v-for="(category, index) in categories"
-        :href="category.slug"
+        :href="'/' + category.slug"
         :key="index"
         @click="updateSelectedNav()"
         v-html="formatTwoLines(category.label)"

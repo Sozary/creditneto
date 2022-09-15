@@ -32,6 +32,9 @@ export default {
       'https://cisede.eu/demo/aim/credit-creditneto/api/credit'
     )
 
+    loans.body = loans.body.map((l) => {
+      return { ...l, url_redirection: l.url_redirection.split('ul=')[1] }
+    })
     this.$store.dispatch('loans/updateLoans', loans.body)
   },
   methods: {
