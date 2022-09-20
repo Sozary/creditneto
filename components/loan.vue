@@ -1,8 +1,6 @@
 <template>
   <div class="px-3 md:px-28 max-w-[1000px] mx-auto">
-    <span
-      class="text-black text-[8px] font-bold font-montserrat ml-3 md:text-[15px]"
-    >
+    <span class="text-black text-[5px] font-montserrat ml-3 md:text-[15px]">
       Annonces:
     </span>
     <Loader
@@ -218,7 +216,7 @@ export default {
     },
     fetchOffers() {
       this.$store.commit('options/updateLockUpdate', true)
-      if (!this.slidersActive) {
+      if (!(this.amountActive || this.durationActive)) {
         this.getLimits()
       }
 
@@ -232,19 +230,19 @@ export default {
         active: { operator: '==', value: 1 },
         montant_min: {
           operator: '<=',
-          value: !this.slidersActive ? null : this.amount,
+          value: !this.amountActive ? null : this.amount,
         },
         montant_max: {
           operator: '>=',
-          value: !this.slidersActive ? null : this.amount,
+          value: !this.amountActive ? null : this.amount,
         },
         duree_min: {
           operator: '<=',
-          value: !this.slidersActive ? null : this.duration,
+          value: !this.durationActive ? null : this.duration,
         },
         duree_max: {
           operator: '>=',
-          value: !this.slidersActive ? null : this.duration,
+          value: !this.durationActive ? null : this.duration,
         },
       }
 
@@ -252,8 +250,7 @@ export default {
         this.loading['active'] = true
         this.loading['others'] = true
         this.active = [...this.loansForCategory]
-        this.others = [...this.getLoans].splice(0, 5)
-
+        this.others = [...this.getLoans]
         this.active = this.sort.sortFn(this.active)
         this.active = this.applyParams(filters)
 
@@ -291,9 +288,6 @@ export default {
     selectedNav() {
       console.log('change')
     },
-    isMobile() {
-      this.showHideDetails()
-    },
     loansForCategory() {
       this.fetchOffers()
     },
@@ -312,21 +306,16 @@ export default {
         this.$store.getters['options/getSliderStatus']['duration'] === 'active'
       )
     },
-    slidersActive() {
-      return this.amountActive || this.durationActive
-    },
     loansForCategory() {
-      return (this.getLoans || [])
-        .filter((loan) => loan.type == this.productLabel.id_produit)
-        .map((loan) => {
-          return {
-            ...loan,
-            duree_min: parseInt(loan.duree_min),
-            duree_max: parseInt(loan.duree_max),
-            montant_max: parseInt(loan.montant_max),
-            montant_min: parseInt(loan.montant_min),
-          }
-        })
+      return (this.getLoans || []).map((loan) => {
+        return {
+          ...loan,
+          duree_min: parseInt(loan.duree_min),
+          duree_max: parseInt(loan.duree_max),
+          montant_max: parseInt(loan.montant_max),
+          montant_min: parseInt(loan.montant_min),
+        }
+      })
     },
     productLabel() {
       return this.categories.find((c) => c.slug === this.selectedNav)

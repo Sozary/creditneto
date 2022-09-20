@@ -27,9 +27,14 @@ export default {
       this.redirectToFirstCategory()
     }
     this.handleClickref()
-
     const loans = await this.$axios.$post(
-      'https://cisede.eu/demo/aim/credit-creditneto/api/credit'
+      // 'https://cisede.eu/demo/aim/credit-creditneto/api/credit'
+      'https://gt3cmmv417.execute-api.eu-west-3.amazonaws.com/test/',
+      {
+        product: this.categories.find(
+          (c) => c.slug === this.$route.path.substring(1)
+        ).database,
+      }
     )
 
     loans.body = loans.body.map((l) => {

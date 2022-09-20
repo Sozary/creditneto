@@ -1,4 +1,4 @@
-require('dotenv')
+require('dotenv').config()
 const { DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE } =
   process.env
 const mysql = require('mysql')
@@ -28,81 +28,13 @@ function query(connection, query, values) {
   })
 }
 
-async function addCustomerLine(connection, product, ip) {
-  await query(
-    connection,
-    'INSERT INTO user_action (id_produit, ip,created_at) VALUES (?, ?, NOW()); ',
-    [product, ip]
-  )
-  return { status: 200 }
-}
-
-async function fetchProducts(connection, product, filters) {
-  var type
-  try {
-    type = await query(
-      connection,
-      'SELECT type_n FROM type WHERE type_slug=?',
-      [product]
-    )
-  } catch (error) {
-    throw error
-  }
-  type = type[0].type_n
-
-  let filtersChain = ''
-  const params = [type]
-
-  Object.keys(filters).forEach((k) => {
-    if (filters[k]['value'] !== null) {
-      filtersChain += ` AND ${k}${filters[k]['operator']}?`
-      params.push(filters[k]['value'])
-    }
-  })
+async function fetchProducts(connection, product) {
   var response
   try {
     response = await query(
       connection,
-      'SELECT * FROM produit WHERE type=? ' + filtersChain,
-      params
+      "SELECT * FROM produit where type_produit like '%" + product + "%'"
     )
-  } catch (error) {
-    throw error
-  }
-
-  return response
-}
-function generateQuery(filters, params) {
-  let filtersChain = ''
-
-  Object.keys(filters).forEach((k) => {
-    if (filters[k]['value']) {
-      filtersChain += ` AND ${k}${filters[k]['operator']}?`
-      params.push(filters[k]['value'])
-    }
-  })
-  return filtersChain
-}
-async function fetchOthers(connection, filters) {
-  const params = []
-  let filtersChain = generateQuery(filters, params)
-  var response
-  try {
-    response = await query(
-      connection,
-      'SELECT * FROM produit WHERE promo=1 OR type=99 ' + filtersChain,
-      params
-    )
-  } catch (error) {
-    throw error
-  }
-
-  return response
-}
-async function fetchTypes(connection) {
-  var response
-  try {
-    response = await query(connection, 'SELECT * FROM types')
   } catch (error) {
     throw error
   }
@@ -113,24 +45,10 @@ async function fetchTypes(connection) {
 const handler = async (payload, context) => {
   try {
     context.callbackWaitsForEmptyEventLoop = false
-    if ((payload.product && (payload.filters || payload.ip)) || payload.types) {
+    if (payload.product) {
       const connection = await getConnection()
-      let data
-      if (payload.ip) {
-        data = await addCustomerLine(connection, payload.product, payload.ip)
-      } else if (payload.filters) {
-        if (payload?.others) {
-          data = await fetchOthers(connection, payload.filters)
-        } else {
-          data = await fetchProducts(
-            connection,
-            payload.product,
-            payload.filters
-          )
-        }
-      } else if (payload.types) {
-        data = await fetchTypes(connection)
-      }
+      const data = await fetchProducts(connection, payload.product)
+      console.log(data)
       await connection.end()
 
       return {

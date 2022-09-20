@@ -1,10 +1,3 @@
 {
-  "product": "Pret Personnel",
-  "filters": {
-    "active": { "operator": "=", "value": 0 },
-    "montant_min": { "operator": "<=", "value": 36000 },
-    "montant_max": { "operator": ">=", "value": 36000 },
-    "duree_min": { "operator": "<=", "value": 36 },
-    "duree_max": { "operator": ">=", "value": 36 }
-  }
+  "product": "Pret Personnel"
 }
