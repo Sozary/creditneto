@@ -27,20 +27,22 @@ export default {
       this.redirectToFirstCategory()
     }
     this.handleClickref()
-    const loans = await this.$axios.$post(
-      // 'https://cisede.eu/demo/aim/credit-creditneto/api/credit'
-      'https://gt3cmmv417.execute-api.eu-west-3.amazonaws.com/test/',
-      {
-        product: this.categories?.find(
-          (c) => c.slug === this.$route.path.substring(1)
-        ).database,
-      }
-    )
+    this.$nextTick(() => {
+      const loans = await this.$axios.$post(
+        // 'https://cisede.eu/demo/aim/credit-creditneto/api/credit'
+        'https://gt3cmmv417.execute-api.eu-west-3.amazonaws.com/test/',
+        {
+          product: this.categories?.find(
+            (c) => c.slug === this.$route.path.substring(1)
+          ).database,
+        }
+      )
 
-    loans.body = loans.body.map((l) => {
-      return { ...l, url_redirection: l.url_redirection.split('ul=')[1] }
+      loans.body = loans.body.map((l) => {
+        return { ...l, url_redirection: l.url_redirection.split('ul=')[1] }
+      })
+      this.$store.dispatch('loans/updateLoans', loans.body)
     })
-    this.$store.dispatch('loans/updateLoans', loans.body)
   },
   methods: {
     handleClickref() {
