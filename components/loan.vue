@@ -318,7 +318,7 @@ export default {
       })
     },
     productLabel() {
-      return this.categories.find((c) => c.slug === this.selectedNav)
+      return this.categories?.find((c) => c.slug === this.selectedNav)
     },
     getLockUpdate() {
       return this.$store.getters['options/getLockUpdate']
