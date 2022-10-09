@@ -27,14 +27,21 @@ export default {
       this.redirectToFirstCategory()
     }
     this.handleClickref()
-    this.$nextTick(() => {
+    await this.getLoans()
+  },
+  methods: {
+    async getLoans() {
+      if (!this.$route.path.substring(1)) {
+        window.location = '/pret-personnel'
+        return
+      }
       const loans = await this.$axios.$post(
         // 'https://cisede.eu/demo/aim/credit-creditneto/api/credit'
         'https://gt3cmmv417.execute-api.eu-west-3.amazonaws.com/test/',
         {
-          product: this.categories?.find(
+          product: this.categories.find(
             (c) => c.slug === this.$route.path.substring(1)
-          ).database,
+          )?.database,
         }
       )
 
@@ -42,9 +49,7 @@ export default {
         return { ...l, url_redirection: l.url_redirection.split('ul=')[1] }
       })
       this.$store.dispatch('loans/updateLoans', loans.body)
-    })
-  },
-  methods: {
+    },
     handleClickref() {
       const query = this.$route.query
       const clickrefs = JSON.parse(localStorage.getItem('clickrefs') || '{}')
