@@ -332,9 +332,6 @@ export default {
     userInteraction() {
       return this.$store.getters['options/getUserInteraction']
     },
-    apiLink() {
-      return 'https://cisede.eu/demo/aim/credit-creditneto/api/credit'
-    },
     amount() {
       return this.$store.getters['options/getAmount']
     },

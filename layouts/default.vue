@@ -7,6 +7,10 @@
     <Nav />
     <Nuxt v-if="showLoan" />
     <Footer />
+    <div
+      v-if="loading"
+      class="w-screen h-screen z-50 fixed bg-white top-0"
+    ></div>
   </div>
 </template>
 <script>
@@ -18,7 +22,7 @@ import Nav from '~/components/nav.vue'
 export default {
   components: { Header, Nav, Footer, CookieConsent },
   data() {
-    return { isMobile: false, showLoan: false }
+    return { isMobile: false, showLoan: false, loading: true }
   },
   async mounted() {
     this.resize()
@@ -35,6 +39,7 @@ export default {
         window.location = '/pret-personnel'
         return
       }
+      this.loading = true
       const loans = await this.$axios.$post(
         // 'https://cisede.eu/demo/aim/credit-creditneto/api/credit'
         'https://gt3cmmv417.execute-api.eu-west-3.amazonaws.com/test/',
@@ -49,6 +54,7 @@ export default {
         return { ...l, url_redirection: l.url_redirection.split('ul=')[1] }
       })
       this.$store.dispatch('loans/updateLoans', loans.body)
+      this.loading = false
     },
     handleClickref() {
       const query = this.$route.query
