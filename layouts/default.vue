@@ -44,9 +44,10 @@ export default {
         // 'https://cisede.eu/demo/aim/credit-creditneto/api/credit'
         'https://gt3cmmv417.execute-api.eu-west-3.amazonaws.com/test/',
         {
-          product: this.categories.find(
-            (c) => c.slug === this.$route.path.substring(1)
-          )?.database,
+          product:
+            this.categories.find(
+              (c) => c.slug === this.$route.path.substring(1)
+            )?.database || this.categories[0].database,
         }
       )
 
