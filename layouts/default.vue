@@ -35,6 +35,10 @@ export default {
   },
   methods: {
     async getLoans() {
+      if (window.location.href.split('/').length === 4) {
+        window.location = '/pret-personnel'
+        return
+      }
       if (!this.$route.path.substring(1)) {
         window.location = '/pret-personnel'
         return
@@ -44,10 +48,9 @@ export default {
         // 'https://cisede.eu/demo/aim/credit-creditneto/api/credit'
         'https://gt3cmmv417.execute-api.eu-west-3.amazonaws.com/test/',
         {
-          product:
-            this.categories.find(
-              (c) => c.slug === this.$route.path.substring(1)
-            )?.database || this.categories[0].database,
+          product: this.categories.find(
+            (c) => c.slug === this.$route.path.substring(1)
+          )?.database,
         }
       )
 
